@@ -18,10 +18,9 @@
 -- ----------------------------
 -- 手术信息表
 -- ----------------------------
-DROP TABLE IF EXISTS `info_operation`;
 create TABLE `info_operation`
 (
-    `pk_operation_number` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，手术场次号',
+    `pk_operation_number` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，手术场次号,自增',
     `admission_number` VARCHAR(64)    NOT NULL COMMENT '住院号',
     `hospital_operation_number` VARCHAR(32)  NOT NULL COMMENT '医院的手术顺序号',
 
@@ -34,29 +33,33 @@ create TABLE `info_operation`
     `operation_name`            VARCHAR(64)  NOT NULL COMMENT '手术名称',
     `anesthesia_mode`  VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
     `is_urgent`        TINYINT           NOT NULL COMMENT '是否急诊',
-    `ASA_level`        TINYINT           NOT NULL COMMENT 'ASA等级',
+    `asa_level`        TINYINT           NOT NULL COMMENT 'ASA等级',
     `medical_history`  TEXT              NOT NULL COMMENT '既往病史',
     `special_case`     TEXT              NOT NULL COMMENT '特殊情况',
 
-    `operation_start_time`      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术开始时间',
-    `operation_end_time`        DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '手术结束时间',
+    `collector_mac_address`     CHAR(20) NOT NULL COMMENT '采集器MAC地址',
+    `operation_start_time`      DATETIME    NOT NULL COMMENT '手术开始时间',
+    `operation_end_time`        DATETIME    NOT NULL COMMENT '手术结束时间',
     `operation_state`           TINYINT      NOT NULL DEFAULT 0 COMMENT '手术状态，0未开始，1正在进行，2已经结束',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
+    INDEX `admission_number` (`admission_number`),
+    INDEX `operation_name` (`operation_name`),
+    INDEX `operation_state` (`operation_state`),
     PRIMARY KEY(pk_operation_number)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT '手术信息表';
+
 
 -- ----------------------------
 -- 仪器信息表
 -- ----------------------------
-DROP TABLE IF EXISTS `info_device`;
 create TABLE `info_device`
 (
     `pk_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，自增',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
     `device_serial_number` VARCHAR(32)       NOT NULL COMMENT '设备序列号，不一定唯一',
-    `device_produce_date`  DATE              NOT NULL COMMENT '设备购买时间 eg: 2017-08-01',
+    `device_produce_date`  DATE              COMMENT '设备购买时间 eg: 2017-08-01',
     `device_service_life`  FLOAT             NOT NULL COMMENT '设备使用年限',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
@@ -67,23 +70,22 @@ create TABLE `info_device`
 -- ----------------------------
 -- 手术使用仪器信息表
 -- ----------------------------
-DROP TABLE IF EXISTS `info_operation_device`;
 create TABLE `info_operation_device`
 (
-    `pk_operation_number` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，手术场次号',
+    `pk_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，自增',
+    `operation_number` INT UNSIGNED NOT NULL COMMENT '手术场次号',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
-    `device_info_code`  TINYINT NOT NULL COMMENT '仪器信息表中仪器的行号ID',
+    `device_info_id`  TINYINT NOT NULL COMMENT '外键，仪器信息表中仪器的行号ID',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
-    PRIMARY KEY(pk_operation_number)
+    PRIMARY KEY(`pk_id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT '手术使用仪器信息表';
 
 
 -- ----------------------------
 -- 手术标记信息表
 -- ----------------------------
-DROP TABLE IF EXISTS `info_operation_mark`;
 create TABLE `info_operation_mark`
 (
     `pk_id`                INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '标记id，自动增长',
@@ -92,9 +94,9 @@ create TABLE `info_operation_mark`
     `mark_sub_Type`        VARCHAR(32)  NOT NULL COMMENT '标记小类型',
     `mark_event`           VARCHAR(32)  NOT NULL COMMENT '事件类型',
     `give_medicine_method` VARCHAR(32)  NOT NULL COMMENT '途径',
+    `give_medicine_volume` VARCHAR(32)  NOT NULL COMMENT '剂量',
     `side_effect`          VARCHAR(256) NOT NULL COMMENT '不良反应/特殊情况',
     `mark_time`            DATETIME    NOT NULL COMMENT '标记信息标记的时间',
-    `give_medicine_volume` VARCHAR(32)  NOT NULL COMMENT '剂量',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
@@ -105,7 +107,6 @@ create TABLE `info_operation_mark`
 -- ----------------------------
 -- 术后仪器评价表
 -- ----------------------------
-DROP TABLE IF EXISTS `info_evaluation`;
 CREATE TABLE `info_evaluation` (
     `pk_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID, 主键',
     `operation_number` INT NOT NULL COMMENT '手术场次号',
@@ -120,7 +121,7 @@ CREATE TABLE `info_evaluation` (
     `remark` VARCHAR(256) NOT NULL COMMENT '记录人签名',
     `record_name` VARCHAR(32) NOT NULL COMMENT '错误原因',
 
-`gmt_create` DATETIME NOT NULL COMMENT '创建时间',
+    `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (pk_id)
 )COMMENT '术后仪器评价表';

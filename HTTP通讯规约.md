@@ -98,7 +98,7 @@ code: 151
 mac: "mac"
 operationNumber: -1
 data: {
-    "operationInfo": {
+    "infoOperation": {
         "hospitalCode": "0156161",
         "operationName": "胸腔开孔",
         "hospitalOperationNumber": "777777"
