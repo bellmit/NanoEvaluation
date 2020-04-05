@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: NanoEval
+  profiles:
+    active: local
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+
+server:
+  port: 8082
+  servlet:
+    context-path: /eval

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: campephilus
+    password: yplBTG6yeu6pw61k
+    url: jdbc:mysql://rm-wz90i0nbmc54e83r40o.mysql.rds.aliyuncs.com/campephilus-test?characterEncoding=utf-8&useSSL=false
+  jpa:
+    hibernate:
+      ddl-auto: update

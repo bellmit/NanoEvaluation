@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: campephilus_prod
+    password: VSKrH#eY1*WRY9eB
+    url: jdbc:mysql://rm-wz90i0nbmc54e83r4968.mysql.rds.aliyuncs.com/campephilus-prod?characterEncoding=utf-8&useSSL=false
