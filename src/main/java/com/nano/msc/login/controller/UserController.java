@@ -1,21 +1,19 @@
-package com.nano.msc.evaluation.info.controller;
+package com.nano.msc.login.controller;
 
 
-import com.nano.msc.common.util.RedisUtil;
 import com.nano.msc.common.vo.ResultDTO;
 import com.nano.msc.common.vo.ResultVO;
-import com.nano.msc.evaluation.info.entity.User;
-import com.nano.msc.evaluation.info.service.UserService;
+import com.nano.msc.login.entity.LoginEntity;
+import com.nano.msc.login.entity.User;
+import com.nano.msc.login.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
-import java.util.List;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,4 +41,22 @@ public class UserController {
     public ResultDTO findAllUsers() {
         return ResultDTO.success(userService.getAllUser());
     }
+
+
+    // TODO:待完成
+    @PostMapping("/login")
+    public ResultVO login(@RequestBody LoginEntity loginEntity) {
+
+        String userName = loginEntity.getUserName();
+        String phone = loginEntity.getPhone();
+        String password = loginEntity.getPassword();
+
+        // 判断是否为空
+        if (StringUtils.isEmpty(userName) && StringUtils.isEmpty(phone) || StringUtils.isEmpty(password)) {
+            return ResultVO.checkAndReturn(ResultDTO.dataFormatError("数据条件缺失"));
+        }
+
+        return null;
+    }
+
 }

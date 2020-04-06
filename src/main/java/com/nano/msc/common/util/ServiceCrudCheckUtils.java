@@ -1,7 +1,7 @@
 package com.nano.msc.common.util;
 
 
-import com.nano.msc.common.enums.ResponseEnum;
+import com.nano.msc.common.enums.StatusEnum;
 import com.nano.msc.common.vo.ResultDTO;
 
 import org.springframework.data.domain.PageRequest;
@@ -176,7 +176,7 @@ public class ServiceCrudCheckUtils {
     public static <T, ID> ResultDTO saveObjectAndCheck(JpaRepository<T, ID> jpaRepository, T[] ts) {
         for (T t : ts) {
             ResultDTO resultDTO = saveObjectAndCheck(jpaRepository, t);
-            if (!resultDTO.getStatus().equals(ResponseEnum.SUCCESS.getStatus())) {
+            if (!resultDTO.getStatus().equals(StatusEnum.SUCCESS.getStatus())) {
                 return resultDTO;
             }
         }
@@ -241,7 +241,7 @@ public class ServiceCrudCheckUtils {
      * @param id            待删除的ID
      * @param <T>           删除类型
      * @param <ID>          待删除的ID类型
-     * @return ResponseEnum
+     * @return StatusEnum
      */
     public static <T, ID> ResultDTO deleteObjectByIdAndCheck(JpaRepository<T, ID> jpaRepository, ID id) {
         if (Objects.isNull(jpaRepository)) {
@@ -254,7 +254,7 @@ public class ServiceCrudCheckUtils {
             // 如果查询结果不为null，表示数据存在existFlag为true
             boolean existFlag = Objects.nonNull(jpaRepository.findById(id).orElse(null));
             if (!existFlag) {
-                logError("id: " + id + "error: " + ResponseEnum.DATA_NOT_EXIST.getMsg());
+                logError("id: " + id + "error: " + StatusEnum.DATA_NOT_EXIST.getMsg());
                 return ResultDTO.dataNotExist();
             }
             // 尝试通过id删除
@@ -268,7 +268,7 @@ public class ServiceCrudCheckUtils {
             // 如果查询结果不为null，表示数据存在existFlag为true
             existFlag = Objects.nonNull(jpaRepository.findById(id).orElse(null));
             if (existFlag) {
-                logError("id: " + id + "error: " + ResponseEnum.UNKNOWN_ERROR.getMsg());
+                logError("id: " + id + "error: " + StatusEnum.UNKNOWN_ERROR.getMsg());
                 return ResultDTO.unknownError(id);
             }
             log.info("delete the success, id = {}", id);

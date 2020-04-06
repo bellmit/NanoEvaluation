@@ -4,7 +4,7 @@ package com.nano.msc.common.exceptions;
 
 import com.nano.msc.common.constants.DataConstants;
 import com.nano.msc.common.enums.CrudTypeEnum;
-import com.nano.msc.common.enums.ResponseEnum;
+import com.nano.msc.common.enums.StatusEnum;
 import com.nano.msc.common.vo.ResultDTO;
 
 import java.io.Serializable;
@@ -34,38 +34,38 @@ public class CrudException extends RuntimeException implements Serializable {
      * 抛出数据已经存在的异常
      */
     public static void dataIsExisted() {
-        throw new CrudException(CrudTypeEnum.NON, ResponseEnum.DATA_EXISTED);
+        throw new CrudException(CrudTypeEnum.NON, StatusEnum.DATA_EXISTED);
     }
 
     /**
      * 抛出数据不存在的异常
      */
     public static void dataIsNotExisted() {
-        throw new CrudException(CrudTypeEnum.NON, ResponseEnum.DATA_NOT_EXIST);
+        throw new CrudException(CrudTypeEnum.NON, StatusEnum.DATA_NOT_EXIST);
     }
 
     public static void saveDataFormatException(String saveObjectMessage) {
-        throw new CrudException(CrudTypeEnum.SAVE, ResponseEnum.DATA_FORMAT_ERROR, DataConstants.SAVE_ERROR, saveObjectMessage);
+        throw new CrudException(CrudTypeEnum.SAVE, StatusEnum.DATA_FORMAT_ERROR, DataConstants.SAVE_ERROR, saveObjectMessage);
     }
 
     public static void saveDataFormatException(ValidationException e, Object object) {
-        throw new CrudException(CrudTypeEnum.SAVE, ResponseEnum.DATA_FORMAT_ERROR, e.toString(), object.toString());
+        throw new CrudException(CrudTypeEnum.SAVE, StatusEnum.DATA_FORMAT_ERROR, e.toString(), object.toString());
     }
 
     public static void saveUnknownException(Exception e, Object object) {
-        throw new CrudException(CrudTypeEnum.SAVE, ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
+        throw new CrudException(CrudTypeEnum.SAVE, StatusEnum.UNKNOWN_ERROR, e.toString(), object.toString());
     }
 
     public static void updateUnknownException(Exception e, Object object) {
-        throw new CrudException(CrudTypeEnum.UPDATE, ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
+        throw new CrudException(CrudTypeEnum.UPDATE, StatusEnum.UNKNOWN_ERROR, e.toString(), object.toString());
     }
 
     public static void updateIdException() {
-        throw new CrudException(CrudTypeEnum.UPDATE, ResponseEnum.UPDATE_ID_ERROR);
+        throw new CrudException(CrudTypeEnum.UPDATE, StatusEnum.UPDATE_ID_ERROR);
     }
 
     public static void deleteUnknownException(Exception e, Object object) {
-        throw new CrudException(CrudTypeEnum.DELETE, ResponseEnum.UNKNOWN_ERROR, e.toString(), object.toString());
+        throw new CrudException(CrudTypeEnum.DELETE, StatusEnum.UNKNOWN_ERROR, e.toString(), object.toString());
     }
 
     /**
@@ -127,18 +127,18 @@ public class CrudException extends RuntimeException implements Serializable {
         this.errorData = (String) resultDTO.getData();
     }
 
-    private CrudException(CrudTypeEnum crudTypeEnum, ResponseEnum responseEnum) {
+    private CrudException(CrudTypeEnum crudTypeEnum, StatusEnum statusEnum) {
         super();
         this.crudTypeEnum = crudTypeEnum;
-        this.msg = responseEnum.getMsg();
-        this.status = responseEnum.getStatus();
+        this.msg = statusEnum.getMsg();
+        this.status = statusEnum.getStatus();
     }
 
-    private CrudException(CrudTypeEnum crudTypeEnum, ResponseEnum responseEnum, String errorMsg, String errorData) {
+    private CrudException(CrudTypeEnum crudTypeEnum, StatusEnum statusEnum, String errorMsg, String errorData) {
         super();
         this.crudTypeEnum = crudTypeEnum;
-        this.msg = responseEnum.getMsg();
-        this.status = responseEnum.getStatus();
+        this.msg = statusEnum.getMsg();
+        this.status = statusEnum.getStatus();
         this.errorMsg = errorMsg;
         this.errorData = errorData;
     }

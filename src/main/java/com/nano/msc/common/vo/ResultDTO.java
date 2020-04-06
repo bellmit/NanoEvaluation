@@ -2,7 +2,7 @@ package com.nano.msc.common.vo;
 
 
 
-import com.nano.msc.common.enums.ResponseEnum;
+import com.nano.msc.common.enums.StatusEnum;
 import com.nano.msc.common.exceptions.CrudException;
 import com.nano.msc.common.exceptions.ParseException;
 
@@ -23,7 +23,7 @@ public class ResultDTO implements Serializable {
     /**
      * 返回处理结果
      *
-     * @see ResponseEnum
+     * @see StatusEnum
      */
     private Integer status;
 
@@ -41,31 +41,31 @@ public class ResultDTO implements Serializable {
      * 成功
      */
     public static ResultDTO success() {
-        return new ResultDTO(ResponseEnum.SUCCESS);
+        return new ResultDTO(StatusEnum.SUCCESS);
     }
 
     public static ResultDTO success(Object data) {
-        return new ResultDTO(ResponseEnum.SUCCESS, data);
+        return new ResultDTO(StatusEnum.SUCCESS, data);
     }
 
     public static ResultDTO unknownDataType() {
-        return new ResultDTO(ResponseEnum.UNKNOWN_DATA_TYPE);
+        return new ResultDTO(StatusEnum.UNKNOWN_DATA_TYPE);
     }
 
     public static ResultDTO unknownError(Object data) {
-        return new ResultDTO(ResponseEnum.UNKNOWN_ERROR, data);
+        return new ResultDTO(StatusEnum.UNKNOWN_ERROR, data);
     }
 
     public static ResultDTO unknownError(String msg, Object data) {
-        return new ResultDTO(ResponseEnum.UNKNOWN_ERROR.getStatus(), msg, data);
+        return new ResultDTO(StatusEnum.UNKNOWN_ERROR.getStatus(), msg, data);
     }
 
     public static ResultDTO noLeadingData(Object data) {
-        return new ResultDTO(ResponseEnum.NO_LEADING_DATA, data);
+        return new ResultDTO(StatusEnum.NO_LEADING_DATA, data);
     }
 
     public static ResultDTO noLeadingData(String msg, Object data) {
-        return new ResultDTO(ResponseEnum.NO_LEADING_DATA.getStatus(), msg, data);
+        return new ResultDTO(StatusEnum.NO_LEADING_DATA.getStatus(), msg, data);
     }
 
     /**
@@ -75,8 +75,8 @@ public class ResultDTO implements Serializable {
      */
     private static Builder dataFormatErrorBuilder() {
         return new Builder()
-                .status(ResponseEnum.DATA_FORMAT_ERROR.getStatus())
-                .msg(ResponseEnum.DATA_FORMAT_ERROR.getMsg());
+                .status(StatusEnum.DATA_FORMAT_ERROR.getStatus())
+                .msg(StatusEnum.DATA_FORMAT_ERROR.getMsg());
     }
 
     /**
@@ -90,7 +90,7 @@ public class ResultDTO implements Serializable {
     }
 
     public static ResultDTO dataFormatError() {
-        return new ResultDTO(ResponseEnum.DATA_FORMAT_ERROR);
+        return new ResultDTO(StatusEnum.DATA_FORMAT_ERROR);
     }
 
     public static ResultDTO dataFormatError(Object data) {
@@ -125,14 +125,14 @@ public class ResultDTO implements Serializable {
     }
 
     public static ResultDTO dataExisted(Object data) {
-        return new ResultDTO(ResponseEnum.DATA_EXISTED, data);
+        return new ResultDTO(StatusEnum.DATA_EXISTED, data);
     }
 
     /**
      * 数据不存在
      */
     public static ResultDTO dataNotExist() {
-        return new ResultDTO(ResponseEnum.DATA_NOT_EXIST);
+        return new ResultDTO(StatusEnum.DATA_NOT_EXIST);
     }
 
     public static ResultDTO checkAndReturn(Object o) {
@@ -162,12 +162,12 @@ public class ResultDTO implements Serializable {
         this.data = data;
     }
 
-    private ResultDTO(ResponseEnum responseEnum) {
-        this(responseEnum.getStatus(), responseEnum.getMsg(), null);
+    private ResultDTO(StatusEnum statusEnum) {
+        this(statusEnum.getStatus(), statusEnum.getMsg(), null);
     }
 
-    private ResultDTO(ResponseEnum responseEnum, Object data) {
-        this(responseEnum.getStatus(), responseEnum.getMsg(), data);
+    private ResultDTO(StatusEnum statusEnum, Object data) {
+        this(statusEnum.getStatus(), statusEnum.getMsg(), data);
     }
 
     public ResultDTO(Builder builder) {

@@ -1,14 +1,11 @@
-package com.nano.msc.evaluation.info.service.impl;
+package com.nano.msc.login.service.impl;
 
-import com.nano.msc.common.util.RedisUtil;
-import com.nano.msc.evaluation.info.entity.User;
-import com.nano.msc.evaluation.info.repository.UserRepository;
-import com.nano.msc.evaluation.info.service.UserService;
+import com.nano.msc.login.entity.User;
+import com.nano.msc.login.repository.UserRepository;
+import com.nano.msc.login.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,12 +36,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Integer id) {
+    public User findById(Integer id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User getUserByPhone(String phone) {
+    public User findByPhone(String phone) {
         return userRepository.findByPhone(phone);
+    }
+
+    @Override
+    public User findByPhoneAndPassword(String phone, String password) {
+        return userRepository.findByPhoneAndPassword(phone, password);
+    }
+
+    @Override
+    public User findByUserNameAndPassword(String userName, String password) {
+        return userRepository.findByUserNameAndPassword(userName, password);
     }
 }

@@ -3,7 +3,7 @@ package com.nano.msc.common.exceptions;
 
 
 
-import com.nano.msc.common.enums.ResponseEnum;
+import com.nano.msc.common.enums.StatusEnum;
 
 import java.io.Serializable;
 
@@ -41,13 +41,13 @@ public class ParseException extends RuntimeException implements Serializable {
     private String errorData;
 
     public static void unknownError(Exception e, String json) {
-        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, e.getCause().toString(), json);
+        throw new ParseException(StatusEnum.DATA_FORMAT_ERROR, e.getCause().toString(), json);
     }
 
     private static Builder dataFormatExceptionBuilder() {
         return new Builder()
-                .status(ResponseEnum.DATA_FORMAT_ERROR.getStatus())
-                .msg(ResponseEnum.DATA_FORMAT_ERROR.getMsg());
+                .status(StatusEnum.DATA_FORMAT_ERROR.getStatus())
+                .msg(StatusEnum.DATA_FORMAT_ERROR.getMsg());
     }
 
     /**
@@ -69,15 +69,15 @@ public class ParseException extends RuntimeException implements Serializable {
     }
 
     public static void dataFormatException() {
-        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR);
+        throw new ParseException(StatusEnum.DATA_FORMAT_ERROR);
     }
 
     public static void codeException() {
-        throw new ParseException(ResponseEnum.CODE_ERROR);
+        throw new ParseException(StatusEnum.CODE_ERROR);
     }
 
     public static void dataFormatException(String errorMsg, String errorData) {
-        throw new ParseException(ResponseEnum.DATA_FORMAT_ERROR, errorMsg, errorData);
+        throw new ParseException(StatusEnum.DATA_FORMAT_ERROR, errorMsg, errorData);
     }
 
     public ParseException(Builder builder) {
@@ -118,10 +118,10 @@ public class ParseException extends RuntimeException implements Serializable {
         }
     }
 
-    private ParseException(ResponseEnum responseEnum) {
+    private ParseException(StatusEnum statusEnum) {
         super();
-        this.msg = responseEnum.getMsg();
-        this.status = responseEnum.getStatus();
+        this.msg = statusEnum.getMsg();
+        this.status = statusEnum.getStatus();
     }
 
     private ParseException(String msg, int status, String errorMsg, String errorData) {
@@ -132,10 +132,10 @@ public class ParseException extends RuntimeException implements Serializable {
         this.errorData = errorData;
     }
 
-    private ParseException(ResponseEnum responseEnum, String errorMsg, String errorData) {
+    private ParseException(StatusEnum statusEnum, String errorMsg, String errorData) {
         super();
-        this.msg = responseEnum.getMsg();
-        this.status = responseEnum.getStatus();
+        this.msg = statusEnum.getMsg();
+        this.status = statusEnum.getStatus();
         this.errorMsg = errorMsg;
         this.errorData = errorData;
     }

@@ -6,7 +6,12 @@ import lombok.Getter;
  * 对所有请求响应的枚举类
  */
 @Getter
-public enum ResponseEnum {
+public enum StatusEnum {
+
+    /**
+     * 成功
+     */
+    SUCCESS(200, "成功"),
 
     /**
      * 未知错误
@@ -21,7 +26,7 @@ public enum ResponseEnum {
     /**
      * 请求的TYPE是错误的
      */
-    CODE_ERROR(-3, "请求的TYPE是错误的"),
+    CODE_ERROR(-3, "请求的Code是错误的"),
 
     /**
      * 数据不存在
@@ -57,11 +62,6 @@ public enum ResponseEnum {
      * 未知数据类型
      */
     UNKNOWN_DATA_TYPE(-10, "未知数据类型"),
-
-    /**
-     * 成功
-     */
-    SUCCESS(200, "成功"),
     ;
 
     /**
@@ -74,7 +74,7 @@ public enum ResponseEnum {
      */
     private String msg;
 
-    ResponseEnum(Integer status, String msg) {
+    StatusEnum(Integer status, String msg) {
         this.status = status;
         this.msg = msg;
     }

@@ -1,4 +1,4 @@
-package com.nano.msc.evaluation.info.entity;
+package com.nano.msc.login.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
@@ -63,6 +63,12 @@ public class User implements Serializable {
      */
     @ApiModelProperty(value = "邮箱")
     private String email;
+
+    /**
+     * 是否禁用
+     */
+    @ApiModelProperty(value = "是否禁用")
+    private boolean forbidden;
 
     /**
      * 数据创建时间

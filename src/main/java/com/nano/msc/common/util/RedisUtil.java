@@ -3,21 +3,12 @@ package com.nano.msc.common.util;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-/**
- * Redis工具类
- * @author ZENG.XIAO.YAN
- * @date   2018年6月7日
- */
 /**
  * Redis工具类，使用之前请确保RedisTemplate成功注入
  *
- * @author ye17186
+ * @author nano
  * @version 2019/2/22 10:48
  */
 public class RedisUtil {
