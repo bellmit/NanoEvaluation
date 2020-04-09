@@ -12,4 +12,9 @@
 基本使用：https://mp.weixin.qq.com/s/tQqvgSc9cHBtnqRQSbI4aw
 部署：http://www.macrozheng.com/#/deploy/mall_swarm_deploy_jenkins
 12. 对于长时间没有开始的手术场次号使用消息队列进行取消并删除
-13. 仪器数据并发量较大是否可以用消息队列？
+13. 仪器数据并发量较大是否可以用消息队列？或者MQTT？
+
+
+
+好帖子：
+1. 参数校验：https://www.jianshu.com/p/89a675b7c900

@@ -1,4 +1,4 @@
-package com.nano.msc.common.vo;
+package com.nano.msc.common.enums;
 
 import lombok.Getter;
 
@@ -7,7 +7,7 @@ import lombok.Getter;
  * @author nano
  */
 @Getter
-public enum ErrorCodeEnum {
+public enum ExceptionEnum {
 
     /**
      * 未知错误
@@ -70,7 +70,7 @@ public enum ErrorCodeEnum {
      */
     private String message;
 
-    ErrorCodeEnum(int errorCode, String message) {
+    ExceptionEnum(int errorCode, String message) {
         this.errorCode = errorCode;
         this.message = message;
     }

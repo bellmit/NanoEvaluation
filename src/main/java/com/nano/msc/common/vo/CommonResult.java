@@ -1,7 +1,8 @@
 package com.nano.msc.common.vo;
 
+import com.nano.msc.common.enums.ResultCodeEnum;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * 通用返回对象

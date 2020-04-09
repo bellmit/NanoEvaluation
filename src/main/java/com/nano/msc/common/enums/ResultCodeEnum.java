@@ -1,4 +1,6 @@
-package com.nano.msc.common.vo;
+package com.nano.msc.common.enums;
+
+import com.nano.msc.common.vo.IErrorCode;
 
 /**
  * 枚举了一些常用API操作码
