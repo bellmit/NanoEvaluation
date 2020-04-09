@@ -47,11 +47,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByPhoneAndPassword(String phone, String password) {
-        return userRepository.findByPhoneAndPassword(phone, password);
+        return userRepository.findByPhoneAndUserPassword(phone, password);
     }
 
     @Override
     public User findByUserNameAndPassword(String userName, String password) {
-        return userRepository.findByUserNameAndPassword(userName, password);
+        return userRepository.findByUserNameAndUserPassword(userName, password);
     }
 }

@@ -2,3 +2,14 @@
 2. 使用Redis记录当前正在采集状态的手术场次
 3. 每个仪器数据需要记录发来的采集器的MAC地址--在手术信息表存一下即可
 4. 使用Redis记录当前最新采集的数据
+5. 评价信息等通过 ElasticSearch 实现全文检索
+6. 消息队列来做发布订阅
+7. 阿里云OSS文件上传（MinIO也可以实现对象存储：http://www.macrozheng.com/#/technology/minio_use）
+8. 使用AOP整合访问日志
+9. 使用ElasticSearch+Kibana+logstash收集日志：http://www.macrozheng.com/#/technology/mall_tiny_elk
+10. 加入Security模块：http://www.macrozheng.com/#/technology/springsecurity_use
+11. Jenkins自动化部署微服务项目：
+基本使用：https://mp.weixin.qq.com/s/tQqvgSc9cHBtnqRQSbI4aw
+部署：http://www.macrozheng.com/#/deploy/mall_swarm_deploy_jenkins
+12. 对于长时间没有开始的手术场次号使用消息队列进行取消并删除
+13. 仪器数据并发量较大是否可以用消息队列？

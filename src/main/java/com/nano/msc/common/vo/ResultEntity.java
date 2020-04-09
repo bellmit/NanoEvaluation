@@ -48,4 +48,6 @@ public class ResultEntity implements Serializable {
         this.code = code;
         this.data = data;
     }
+
+
 }
