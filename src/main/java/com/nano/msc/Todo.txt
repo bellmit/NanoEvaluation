@@ -13,6 +13,7 @@
 部署：http://www.macrozheng.com/#/deploy/mall_swarm_deploy_jenkins
 12. 对于长时间没有开始的手术场次号使用消息队列进行取消并删除
 13. 仪器数据并发量较大是否可以用消息队列？或者MQTT？
+14. Token时效是1小时，如果没有进行操作就认为失效，失效后的手术信息数据通过消息队列删除？
 
 
 

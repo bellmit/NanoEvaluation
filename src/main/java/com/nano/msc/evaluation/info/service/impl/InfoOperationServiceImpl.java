@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InfoOperationImpl implements InfoOperationService {
+public class InfoOperationServiceImpl implements InfoOperationService {
 
     @Autowired
     private InfoOperationRepository infoOperationRepository;

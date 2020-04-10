@@ -1,74 +1,55 @@
-package com.nano.msc.login.entity;
+package com.nano.msc.security.bo;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * 用户角色与权限关系
+ * @author nano
+ *
+ * 一个角色对应多个权限
+ */
+@DynamicInsert
+@DynamicUpdate
+@Entity
 @Data
-@Entity(name = "user")
-@EntityListeners(AuditingEntityListener.class)
-@Table(name = "user")
-@ApiModel(value = "User对象", description = "用户信息表")
-public class User implements Serializable {
+@Table(name = "security_role_permission_relation")
+public class SecurityRolePermissionRelation implements Serializable {
 
-    private static final long serialVersionUID = 123123123789123L;
+    private static final long serialVersionUID = 182309480923L;
 
-
-    /**
-     * 主键
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_id")
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
     /**
-     * 电话号码
+     * 角色ID
      */
-    @ApiModelProperty(value = "电话号码")
-    private String phone;
+    private Long roleId;
 
     /**
-     * 用户名
+     * 权限ID
      */
-    @ApiModelProperty(value = "用户名")
-    private String userName;
-
-    /**
-     * 密码
-     */
-    @ApiModelProperty(value = "密码")
-    private String userPassword;
-
-    /**
-     * 邮箱
-     */
-    @ApiModelProperty(value = "邮箱")
-    private String email;
-
-    /**
-     * 是否禁用
-     */
-    @ApiModelProperty(value = "是否禁用")
-    private boolean forbidden;
+    private Long permissionId;
 
     /**
      * 数据创建时间
@@ -87,4 +68,5 @@ public class User implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
 }

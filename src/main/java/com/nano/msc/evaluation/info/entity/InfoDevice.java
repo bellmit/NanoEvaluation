@@ -49,9 +49,10 @@ public class InfoDevice implements Serializable {
     private Integer id;
 
     /**
-     * 设备生产厂商
+     * 仪器代号
      */
     @NotBlank(message = "deviceCode must cannot empty")
+    @ApiModelProperty(value = "仪器代号", example = "30")
     @Column(name = "device_code")
     private String deviceCode;
 
@@ -59,6 +60,7 @@ public class InfoDevice implements Serializable {
      * 设备序列号，不一定唯一
      */
     @NotBlank(message = "deviceSerialNumber must cannot empty")
+    @ApiModelProperty(value = "设备序列号", example = "B123XY182019")
     @Column(name = "device_serial_number")
     private String deviceSerialNumber;
 
@@ -66,6 +68,7 @@ public class InfoDevice implements Serializable {
      * 设备购买时间
      */
     @NotBlank(message = "deviceProduceDate must cannot empty")
+    @ApiModelProperty(value = "设备购买时间", example = "2018.06.25")
     @Column(name = "device_produce_date")
     private LocalDate deviceProduceDate;
 
@@ -73,6 +76,7 @@ public class InfoDevice implements Serializable {
      * 仪器的使用年限
      */
     @NotNull(message = "deviceServiceLife must cannot empty")
+    @ApiModelProperty(value = "仪器的使用年限", example = "5")
     @Column(name = "device_service_life")
     private Float deviceServiceLife;
 
