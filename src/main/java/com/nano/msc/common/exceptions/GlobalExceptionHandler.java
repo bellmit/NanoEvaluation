@@ -35,13 +35,24 @@ public class GlobalExceptionHandler {
     private static final Logger logger =
             LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+
+    /**
+     * 全局异常
+     */
     @ResponseBody
-    @ExceptionHandler(value = ApiException.class)
-    public CommonResult handle(ApiException e) {
-        if (e.getErrorCode() != null) {
-            return CommonResult.failed(e.getErrorCode());
-        }
-        return CommonResult.failed(e.getMessage());
+    @ExceptionHandler(value = Exception.class)
+    public CommonResult handle(Exception e) {
+        return CommonResult.failed("哦豁，发生了异常:" + e.getMessage());
+    }
+
+    /**
+     * 处理自定义异常
+     */
+    @ResponseBody
+    @ExceptionHandler(value = CommonException.class)
+    public CommonResult handle(CommonException e) {
+        return CommonResult.failed("ErrorCode: " + e.getErrorCode()
+                + ", msg: " + e.getMsg());
     }
 
 
@@ -88,18 +99,6 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ResponseBody
-    @ExceptionHandler(value = CommonException.class)
-    public CommonResult handle(CommonException e) {
-        return CommonResult.failed("ErrorCode: " + e.getErrorCode()
-                + ", msg: " + e.getMsg());
-    }
-
-    @ResponseBody
-    @ExceptionHandler(value = Exception.class)
-    public CommonResult handle(Exception e) {
-        return CommonResult.failed("哦豁，发生了异常:" + e.getMessage());
-    }
 
     /*
      * 空指针异常
