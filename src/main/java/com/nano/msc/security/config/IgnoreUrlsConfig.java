@@ -14,7 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "secure.ignored")
+@ConfigurationProperties(prefix = "security.ignored")
 public class IgnoreUrlsConfig {
 
     private List<String> urls = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.nano.msc.security.bo;
+package com.nano.msc.security.po;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -22,34 +20,35 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 用户角色与权限关系
+ * 用户角色
  * @author nano
- *
- * 一个角色对应多个权限
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "security_role_permission_relation")
-public class SecurityRolePermissionRelation implements Serializable {
+@Table(name = "security_role")
+public class AuthRole implements Serializable {
 
-    private static final long serialVersionUID = 182309480923L;
+    private static final long serialVersionUID = 11223099324123L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    /**
-     * 角色ID
-     */
+    @Column(name = "role_id")
     private Long roleId;
 
-    /**
-     * 权限ID
-     */
-    private Long permissionId;
+    @ApiModelProperty(value = "名称")
+    private String name;
+
+    @ApiModelProperty(value = "描述")
+    private String description;
+
+    @ApiModelProperty(value = "后台用户数量")
+    private Integer userCount;
+
+    @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
+    private Integer status;
+
+    private Integer sort;
 
     /**
      * 数据创建时间

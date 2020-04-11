@@ -26,16 +26,11 @@ server:
   servlet:
     context-path: /eval
 
-mybatis:
-  mapper-locations:
-  - classpath:mapper/*.xml
-  - classpath*:com/**/mapper/*.xml
-
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
-  secret: mall-admin-secret #JWT加解密使用的密钥
-  expiration: 86400 #JWT的超期限时间(60*60*24*7)
-  tokenHead: Bearer  #JWT负载中拿到开头
+  secret: nano-evaluation-secret #JWT加解密使用的密钥
+  expiration: 86400 #JWT的超期限时间(60*60*24) 秒
+  tokenHead: token  #JWT负载中的前缀
 
 # 自定义redis key
 redis:
@@ -60,8 +55,8 @@ secure:
     - /webjars/springfox-swagger-ui/**
     - /actuator/**
     - /druid/**
-    - /admin/login
-    - /admin/register
-    - /admin/info
-    - /admin/logout
-    - /minio/upload
+    - /user/login
+    - /user/register
+    - /user/info
+    - /user/logout
+    - /user/upload

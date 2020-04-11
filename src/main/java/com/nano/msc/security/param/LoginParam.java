@@ -1,6 +1,4 @@
-package com.nano.msc.security.entity;
-
-import org.hibernate.validator.constraints.NotEmpty;
+package com.nano.msc.security.param;
 
 import java.io.Serializable;
 
@@ -14,10 +12,9 @@ import lombok.Data;
  * @author nano
  */
 @Data
-public class LoginEntity implements Serializable {
+public class LoginParam implements Serializable {
 
     private static final long serialVersionUID = 1823209480923L;
-
 
     /**
      * 用户名

@@ -1,4 +1,4 @@
-package com.nano.msc.security.bo;
+package com.nano.msc.security.po;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,45 +22,34 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 用户权限表
+ * 用户角色与权限关系
  * @author nano
+ *
+ * 一个角色对应多个权限
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "security_permission")
-public class SecurityPermission implements Serializable {
+@Table(name = "security_role_permission_relation")
+public class AuthRolePermissionRelation implements Serializable {
 
-    private static final long serialVersionUID = 19847923L;
+    private static final long serialVersionUID = 182309480923L;
 
     @Id
-    @Column(name = "permission_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 权限ID
+     */
     private Long permissionId;
-
-    @ApiModelProperty(value = "父级权限id")
-    private Long pid;
-
-    @ApiModelProperty(value = "名称")
-    private String name;
-
-    @ApiModelProperty(value = "权限值")
-    private String value;
-
-    @ApiModelProperty(value = "图标")
-    private String icon;
-
-    @ApiModelProperty(value = "权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）")
-    private Integer type;
-
-    @ApiModelProperty(value = "前端资源路径")
-    private String uri;
-
-    @ApiModelProperty(value = "启用状态；0->禁用；1->启用")
-    private Integer status;
-
-    @ApiModelProperty(value = "排序")
-    private Integer sort;
 
     /**
      * 数据创建时间
@@ -80,4 +68,5 @@ public class SecurityPermission implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
 }

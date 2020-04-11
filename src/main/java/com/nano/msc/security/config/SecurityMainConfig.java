@@ -1,15 +1,16 @@
 package com.nano.msc.security.config;
 
 
-import com.nano.msc.security.bo.SecurityPermission;
-import com.nano.msc.security.bo.SecurityUser;
-import com.nano.msc.security.bo.SecurityUserDetails;
+import com.nano.msc.security.po.AuthPermission;
+import com.nano.msc.security.po.AuthUser;
+import com.nano.msc.security.bo.AuthUserDetails;
 import com.nano.msc.security.component.JwtAuthenticationTokenFilter;
 import com.nano.msc.security.component.RestAuthenticationEntryPoint;
 import com.nano.msc.security.component.RestfulAccessDeniedHandler;
-import com.nano.msc.security.service.SecurityUserService;
+import com.nano.msc.security.service.AuthUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,6 +26,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import java.util.List;
 
@@ -37,12 +39,12 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityMainConfig extends WebSecurityConfigurerAdapter {
     /**
      * 后台管理员Service
      */
     @Autowired
-    private SecurityUserService userService;
+    private AuthUserService userService;
 
     /**
      * 当访问接口没有权限时，自定义的返回结果
@@ -55,6 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    /**
+     * 登出成功回调器
+     */
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
+
 
     /**
      * 核心配置
@@ -88,11 +98,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
                 // 测试时全部运行访问
-//              .antMatchers("/**")
-//              .permitAll()
+                .antMatchers("/**")
+                .permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest()
                 .authenticated();
+
+
+        // 配置退出逻辑
+        httpSecurity
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(logoutSuccessHandler);
+
+
+
 
         // 禁用缓存
         httpSecurity.headers().cacheControl();
@@ -124,10 +144,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 获取登录用户信息
         return username -> {
             // 通过用户名查询用户信息
-            SecurityUser user = userService.getUserByUsername(username);
+            AuthUser user = userService.getUserByUsername(username);
             if (user != null) {
-                List<SecurityPermission> permissionList = userService.getPermissionList(user);
-                return new SecurityUserDetails(user, permissionList);
+                List<AuthPermission> permissionList = userService.getPermissionList(user);
+                System.out.println("userDetailsService:查询一次用户权限");
+                return new AuthUserDetails(user, permissionList);
             }
             // 未查询到用户信息
             throw new UsernameNotFoundException("用户名或密码错误");
@@ -148,4 +169,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
+//    @Bean
+//    public LogoutSuccessHandler myLogoutSuccessHandler() {
+//        return new MyLogoutSuccessHandler();
+//    }
 }

@@ -1,7 +1,10 @@
 package com.nano.msc.security.util;
 
+import com.nano.msc.security.service.RedisService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -29,20 +32,36 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 @Component
 public class JwtTokenUtil {
+
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     private static final String CLAIM_KEY_USERNAME = "sub";
 
     private static final String CLAIM_KEY_CREATED = "created";
 
+    /**
+     * 密钥
+     */
     @Value("${jwt.secret}")
     private String secret;
 
+    /**
+     * 过期时间-秒
+     */
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    /**
+     * Token前缀
+     */
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 根据负责生成JWT的token
@@ -103,6 +122,8 @@ public class JwtTokenUtil {
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
+
+
     /**
      * 判断token是否已经失效
      */
@@ -110,6 +131,9 @@ public class JwtTokenUtil {
         Date expiredDate = getExpiredDateFromToken(token);
         return expiredDate.before(new Date());
     }
+
+
+
 
     /**
      * 从token中获取过期时间

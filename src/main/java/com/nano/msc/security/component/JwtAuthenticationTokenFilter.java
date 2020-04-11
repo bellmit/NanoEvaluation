@@ -1,6 +1,7 @@
 package com.nano.msc.security.component;
 
 
+import com.nano.msc.security.service.RedisService;
 import com.nano.msc.security.util.JwtTokenUtil;
 
 import org.slf4j.Logger;
@@ -26,7 +27,15 @@ import javax.servlet.http.HttpServletResponse;
  * Created by macro on 2018/4/26.
  */
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+
+    @Autowired
+    private RedisService redisService;
+
 
     @Autowired
     private UserDetailsService userDetailsService;

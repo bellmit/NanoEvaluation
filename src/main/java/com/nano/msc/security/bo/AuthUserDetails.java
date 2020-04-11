@@ -1,5 +1,8 @@
 package com.nano.msc.security.bo;
 
+import com.nano.msc.security.po.AuthPermission;
+import com.nano.msc.security.po.AuthUser;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,20 +15,20 @@ import java.util.stream.Collectors;
  * SpringSecurity需要的用户详情
  * @author nano
  */
-public class SecurityUserDetails implements UserDetails {
+public class AuthUserDetails implements UserDetails {
 
     /**
      * 用户类
      */
-    private SecurityUser user;
+    private AuthUser user;
 
     /**
      * 权限列表
      */
-    private List<SecurityPermission> permissionList;
+    private List<AuthPermission> permissionList;
 
 
-    public SecurityUserDetails(SecurityUser user, List<SecurityPermission> permissionList) {
+    public AuthUserDetails(AuthUser user, List<AuthPermission> permissionList) {
         this.user = user;
         this.permissionList = permissionList;
     }
@@ -38,7 +41,9 @@ public class SecurityUserDetails implements UserDetails {
         // 返回当前用户的权限
         return permissionList.stream()
                 .filter(permission -> permission.getValue() != null)
+                // 传入权限值
                 .map(permission -> new SimpleGrantedAuthority(permission.getValue()))
+                // 将数据库中的权限值转换为权限列表
                 .collect(Collectors.toList());
     }
 

@@ -1,9 +1,7 @@
 package com.nano.msc.security.service;
 
-import com.nano.msc.security.bo.SecurityPermission;
-import com.nano.msc.security.bo.SecurityUser;
-import com.nano.msc.security.bo.UmsAdmin;
-import com.nano.msc.security.bo.UmsPermission;
+import com.nano.msc.security.po.AuthPermission;
+import com.nano.msc.security.po.AuthUser;
 
 import java.util.List;
 
@@ -12,17 +10,17 @@ import java.util.List;
  *
  * @author nano
  */
-public interface SecurityUserService {
+public interface AuthUserService {
 
     /**
      * 根据用户名获取后台管理员
      */
-    SecurityUser getUserByUsername(String username);
+    AuthUser getUserByUsername(String username);
 
     /**
      * 注册功能
      */
-    SecurityUser register(SecurityUser securityUser);
+    AuthUser register(AuthUser authUser);
 
     /**
      * 登录功能
@@ -35,11 +33,11 @@ public interface SecurityUserService {
     /**
      * 获取用户所有权限（包括角色权限和+-权限）
      */
-    List<SecurityPermission> getPermissionList(Long userId);
+    List<AuthPermission> getPermissionList(Long userId);
 
     /**
      * 获取用户所有权限（包括角色权限和+-权限）
      * @param user 根据用户获取其角色ID进行查询
      */
-    List<SecurityPermission> getPermissionList(SecurityUser user);
+    List<AuthPermission> getPermissionList(AuthUser user);
 }

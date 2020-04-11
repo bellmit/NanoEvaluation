@@ -26,7 +26,7 @@ public enum ResultCodeEnum implements IErrorCode {
     /**
      * 未认证
      */
-    UNAUTHORIZED(401, "You need login or token is invalid."),
+    UNAUTHORIZED(401, "请登录或Token已过期"),
 
     /**
      * 无权限
