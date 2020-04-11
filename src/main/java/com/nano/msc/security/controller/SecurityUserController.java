@@ -9,6 +9,7 @@ import com.nano.msc.security.service.SecurityUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "UmsAdminController", description = "后台用户管理")
+@Api(tags = "UserController", description = "后台用户管理")
 public class SecurityUserController {
 
     @Autowired
@@ -44,7 +45,6 @@ public class SecurityUserController {
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult<SecurityUser> register(@RequestBody SecurityUser umsAdminParam, BindingResult result) {
         SecurityUser umsAdmin = userService.register(umsAdminParam);
         if (umsAdmin == null) {
@@ -55,7 +55,6 @@ public class SecurityUserController {
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
     public CommonResult login(@RequestBody LoginEntity loginEntity, BindingResult result) {
         String token = userService.login(loginEntity.getUsername(), loginEntity.getPassword());
         if (token == null) {
@@ -68,8 +67,8 @@ public class SecurityUserController {
     }
 
     @ApiOperation("获取用户所有权限（包括+-权限）")
-    @RequestMapping(value = "/permission/{adminId}", method = RequestMethod.GET)
-    @ResponseBody
+    @PreAuthorize("hasAuthority('root:permission:read')")
+    @RequestMapping(value = "/permission/{userId}", method = RequestMethod.GET)
     public CommonResult<List<SecurityPermission>> getPermissionList(@PathVariable Long userId) {
 
         List<SecurityPermission> permissionList = userService.getPermissionList(userId);

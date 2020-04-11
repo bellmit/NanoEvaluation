@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 public class SecurityUserServiceImpl implements SecurityUserService {
 
     // 日志
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecurityUserServiceImpl.class);
 
     /**
      * 系统的UserDetailsService
@@ -105,7 +105,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
             // 产生Token
             token = jwtTokenUtil.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+            logger.warn("登录异常:{}", e.getMessage());
         }
         return token;
     }
@@ -148,7 +148,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
             }
         }
         if(resList.size() == 0) {
-            Asserts.fail("没有找到权限");
+            logger.info("用户:" + user.getUsername() + " 没有找到权限");
         }
         return resList;
     }

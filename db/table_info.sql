@@ -1,6 +1,6 @@
 --
 --/**
---* Copyright 2019-2029 nanodaemony(https://github.com/nanodaemony/NanoEval)
+--* Copyright 2019-2029 nanodaemony(https://github.com/nanodaemony/NanoEvaluation)
 --*
 --* Licensed under the Apache License, Version 2.0 (the "License");
 --* you may not use this file except in compliance with the License.
@@ -124,7 +124,7 @@ CREATE TABLE `info_evaluation` (
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY (pk_id)
-)COMMENT '术后仪器评价表';
+) COMMENT '术后仪器评价表';
 
 
 -- ----------------------------
