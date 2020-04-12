@@ -57,7 +57,21 @@ public enum ExceptionEnum {
     /**
      * 未知数据类型
      */
-    UNKNOWN_DATA_TYPE(-10, "未知数据类型")
+    UNKNOWN_DATA_TYPE(-10, "未知数据类型"),
+
+    /**
+     * 未知请求Code
+     */
+    UNKNOWN_REQUEST_CODE(-11, "未知请求Code"),
+
+    /**
+     * 数据保存失败
+     */
+    DATA_SAVE_ERROR(-12, "数据保存失败"),
+
+
+    DATA_PARSE_EXCEPTION(-13, "数据解析异常"),
+
     ;
 
     /**
@@ -75,6 +89,9 @@ public enum ExceptionEnum {
         this.message = message;
     }
 
-
-
+    @Override
+    public String toString() {
+        return  "errorCode: " + errorCode +
+                "\nmessage: " + message;
+    }
 }

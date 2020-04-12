@@ -4,7 +4,7 @@ package com.nano.msc.auth.controller;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.auth.po.AuthPermission;
 import com.nano.msc.auth.po.AuthUser;
-import com.nano.msc.auth.param.LoginParam;
+import com.nano.msc.auth.param.ParamLogin;
 import com.nano.msc.auth.service.AuthUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +57,8 @@ public class AuthUserController {
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResult login(@Valid @RequestBody LoginParam loginParam, BindingResult result) {
-        String token = userService.login(loginParam.getUsername(), loginParam.getPassword());
+    public CommonResult login(@Valid @RequestBody ParamLogin paramLogin, BindingResult result) {
+        String token = userService.login(paramLogin.getUsername(), paramLogin.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }

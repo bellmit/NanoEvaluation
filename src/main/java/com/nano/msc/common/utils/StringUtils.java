@@ -1,4 +1,4 @@
-package com.nano.msc.common.util;
+package com.nano.msc.common.utils;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -56,6 +56,8 @@ public class StringUtils {
         matcher.appendTail(sb);
         return sb.toString();
     }
+
+
 
     /**
      * 将下划线大写常量名转换为标准驼峰格式类命名

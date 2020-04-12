@@ -1,5 +1,6 @@
 package com.nano.msc.common.vo;
 
+import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.enums.ResultCodeEnum;
 
 import java.io.Serializable;
@@ -53,15 +54,34 @@ public class CommonResult<T> implements Serializable {
      * @param  message 提示信息
      */
     public static <T> CommonResult<T> success(T data, String message) {
-        return new CommonResult<T>(ResultCodeEnum.SUCCESS.getCode(), message, data);
+        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), message, data);
+    }
+
+
+
+    /**
+     * 失败返回结果
+     */
+    public static <ErrorVo> CommonResult<ErrorVo> failed(ErrorVo errorVo) {
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(),
+                errorVo);
     }
 
     /**
      * 失败返回结果
-     * @param errorCode 错误码
+     * @param exceptionEnum 错误枚举
      */
-    public static <T> CommonResult<T> failed(IErrorCode errorCode) {
-        return new CommonResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
+    public static <T> CommonResult<ExceptionEnum> failed(ExceptionEnum exceptionEnum) {
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(), exceptionEnum);
+    }
+
+
+
+    /**
+     * 失败返回结果
+     */
+    public static <T> CommonResult<T> failed(Integer code, String message) {
+        return new CommonResult<T>(code, message, null);
     }
 
     /**
@@ -69,7 +89,7 @@ public class CommonResult<T> implements Serializable {
      * @param errorCode 错误码
      * @param message 错误信息
      */
-    public static <T> CommonResult<T> failed(IErrorCode errorCode,String message) {
+    public static <T> CommonResult<T> failed(IErrorCode errorCode, String message) {
         return new CommonResult<T>(errorCode.getCode(), message, null);
     }
 
@@ -77,31 +97,25 @@ public class CommonResult<T> implements Serializable {
      * 失败返回结果
      * @param message 提示信息
      */
-    public static <T> CommonResult<T> failed(String message) {
-        return new CommonResult<T>(ResultCodeEnum.FAILED.getCode(), message, null);
+    public static <T> CommonResult<String> failed(String message) {
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(), message);
     }
 
     /**
      * 失败返回结果
      */
-    public static <T> CommonResult<T> failed() {
-        return failed(ResultCodeEnum.FAILED);
+    public static <T> CommonResult<String> failed() {
+        return failed("");
     }
 
-    /**
-     * 失败返回结果
-     */
-    public static <ErrorVo> CommonResult<ErrorVo> failed(ErrorVo errorVo) {
-        return new CommonResult<ErrorVo>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(),
-                errorVo);
-    }
 
     /**
      * 参数验证失败返回结果
      */
     public static <T> CommonResult<T> validateFailed() {
-        return failed(ResultCodeEnum.VALIDATE_FAILED);
+        return failed(ResultCodeEnum.VALIDATE_FAILED.getCode(), ResultCodeEnum.VALIDATE_FAILED.getMessage());
     }
+
 
     /**
      * 参数验证失败返回结果

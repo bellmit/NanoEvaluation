@@ -21,7 +21,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 手术标记信息实体
@@ -32,6 +34,7 @@ import lombok.Data;
 @DynamicUpdate
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "info_operation_mark")
 public class InfoOperationMark implements Serializable {
 
@@ -47,7 +50,7 @@ public class InfoOperationMark implements Serializable {
     /**
      * 手术顺序号
      */
-    @NotBlank(message = "operation_Number must cannot empty")
+    @NotNull(message = "operation_Number must cannot empty")
     @Column(name = "operation_Number")
     private Integer operationNumber;
 
@@ -120,4 +123,16 @@ public class InfoOperationMark implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
+
+    public InfoOperationMark(@NotBlank(message = "operation_Number must cannot empty") Integer operationNumber, @NotBlank(message = "mark_main_type must cannot empty") String markMainType, @NotBlank(message = "`mark_sub_Type` must cannot empty") String markSubType, @NotBlank(message = "mark_event must cannot empty") String markEvent, @NotBlank(message = "give_medicine_method must cannot empty") String giveMedicineMethod, @NotBlank(message = "give_medicine_volume must cannot empty") String giveMedicineVolume, @NotBlank(message = "side_effect must cannot empty") String sideEffect, @NotNull(message = "mark_time must cannot empty") LocalDateTime markTime) {
+        this.operationNumber = operationNumber;
+        this.markMainType = markMainType;
+        this.markSubType = markSubType;
+        this.markEvent = markEvent;
+        this.giveMedicineMethod = giveMedicineMethod;
+        this.giveMedicineVolume = giveMedicineVolume;
+        this.sideEffect = sideEffect;
+        this.markTime = markTime;
+    }
 }

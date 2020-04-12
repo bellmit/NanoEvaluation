@@ -17,6 +17,7 @@ import cn.hutool.json.JSONUtil;
 
 /**
  * 自定义返回结果：没有权限访问时返回
+ * @author nano
  */
 @Component
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler{

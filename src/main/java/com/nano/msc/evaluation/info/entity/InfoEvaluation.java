@@ -126,4 +126,18 @@ public class InfoEvaluation implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
+    public InfoEvaluation(Integer operationNumber, Integer deviceCode, String serialNumber, String deviceDepartment, String experienceLevel, String reliabilityLevel, Boolean hasError, String knownError, String otherError, String remark, String recordName) {
+        this.operationNumber = operationNumber;
+        this.deviceCode = deviceCode;
+        this.serialNumber = serialNumber;
+        this.deviceDepartment = deviceDepartment;
+        this.experienceLevel = experienceLevel;
+        this.reliabilityLevel = reliabilityLevel;
+        this.hasError = hasError;
+        this.knownError = knownError;
+        this.otherError = otherError;
+        this.remark = remark;
+        this.recordName = recordName;
+    }
 }

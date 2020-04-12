@@ -6,7 +6,8 @@ import com.nano.msc.common.vo.IErrorCode;
  * 枚举了一些常用API操作码
  * Created by macro on 2019/4/19.
  */
-public enum ResultCodeEnum implements IErrorCode {
+public enum ResultCodeEnum implements
+        IErrorCode {
 
     /**
      * 成功
@@ -21,7 +22,7 @@ public enum ResultCodeEnum implements IErrorCode {
     /**
      * 参数校验失败
      */
-    VALIDATE_FAILED(404, "VALIDATE_FAILED"),
+    VALIDATE_FAILED(404, "参数校验失败"),
 
     /**
      * 未认证

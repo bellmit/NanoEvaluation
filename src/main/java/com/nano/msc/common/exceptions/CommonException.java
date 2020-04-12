@@ -19,6 +19,7 @@ public class CommonException extends RuntimeException {
 
     private String msg;
 
+
     public CommonException(ExceptionEnum exceptionEnum) {
         this.errorCode = exceptionEnum.getErrorCode();
         this.msg = exceptionEnum.getMessage();

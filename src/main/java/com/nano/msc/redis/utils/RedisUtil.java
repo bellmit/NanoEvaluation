@@ -1,4 +1,6 @@
-package com.nano.msc.common.util;
+package com.nano.msc.redis.utils;
+
+import com.nano.msc.common.utils.SpringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +17,7 @@ public class RedisUtil {
 
     @SuppressWarnings("unchecked")
     private static RedisTemplate<String, Object> redisTemplate
-            = (RedisTemplate<String, Object>) SpringUtil.getBean("redisTemplate");
+            = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
 
     /**
      * 设置有效时间

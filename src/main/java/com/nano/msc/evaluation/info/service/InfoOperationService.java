@@ -1,5 +1,7 @@
 package com.nano.msc.evaluation.info.service;
 
+import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 
 import java.util.List;
@@ -10,7 +12,17 @@ import java.util.List;
  */
 public interface InfoOperationService {
 
-    InfoOperation addOperationInfo(InfoOperation infoOperation);
+    /**
+     * 处理新的手术信息请求
+     *
+     * @param infoOperation 手术信息
+     * @return 是否成功
+     */
+    InfoOperation handleNewOperationInfoRequestAndSave(InfoOperation infoOperation);
 
     List<InfoOperation> findAllOperationInfo();
+
+    InfoOperation findByOperationNumber(Integer operationNumber);
+
+    InfoOperation update(InfoOperation infoOperation);
 }

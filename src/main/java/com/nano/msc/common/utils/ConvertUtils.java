@@ -1,4 +1,4 @@
-package com.nano.msc.common.util;
+package com.nano.msc.common.utils;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

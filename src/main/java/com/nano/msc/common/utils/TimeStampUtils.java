@@ -1,4 +1,4 @@
-package com.nano.msc.common.util;
+package com.nano.msc.common.utils;
 
 import java.sql.Timestamp;
 import java.time.DateTimeException;

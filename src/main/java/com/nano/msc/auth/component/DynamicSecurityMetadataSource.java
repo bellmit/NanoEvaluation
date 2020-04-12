@@ -21,7 +21,8 @@ import cn.hutool.core.util.URLUtil;
  * 动态权限数据源，用于获取动态权限规则
  * @author nano
  */
-public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+public class
+DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private static Map<String, ConfigAttribute> configAttributeMap = null;
 

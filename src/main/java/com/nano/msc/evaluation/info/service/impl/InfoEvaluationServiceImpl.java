@@ -7,6 +7,8 @@ import com.nano.msc.evaluation.info.service.InfoEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InfoEvaluationServiceImpl implements InfoEvaluationService {
 
@@ -15,10 +17,7 @@ public class InfoEvaluationServiceImpl implements InfoEvaluationService {
     private InfoEvaluationRepository evaluationRepository;
 
     @Override
-    public InfoEvaluation saveInfoEvaluation(InfoEvaluation infoEvaluation) {
-
-
-
-        return null;
+    public List<InfoEvaluation> saveAll(List<InfoEvaluation> infoEvaluation) {
+        return evaluationRepository.saveAll(infoEvaluation);
     }
 }

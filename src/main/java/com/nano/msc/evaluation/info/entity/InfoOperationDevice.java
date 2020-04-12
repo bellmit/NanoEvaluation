@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 手术仪器信息实体
@@ -35,6 +36,7 @@ import lombok.Data;
 @DynamicUpdate
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "info_operation_device")
 public class InfoOperationDevice implements Serializable {
 
@@ -60,14 +62,14 @@ public class InfoOperationDevice implements Serializable {
      */
     @NotNull(message = "DeviceCode must cannot empty")
     @Column(name = "device_code")
-    private Integer deviceCode;
+    private String deviceCode;
 
     /**
      * 仪器信息的ID号 外键仪器信息表的主键ID号
      */
-    @NotBlank(message = "DeviceInfoId must cannot empty")
+//    @NotBlank(message = "DeviceInfoId must cannot empty")
     @Column(name = "device_info_id")
-    private String deviceInfoId;
+    private Integer deviceInfoId;
 
     /**
      * 数据创建时间
@@ -86,4 +88,11 @@ public class InfoOperationDevice implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
+
+    public InfoOperationDevice(@NotNull(message = "OperationNumber must cannot empty") Integer operationNumber, @NotNull(message = "DeviceCode must cannot empty") String deviceCode, @NotBlank(message = "DeviceInfoId must cannot empty") Integer deviceInfoId) {
+        this.operationNumber = operationNumber;
+        this.deviceCode = deviceCode;
+        this.deviceInfoId = deviceInfoId;
+    }
 }

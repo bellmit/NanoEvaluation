@@ -42,6 +42,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public CommonResult handle(Exception e) {
+        e.printStackTrace();
         return CommonResult.failed("哦豁，发生了异常:" + e.getMessage());
     }
 
@@ -100,16 +101,17 @@ public class GlobalExceptionHandler {
 
 
 
-    /*
-     * 空指针异常
-     * @param ex NullPointerException
-     * @return
-     */
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public CommonResult handleTypeMismatchException(NullPointerException ex) {
-        logger.error("空指针异常，{}", ex.getMessage());
-        return CommonResult.failed("空指针异常了");
-    }
+//    /*
+//     * 空指针异常
+//     * @param ex NullPointerException
+//     * @return
+//     */
+//    @ExceptionHandler(NullPointerException.class)
+//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+//    public CommonResult handleTypeMismatchException(NullPointerException ex) {
+//
+//        logger.error("空指针异常，{}", ex.getMessage());
+//        return CommonResult.failed("空指针异常了");
+//    }
 
 }

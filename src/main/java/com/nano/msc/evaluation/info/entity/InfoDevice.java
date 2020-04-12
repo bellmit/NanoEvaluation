@@ -23,19 +23,19 @@ import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 医疗仪器的基础属性
  *
  * @version V1.0
- * @date 2019/4/2 20:14
- * @email vinicolor.violet.end@gmail.com
  * Description: 仪器生产厂商 仪器序列号 购买时间 使用年限
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "info_device")
 public class InfoDevice implements Serializable {
 
@@ -67,7 +67,6 @@ public class InfoDevice implements Serializable {
     /**
      * 设备购买时间
      */
-    @NotBlank(message = "deviceProduceDate must cannot empty")
     @ApiModelProperty(value = "设备购买时间", example = "2018.06.25")
     @Column(name = "device_produce_date")
     private LocalDate deviceProduceDate;
@@ -78,7 +77,7 @@ public class InfoDevice implements Serializable {
     @NotNull(message = "deviceServiceLife must cannot empty")
     @ApiModelProperty(value = "仪器的使用年限", example = "5")
     @Column(name = "device_service_life")
-    private Float deviceServiceLife;
+    private Double deviceServiceLife;
 
     /**
      * 数据创建时间
@@ -97,4 +96,11 @@ public class InfoDevice implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
+
+    public InfoDevice(@NotBlank(message = "deviceCode must cannot empty") String deviceCode, @NotBlank(message = "deviceSerialNumber must cannot empty") String deviceSerialNumber, @NotNull(message = "deviceServiceLife must cannot empty") Double deviceServiceLife) {
+        this.deviceCode = deviceCode;
+        this.deviceSerialNumber = deviceSerialNumber;
+        this.deviceServiceLife = deviceServiceLife;
+    }
 }

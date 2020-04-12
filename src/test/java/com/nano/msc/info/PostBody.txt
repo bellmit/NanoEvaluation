@@ -1,0 +1,17 @@
+
+上传手术信息
+{"data":"{\"admissionNumber\":\"123150\",\"age\":78,\"anesthesiaMode\":\"局麻\",\"asaLevel\":3,\"height\":178,\"hospitalOperationNumber\":\"AS12350\",\"isUrgent\":false,\"medicalHistory\":\"无\",\"operationName\":\"XXXXXXX\",\"operationState\":1,\"patientId\":\"123456789987654350\",\"sex\":1,\"specialCase\":\"无\",\"usedDeviceInfo\":\"[{\\\"deviceCode\\\":\\\"30\\\",\\\"deviceSerialNumber\\\":\\\"XB123789\\\",\\\"deviceServiceLife\\\":12.0},{\\\"deviceCode\\\":\\\"31\\\",\\\"deviceSerialNumber\\\":\\\"XB123789\\\",\\\"deviceServiceLife\\\":12.0},{\\\"deviceCode\\\":\\\"32\\\",\\\"deviceSerialNumber\\\":\\\"XB123789\\\",\\\"deviceServiceLife\\\":12.0},{\\\"deviceCode\\\":\\\"33\\\",\\\"deviceSerialNumber\\\":\\\"XB123789\\\",\\\"deviceServiceLife\\\":12.0},{\\\"deviceCode\\\":\\\"0\\\",\\\"deviceSerialNumber\\\":\\\"\\\",\\\"deviceServiceLife\\\":0.0},{\\\"deviceCode\\\":\\\"0\\\",\\\"deviceSerialNumber\\\":\\\"\\\",\\\"deviceServiceLife\\\":0.0}]\",\"weight\":78.0}","mac":"08:00:20:0A:8C:6D","operationNumber":-1,"requestCode":103}
+
+开始采集数据
+{"data":"","mac":"08:00:20:0A:8C:6D","operationNumber":26,"requestCode":105}
+
+上传标记数据
+{"data":"[{\"giveMedicineMethod\":\"注射\",\"giveMedicineVolume\":\"12.3\",\"markEvent\":\"阿莫西林\",\"markMainType\":\"给药\",\"markSubType\":\"抗生素\",\"markTime\":\"2020-04-12T18:30:37.324014800\",\"operationNumber\":26,\"sideEffect\":\"无\"},{\"giveMedicineMethod\":\"注射\",\"giveMedicineVolume\":\"12.43\",\"markEvent\":\"阿莫西林2\",\"markMainType\":\"给药\",\"markSubType\":\"抗生素\",\"markTime\":\"2020-04-12T18:30:37.324014800\",\"operationNumber\":26,\"sideEffect\":\"无\"},{\"giveMedicineMethod\":\"注射\",\"giveMedicineVolume\":\"12.3\",\"markEvent\":\"阿莫西林3\",\"markMainType\":\"给药\",\"markSubType\":\"抗生素\",\"markTime\":\"2020-04-12T18:30:37.324014800\",\"operationNumber\":26,\"sideEffect\":\"无\"},{\"giveMedicineMethod\":\"注射\",\"giveMedicineVolume\":\"0.98\",\"markEvent\":\"阿莫西林4\",\"markMainType\":\"给药\",\"markSubType\":\"抗生素\",\"markTime\":\"2020-04-12T18:30:37.324014800\",\"operationNumber\":26,\"sideEffect\":\"无\"},{\"giveMedicineMethod\":\"---\",\"giveMedicineVolume\":\"---\",\"markEvent\":\"麻醉开始\",\"markMainType\":\"事件\",\"markSubType\":\"基本事件\",\"markTime\":\"2020-04-12T18:30:37.324014800\",\"operationNumber\":26,\"sideEffect\":\"无\"}]","mac":"08:00:20:0A:8C:6D","operationNumber":26,"requestCode":109}
+
+
+结束采集
+{"data":"","mac":"08:00:20:0A:8C:6D","operationNumber":26,"requestCode":111}
+
+
+上传评价数据
+{"data":"[{\"deviceCode\":30,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX123\"},{\"deviceCode\":31,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX124\"},{\"deviceCode\":32,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX125\"},{\"deviceCode\":32,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX126\"}]","mac":"08:00:20:0A:8C:6D","operationNumber":26,"requestCode":113}
