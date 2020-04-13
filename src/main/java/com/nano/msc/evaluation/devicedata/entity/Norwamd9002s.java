@@ -47,6 +47,19 @@ public class Norwamd9002s implements Serializable {
     private Integer id;
 
     /**
+     * 序列号
+     */
+    @Column(name = "device_serial_number")
+    private String serialNumber;
+
+    /**
+     * 手术顺序号
+     */
+    @NotNull(message = "operationNumber must cannot empty")
+    @Column(name = "operation_number")
+    private Integer operationNumber;
+
+    /**
      *
      */
     @Column(name = "BS")
@@ -88,16 +101,5 @@ public class Norwamd9002s implements Serializable {
     @UpdateTimestamp
     private LocalDateTime gmtModified;
 
-    /**
-     * 序列号
-     */
-    @Column(name = "device_serial_number")
-    private String serialNumber;
 
-    /**
-     * 手术顺序号
-     */
-    @NotNull(message = "operationNumber must cannot empty")
-    @Column(name = "operation_number")
-    private Integer operationNumber;
 }

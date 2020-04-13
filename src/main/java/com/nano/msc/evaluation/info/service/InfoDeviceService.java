@@ -7,9 +7,6 @@ public interface InfoDeviceService {
 
     InfoDevice save(InfoDevice infoDevice);
 
-
     InfoDevice findByDeviceCodeAndDeviceSerialNumber(String deviceCode, String deviceSerialNumber);
-
-
 
 }

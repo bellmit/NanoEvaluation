@@ -1,7 +1,5 @@
 package com.nano.msc.evaluation.devicedata.parse.base;
 
-import com.nano.msc.evaluation.devicedata.parse.DeviceData;
-
 
 /**
  * 解析采集器上传而来的仪器监测数据基类
@@ -17,7 +15,7 @@ public interface DeviceDataParser {
      * @param deviceRawData 原始数据
      * @return 解析后的仪器对象
      */
-    DeviceData parseDeviceDataString(String deviceRawData);
+    boolean parseDeviceDataStringAndSave(String deviceRawData);
 
 
 }

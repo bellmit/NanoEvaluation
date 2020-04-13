@@ -9,8 +9,8 @@ public class ParserPuKe implements DeviceDataParser {
 
 
     @Override
-    public DeviceData parseDeviceDataString(String deviceRawData) {
-        return null;
+    public boolean parseDeviceDataStringAndSave(String deviceRawData) {
+        return false;
     }
 
 
