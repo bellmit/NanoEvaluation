@@ -2,8 +2,6 @@ package com.nano.msc.evaluation.info.service.impl;
 
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
-import com.nano.msc.common.vo.CollectionVo;
-import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;

@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.info.controller;
 
 import com.nano.msc.common.exceptions.ExceptionAsserts;
-import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.evaluation.param.ParamCollector;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.service.DeviceDataCollectionService;
@@ -37,7 +37,7 @@ public class DeviceDataCollectionController {
      */
     @PostMapping("/collectdata")
     @ApiOperation(value = "接收采集器各种通信数据")
-    public CommonResult<CollectionVo> handleCollectorPostData(
+    public CommonResult<ResultVo> handleCollectorPostData(
            @Valid @RequestBody ParamCollector paramCollector) {
         if (paramCollector == null) {
             ExceptionAsserts.fail("仪器数据请求失败");

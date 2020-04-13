@@ -1,6 +1,6 @@
 package com.nano.msc.evaluation.info.service;
 
-import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.param.ParamCollector;
 
@@ -16,7 +16,7 @@ public interface DeviceDataCollectionService {
      * @param paramCollector 数据实体参数
      * @return 处理结果
      */
-    CommonResult<CollectionVo> handleCollectorPostData(ParamCollector paramCollector);
+    CommonResult<ResultVo> handleCollectorPostData(ParamCollector paramCollector);
 
 
 }

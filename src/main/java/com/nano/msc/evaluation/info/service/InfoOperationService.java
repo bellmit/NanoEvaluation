@@ -1,7 +1,5 @@
 package com.nano.msc.evaluation.info.service;
 
-import com.nano.msc.common.vo.CollectionVo;
-import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 
 import java.util.List;

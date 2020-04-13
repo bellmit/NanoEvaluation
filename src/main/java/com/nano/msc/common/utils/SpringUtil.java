@@ -1,4 +1,4 @@
-package com.nano.msc.auth.util;
+package com.nano.msc.common.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

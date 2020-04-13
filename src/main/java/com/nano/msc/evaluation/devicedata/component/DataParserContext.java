@@ -1,6 +1,6 @@
 package com.nano.msc.evaluation.devicedata.component;
 
-import com.nano.msc.auth.util.SpringUtil;
+import com.nano.msc.common.utils.SpringUtil;
 import com.nano.msc.evaluation.devicedata.parser.ParserBaoLaiTeA8;
 import com.nano.msc.evaluation.devicedata.parser.ParserLiBangEliteV8;
 import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiT8;
@@ -14,7 +14,6 @@ import com.nano.msc.evaluation.enums.DeviceCodeEnum;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;

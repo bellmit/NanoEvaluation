@@ -2,7 +2,7 @@ package com.nano.msc.evaluation.devicedata.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.nano.msc.common.enums.ExceptionEnum;
-import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.devicedata.component.DataParserContext;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
@@ -51,10 +51,10 @@ public class DeviceDataServiceImpl implements DeviceDataService {
      * @return 是否成功
      */
     @Override
-    public CommonResult<CollectionVo> handleCollectorPostDeviceData(ParamCollector paramCollector) {
+    public CommonResult<ResultVo> handleCollectorPostDeviceData(ParamCollector paramCollector) {
 
         if (paramCollector == null) {
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_FORMAT_ERROR));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR));
         }
 
         // 原始待解析的数据
@@ -62,27 +62,27 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         int operationNumber = paramCollector.getOperationNumber();
         // TODO:判断当前的手术场次号是否处于正在采集状态，不是则不要
         if (operationNumber < 0) {
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
         }
         ParamDeviceData paramDeviceData;
         try {
             paramDeviceData = JSON.parseObject(rawData, ParamDeviceData.class);
         } catch (Exception e) {
             e.printStackTrace();
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据参数解析异常"));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据参数解析异常"));
         }
 
         // 说明存在这个仪器的解析器
         if (!dataParserMap.containsKey(paramDeviceData.getDeviceCode())) {
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE, "没有对应仪器号"));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE, "没有对应仪器号"));
         }
 
         boolean success = dataParserMap.get(paramDeviceData.getDeviceCode()).parseDeviceDataStringAndSave(paramDeviceData.getDeviceData());
         if(!success) {
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据解析错误"));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据解析错误"));
         }
         logger.info("接收仪器数据:" + paramDeviceData.toString());
-        return CommonResult.success(CollectionVo.responseDeviceData());
+        return CommonResult.success(ResultVo.responseDeviceData());
     }
 
 

@@ -5,7 +5,7 @@ import com.nano.msc.common.enums.CollectCodeEnum;
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.CollectionUtil;
-import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.enums.DeviceCodeEnum;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
@@ -64,12 +64,12 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
      */
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
-    public CommonResult<CollectionVo> handleCollectorPostData(ParamCollector paramCollector) {
+    public CommonResult<ResultVo> handleCollectorPostData(ParamCollector paramCollector) {
 
         int requestCode = paramCollector.getRequestCode();
         // 返回服务器状态
         if (requestCode == CollectCodeEnum.SERVER_STATUS.getCode()) {
-            return CommonResult.success(CollectionVo.responseServerStatus());
+            return CommonResult.success(ResultVo.responseServerStatus());
 
             // 接收到手术信息数据
         } else if (requestCode == CollectCodeEnum.COLLECTION_OPERATION_INFO.getCode()) {
@@ -85,7 +85,7 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
                 infoOperation.setOperationStartTime(LocalDateTime.now());
                 infoOperation.setOperationEndTime(LocalDateTime.now());
             } catch (Exception e) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "手术基本信息参数错误"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "手术基本信息参数错误"));
             }
             // 将手术信息存储入数据库，如果成功则返回存入信息，否则抛异常
             InfoOperation savedInfoOperation = operationService.handleNewOperationInfoRequestAndSave(infoOperation);
@@ -124,21 +124,21 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
                 }
             }
             if (!matchFlag) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_SAVE_ERROR, "使用仪器信息全部无效"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_SAVE_ERROR, "使用仪器信息全部无效"));
             }
             log.info("Insert operation info:" + infoOperation.toString());
-            return CommonResult.success(CollectionVo.responseOperationInfo(infoOperation.getOperationNumber()));
+            return CommonResult.success(ResultVo.responseOperationInfo(infoOperation.getOperationNumber()));
 
             // 收到手术开始信息
         } else if(requestCode == CollectCodeEnum.COLLECTION_START_OPERATION.getCode()) {
             int operationNumber = paramCollector.getOperationNumber();
             InfoOperation operation = operationService.findByOperationNumber(operationNumber);
             if(operation == null) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
             } else {
                 // 说明当前手术状态不是等待状态 则不能开始
                 if (!operation.getOperationState().equals(OperationStateEnum.PREPARING.getCode())) {
-                    return CommonResult.failed(CollectionVo.error(ExceptionEnum.NO_LEADING_DATA, "手术已经开始或者已经结束"));
+                    return CommonResult.failed(ResultVo.error(ExceptionEnum.NO_LEADING_DATA, "手术已经开始或者已经结束"));
                 } else {
                     // 将手术状态设置为正在进行
                     operation.setOperationStartTime(LocalDateTime.now());
@@ -148,39 +148,39 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
                 }
             }
             // 回复OK
-            return CommonResult.success(CollectionVo.responseStartOperation());
+            return CommonResult.success(ResultVo.responseStartOperation());
             // 收到手术标记信息
         } else if(requestCode == CollectCodeEnum.COLLECTION_OPERATION_MARK.getCode()) {
 
             // 获取当前手术信息
             InfoOperation operation = operationService.findByOperationNumber(paramCollector.getOperationNumber());
             if(operation == null) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_NOT_EXIST, "当前标记无对应手术场次号"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "当前标记无对应手术场次号"));
             }
             // 解析标记信息为列表
             List<InfoOperationMark> operationMarkList;
             try {
                 operationMarkList = JSONObject.parseArray(paramCollector.getData(), InfoOperationMark.class);
             } catch (Exception e) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "手术标记信息参数错误"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "手术标记信息参数错误"));
             }
 
             // TODO:需要判断标记的时间与手术时间，标记时间必须在手术范围之内 前期不好控制，可以后期进行删选
             // 此处设置手术场次号
             operationMarkList.forEach(mark -> mark.setOperationNumber(paramCollector.getOperationNumber()));
             markService.saveAll(operationMarkList);
-            return CommonResult.success(CollectionVo.responseMarkInfo());
+            return CommonResult.success(ResultVo.responseMarkInfo());
 
             // 收到手术结束信息
         } else if(requestCode == CollectCodeEnum.COLLECTION_STOP_OPERATION.getCode()) {
             int operationNumber = paramCollector.getOperationNumber();
             InfoOperation operation = operationService.findByOperationNumber(operationNumber);
             if(operation == null) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
             } else {
                 // 说明当前手术状态不是开始状态 则不能开始
                 if (!operation.getOperationState().equals(OperationStateEnum.PROGRESSING.getCode())) {
-                    return CommonResult.failed(CollectionVo.error(ExceptionEnum.NO_LEADING_DATA, "手术暂未开始或者已经结束"));
+                    return CommonResult.failed(ResultVo.error(ExceptionEnum.NO_LEADING_DATA, "手术暂未开始或者已经结束"));
                 } else {
                     // 将手术状态设置为已经结束
                     operation.setOperationEndTime(LocalDateTime.now());
@@ -191,7 +191,7 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
             }
 
             // 回复OK
-            return CommonResult.success(CollectionVo.responseStopOperation());
+            return CommonResult.success(ResultVo.responseStopOperation());
 
             // 收到手术后仪器评价信息
         } else if(requestCode == CollectCodeEnum.COLLECTION_DEVICE_EVALUATION.getCode()) {
@@ -199,20 +199,20 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
             // 获取当前手术信息
             InfoOperation operation = operationService.findByOperationNumber(paramCollector.getOperationNumber());
             if(operation == null) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_NOT_EXIST, "当前标记无对应手术场次号"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "当前标记无对应手术场次号"));
             }
             // 解析术后评价信息为列表
             List<InfoEvaluation> evaluationList;
             try {
                 evaluationList = JSONObject.parseArray(paramCollector.getData(), InfoEvaluation.class);
             } catch (Exception e) {
-                return CommonResult.failed(CollectionVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "术后仪器评价信息参数错误"));
+                return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "术后仪器评价信息参数错误"));
             }
             evaluationService.saveAll(evaluationList);
-            return CommonResult.success(CollectionVo.responseDeviceEvaluation());
+            return CommonResult.success(ResultVo.responseDeviceEvaluation());
             // 未知的请求Code
         } else {
-            return CommonResult.failed(CollectionVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE));
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE));
         }
     }
 

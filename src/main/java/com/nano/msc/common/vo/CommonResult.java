@@ -3,7 +3,10 @@ package com.nano.msc.common.vo;
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.enums.ResultCodeEnum;
 
+import org.springframework.data.domain.Page;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 通用返回对象
@@ -37,6 +40,18 @@ public class CommonResult<T> implements Serializable {
         this.data = data;
     }
 
+
+
+
+    /**
+     * 成功返回结果
+     *
+     * @param data 获取的数据
+     */
+    public static <T> CommonResult<String> success() {
+        return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), "");
+    }
+
     /**
      * 成功返回结果
      *
@@ -59,13 +74,6 @@ public class CommonResult<T> implements Serializable {
 
 
 
-    /**
-     * 失败返回结果
-     */
-    public static <ErrorVo> CommonResult<ErrorVo> failed(ErrorVo errorVo) {
-        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(),
-                errorVo);
-    }
 
     /**
      * 失败返回结果
@@ -84,13 +92,13 @@ public class CommonResult<T> implements Serializable {
         return new CommonResult<T>(code, message, null);
     }
 
+
     /**
      * 失败返回结果
-     * @param errorCode 错误码
-     * @param message 错误信息
+     * @param resultVo 提示信息
      */
-    public static <T> CommonResult<T> failed(IErrorCode errorCode, String message) {
-        return new CommonResult<T>(errorCode.getCode(), message, null);
+    public static <T> CommonResult<ResultVo> failed(ResultVo resultVo) {
+        return new CommonResult<>(ResultCodeEnum.FAILED.getCode(), ResultCodeEnum.FAILED.getMessage(), resultVo);
     }
 
     /**

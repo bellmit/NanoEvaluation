@@ -1,6 +1,6 @@
 package com.nano.msc.evaluation.devicedata.service;
 
-import com.nano.msc.common.vo.CollectionVo;
+import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.param.ParamCollector;
 
@@ -10,7 +10,7 @@ import com.nano.msc.evaluation.param.ParamCollector;
  */
 public interface DeviceDataService {
 
-    CommonResult<CollectionVo> handleCollectorPostDeviceData(ParamCollector paramCollector);
+    CommonResult<ResultVo> handleCollectorPostDeviceData(ParamCollector paramCollector);
 
 
 }

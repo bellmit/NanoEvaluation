@@ -20,8 +20,9 @@ import lombok.Data;
  */
 @Data
 @Valid
-@Component
 public class ParamCollector implements Serializable {
+
+    private static final long serialVersionUID = 233410313723289238L;
 
     /**
      * 数据传输操作码
