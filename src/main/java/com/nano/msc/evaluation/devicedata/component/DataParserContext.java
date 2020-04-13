@@ -1,9 +1,15 @@
 package com.nano.msc.evaluation.devicedata.component;
 
-import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
-import com.nano.msc.evaluation.devicedata.parse.NuoHeParser;
-import com.nano.msc.evaluation.devicedata.parse.base.DeviceDataParser;
-import com.nano.msc.evaluation.devicedata.repository.Norwamd9002sRepository;
+import com.nano.msc.auth.util.SpringUtil;
+import com.nano.msc.evaluation.devicedata.parser.ParserBaoLaiTeA8;
+import com.nano.msc.evaluation.devicedata.parser.ParserLiBangEliteV8;
+import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiT8;
+import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiWatoex55Pro;
+import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiWatoex65;
+import com.nano.msc.evaluation.devicedata.parser.ParserNuoHe;
+import com.nano.msc.evaluation.devicedata.parser.ParserPuKe;
+import com.nano.msc.evaluation.devicedata.parser.ParserYiAn8700A;
+import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.enums.DeviceCodeEnum;
 
 import org.springframework.beans.BeansException;
@@ -11,14 +17,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.persistence.Access;
 
 import lombok.Getter;
 
@@ -30,20 +32,12 @@ import lombok.Getter;
 public class DataParserContext implements InitializingBean, ApplicationContextAware {
 
 
-    @Autowired
-    private NuoHeParser nuoHeParser;
-
-    @Autowired
-    private Norwamd9002sRepository norwamd9002sRepository;
-
     /**
      * 仪器数据解析的Map 键是DeviceCode，值是对应的DataParser
      */
     @Getter
     private Map<Integer, DeviceDataParser> dataParserMap;
 
-    @Getter
-    private Map<Integer, JpaRepository> repositoryMap;
 
 
     /**
@@ -57,7 +51,6 @@ public class DataParserContext implements InitializingBean, ApplicationContextAw
      */
     public DataParserContext() {
         dataParserMap = new HashMap<>();
-        repositoryMap = new HashMap<>();
     }
 
 
@@ -66,9 +59,17 @@ public class DataParserContext implements InitializingBean, ApplicationContextAw
      */
     @Override
     public void afterPropertiesSet() {
+
         // 容器初始化后进行组件装配
-        dataParserMap.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), nuoHeParser);
-        repositoryMap.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), norwamd9002sRepository);
+        // 将解析器注入到上下文容器中
+        dataParserMap.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), SpringUtil.getBean(ParserNuoHe.class));
+        dataParserMap.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), SpringUtil.getBean(ParserPuKe.class));
+        dataParserMap.put(DeviceCodeEnum.BAO_LAI_TE.getCode(), SpringUtil.getBean(ParserBaoLaiTeA8.class));
+        dataParserMap.put(DeviceCodeEnum.LI_BANG_ELITE_V8.getCode(), SpringUtil.getBean(ParserLiBangEliteV8.class));
+        dataParserMap.put(DeviceCodeEnum.MAI_RUI_T8.getCode(), SpringUtil.getBean(ParserMaiRuiT8.class));
+        dataParserMap.put(DeviceCodeEnum.MAI_RUI_WATOEX_55_PRO.getCode(), SpringUtil.getBean(ParserMaiRuiWatoex55Pro.class));
+        dataParserMap.put(DeviceCodeEnum.MAI_RUI_WATOEX_65.getCode(), SpringUtil.getBean(ParserMaiRuiWatoex65.class));
+        dataParserMap.put(DeviceCodeEnum.YI_AN_8700_A.getCode(), SpringUtil.getBean(ParserYiAn8700A.class));
     }
 
     @Override

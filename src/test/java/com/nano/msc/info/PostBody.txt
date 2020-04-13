@@ -17,4 +17,8 @@
 {"data":"[{\"deviceCode\":30,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX123\"},{\"deviceCode\":31,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX124\"},{\"deviceCode\":32,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX125\"},{\"deviceCode\":32,\"deviceDepartment\":\"麻醉科\",\"experienceLevel\":\"满意\",\"hasError\":false,\"knownError\":\"\",\"operationNumber\":26,\"otherError\":\"\",\"recordName\":\"张良\",\"reliabilityLevel\":\"可靠性高\",\"remark\":\"无\",\"serialNumber\":\"ABSXXX126\"}]","mac":"08:00:20:0A:8C:6D","operationNumber":26,"requestCode":113}
 
 上传仪器数据
+诺和：
 {"data":"{\"deviceCode\":30,\"deviceData\":\"{\\\"bS\\\":12,\\\"cSI\\\":45,\\\"eMG\\\":45,\\\"operationNumber\\\":27,\\\"sQI\\\":67,\\\"serialNumber\\\":\\\"X123123\\\"}\"}","mac":"08:00:20:0A:8C:6D","operationNumber":27,"requestCode":107}
+普可：
+{"data":"{\"deviceCode\":31,\"deviceData\":\"{\\\"aI\\\":45,\\\"bSR\\\":12,\\\"eMG\\\":87,\\\"operationNumber\\\":27,\\\"sQI\\\":90,\\\"serialNumber\\\":\\\"X123123\\\"}\"}","mac":"08:00:20:0A:8C:6D","operationNumber":27,"requestCode":107}
+

@@ -1,4 +1,4 @@
-package com.nano.msc.evaluation.devicedata.parse.base;
+package com.nano.msc.evaluation.devicedata.parser.base;
 
 
 /**
