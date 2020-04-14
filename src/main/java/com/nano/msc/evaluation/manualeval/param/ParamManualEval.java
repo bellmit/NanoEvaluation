@@ -25,8 +25,8 @@ public class ParamManualEval implements Serializable {
     /**
      * 数据传输操作码
      */
-    @Min(value = 100, message = "请求Code不能低于协议最小值")
-    @Max(value = 200, message = "请求Code不能高于协议最小值")
+    @Min(value = 10, message = "请求Code不能低于协议最小值")
+    @Max(value = 40, message = "请求Code不能高于协议最小值")
     @ApiModelProperty(example = "101")
     @NotNull(message = "请求Code不能为空")
     private Integer requestCode;

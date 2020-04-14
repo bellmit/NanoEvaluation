@@ -26,10 +26,14 @@ import com.nano.msc.evaluation.manualeval.service.impl.ManualEvalServiceSystemSe
 import com.nano.msc.system.log.service.SystemLogService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+
+import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +51,8 @@ public class ManualEvaluationController {
     @Autowired
     private ManualEvaluationService manualEvaluationService;
 
-    @RequestMapping("/post_record")
-    public CommonResult postManualEvaluationRecords(ParamManualEval paramManualEval) {
+    @PostMapping("/post_record")
+    public CommonResult postManualEvaluationRecords(@Valid @RequestBody ParamManualEval paramManualEval) {
         return manualEvaluationService.saveManualEvaluationInfo(paramManualEval);
     }
 

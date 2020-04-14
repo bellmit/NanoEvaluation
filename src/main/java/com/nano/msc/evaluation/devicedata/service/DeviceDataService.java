@@ -12,5 +12,12 @@ public interface DeviceDataService {
 
     CommonResult<ResultVo> handleCollectorPostDeviceData(ParamCollector paramCollector);
 
+    /**
+     * 使用手术场次号+仪器号获取这个仪器最新的仪器数据
+     * @param operationNumber 手术场次号
+     * @param deviceCode 仪器号
+     * @return 最新数据实体
+     */
+    CommonResult getNewestDeviceData(Integer operationNumber, Integer deviceCode);
 
 }

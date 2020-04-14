@@ -5,11 +5,13 @@ import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.devicedata.component.DataParserContext;
+import com.nano.msc.common.constants.CacheCons;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.service.DeviceDataService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.param.ParamCollector;
+import com.nano.msc.redis.service.RedisService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,8 @@ public class DeviceDataServiceImpl implements DeviceDataService {
     private Map<Integer, DeviceDataParser> dataParserMap;
 
 
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 处理采集器上传而来的仪器数据
@@ -76,13 +80,51 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         if (!dataParserMap.containsKey(paramDeviceData.getDeviceCode())) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE, "没有对应仪器号"));
         }
-
+        // 解析并存储这个JSON
         boolean success = dataParserMap.get(paramDeviceData.getDeviceCode()).parseDeviceDataStringAndSave(paramDeviceData.getDeviceData());
         if(!success) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据解析错误"));
         }
         logger.info("接收仪器数据:" + paramDeviceData.toString());
+
+        // 将最新的数据存入Redis
+        String key = CacheCons.NEWEAST_DEVICE_DATA_HEAD + operationNumber
+                + CacheCons.SEPARATOR + paramDeviceData.getDeviceCode();
+        redisService.set(key, paramDeviceData.getDeviceData(), 3600);
+
         return CommonResult.success(ResultVo.responseDeviceData());
+    }
+
+
+    /**
+     * 使用手术场次号+仪器号获取这个仪器最新的仪器数据
+     * @param operationNumber 手术场次号
+     * @param deviceCode 仪器号
+     * @return 最新数据实体
+     */
+    @Override
+    public CommonResult getNewestDeviceData(Integer operationNumber, Integer deviceCode) {
+
+        String key = CacheCons.NEWEAST_DEVICE_DATA_HEAD + operationNumber
+                + CacheCons.SEPARATOR + deviceCode;
+        // 获取最新数据的JSON字符串
+        String redisData = (String) redisService.get(key);
+
+        // 缓存命中直接返回结果
+        if (redisData != null) {
+            return CommonResult.success(redisData);
+        }
+
+        // 缓存没有命中
+        // 首先看看当前的手术场次号是否正在进行--即是否在Redis的一个手术场次号构成的集合中
+        boolean isValidOperationNumber = redisService.sIsMember(CacheCons.OPERATION_NUMBER_SET, operationNumber);
+        if (!isValidOperationNumber) {
+            // 返回空数据
+            return CommonResult.success("");
+        }
+
+        // 如果是开始状态，但是依然可能没有数据，此时直接返回空？？此处还需要斟酌一下
+        return CommonResult.success("");
     }
 
 

@@ -191,19 +191,19 @@ public class ServiceCrudCheckUtils {
         return CommonResult.success();
     }
 
-//    /**
-//     * 查询所有数据
-//     *
-//     * @param jpaRepository jpaRepository
-//     * @param page          页码
-//     * @param size          条数
-//     * @param <T>           泛型类型
-//     * @param <ID>          类的ID类型
-//     * @return ResultDTO
-//     */
-//    public static <T, ID> CommonResult listObjectAndCheck(JpaRepository<T, ID> jpaRepository, int page, int size) {
-//        return CommonResult.checkAndReturn(jpaRepository.findAll(PageRequest.of(page, size)));
-//    }
+    /**
+     * 查询所有数据
+     *
+     * @param jpaRepository jpaRepository
+     * @param page          页码
+     * @param size          条数
+     * @param <T>           泛型类型
+     * @param <ID>          类的ID类型
+     * @return ResultDTO
+     */
+    public static <T, ID> CommonResult listObjectAndCheck(JpaRepository<T, ID> jpaRepository, int page, int size) {
+        return CommonResult.success(jpaRepository.findAll(PageRequest.of(page, size)));
+    }
 
     /**
      * 更新数据库对象同时检查数据更新成功

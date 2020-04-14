@@ -22,3 +22,6 @@
 普可：
 {"data":"{\"deviceCode\":31,\"deviceData\":\"{\\\"aI\\\":45,\\\"bSR\\\":12,\\\"eMG\\\":87,\\\"operationNumber\\\":27,\\\"sQI\\\":90,\\\"serialNumber\\\":\\\"X123123\\\"}\"}","mac":"08:00:20:0A:8C:6D","operationNumber":27,"requestCode":107}
 
+
+上传人工评价--serviceSystem（字段不完整）
+{"data":"{\"afterSaleServiceComplaintHandingSatisfaction\":\"123\",\"afterSaleServiceFaultExcludeTime\":\"2018.06\",\"afterSaleServiceProducerAttitude\":\"测试\",\"averageMaintainTimeWhenDeviceFault\":\"Eval\",\"companyName\":\"诺和\",\"deviceCategory\":\"麻醉机\",\"doctorDepartment\":\"麻醉科\",\"doctorName\":\"Test\"}","requestCode":21}
