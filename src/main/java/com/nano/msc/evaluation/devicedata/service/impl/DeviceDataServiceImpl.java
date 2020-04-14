@@ -112,6 +112,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 
         // 缓存命中直接返回结果
         if (redisData != null) {
+            logger.info("取缓存");
             return CommonResult.success(redisData);
         }
 
