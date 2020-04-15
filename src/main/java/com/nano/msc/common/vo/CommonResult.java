@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * 通用返回对象
- * Created by macro on 2019/4/19.
+ * @author nano
  */
 public class CommonResult<T> implements Serializable {
 
@@ -46,7 +46,7 @@ public class CommonResult<T> implements Serializable {
     /**
      * 成功返回结果
      *
-     * @param data 获取的数据
+     * @param <T> String 获取的数据
      */
     public static <T> CommonResult<String> success() {
         return new CommonResult<>(ResultCodeEnum.SUCCESS.getCode(), ResultCodeEnum.SUCCESS.getMessage(), "");

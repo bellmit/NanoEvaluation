@@ -31,7 +31,7 @@ public class ManualEvalApplicationAnesthesiaMachine implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_id")
+    @Column(name = "id")
     private Integer id;
 
     private String companyName;

@@ -664,67 +664,9 @@ CREATE table `eval_non_invasive_hemoglobin` (
     PRIMARY KEY(`pk_id`)
 ) COMMENT '无创血红蛋白';
 
-CREATE table `eval_maintenance_schedule` (
-    `pk_id`
-    SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-    `name`
-    VARCHAR(64) NOT NULL COMMENT '原始值',
-    `hospital_name`
-    VARCHAR(64) NOT NULL COMMENT '医院名称',
-    `device_producer`
-    VARCHAR(64) NOT NULL COMMENT '仪器厂家',
-    `device_name`
-    VARCHAR(64) NOT NULL COMMENT '仪器名称',
-    `device_unique_id`
-    VARCHAR(64) NOT NULL COMMENT '仪器编号',
-    `has_been_used_years`
-    VARCHAR(64) NOT NULL COMMENT '已使用年限',
-    `guarantee_period`
-    VARCHAR(64) NOT NULL COMMENT '质保期',
-    `extend_warranty_price`
-    VARCHAR(64) NOT NULL COMMENT '延保费用',
-    `charge_man`
-    VARCHAR(64) NOT NULL COMMENT '负责人',
-    `fault_happen_time`
-    VARCHAR(64) NOT NULL COMMENT '发生故障时间',
-    `inform_maintain_time`
-    VARCHAR(64) NOT NULL COMMENT '通知维修时间',
-    `start_maintain_time`
-    VARCHAR(64) NOT NULL COMMENT '开始维修时间',
-    `recover_use_time`
-    VARCHAR(64) NOT NULL COMMENT '恢复使用时间',
-    `maintain_way`
-    VARCHAR(64) NOT NULL COMMENT '维修方式',
-    `maintain_person`
-    VARCHAR(64) NOT NULL COMMENT '维修人员',
-    `is_in_warranty_period`
-    VARCHAR(64) NOT NULL COMMENT '保修期内',
-    `fault_reason`
-    VARCHAR(64) NOT NULL COMMENT '故障原因',
-    `is_change_accessory`
-    VARCHAR(64) NOT NULL COMMENT '更换配件',
-    `is_fix_fault`
-    VARCHAR(64) NOT NULL COMMENT '故障解决',
-    `maintain_response_time_satisfaction`
-    VARCHAR(64) NOT NULL COMMENT '维修响应时间满意度',
-    `maintain_price_satisfaction`
-    VARCHAR(64) NOT NULL COMMENT '维修价格满意度',
-    `maintain_service_attitude_satisfaction`
-    VARCHAR(64) NOT NULL COMMENT '维修服务态度满意度',
-    `maintain_whole_process_satisfaction`
-    VARCHAR(64) NOT NULL COMMENT '维修过程整体满意度',
-    `accessory_price`
-    VARCHAR(64) NOT NULL COMMENT '费用_配件费',
-    `maintain_price`
-    VARCHAR(64) NOT NULL COMMENT '费用_维修费',
-    `other_price`
-    VARCHAR(64) NOT NULL COMMENT '费用_其他',
-    `gmt_create`
-    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `gmt_modified`
-    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    PRIMARY KEY(`pk_id`)
-) COMMENT '维修情况表';
+
+
+
 
 CREATE table `eval_service_system_questionnaire_anesthesia_depth` (
     `pk_id`
