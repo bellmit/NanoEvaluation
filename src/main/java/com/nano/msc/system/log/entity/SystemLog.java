@@ -16,7 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 系统体质表
@@ -27,6 +29,8 @@ import lombok.Data;
 @DynamicUpdate
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "system_log")
 public class SystemLog implements Serializable {
 

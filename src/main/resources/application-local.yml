@@ -9,3 +9,33 @@ spring:
       ddl-auto: update
 #    show-sql: true
 
+
+  kafka:
+    bootstrap-servers: 172.20.29.103:9092
+    listener:
+      missing-to pics-fatal: false
+
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1
+
+    consumer:
+      group-id: 1
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+
+    topic:
+      group-id: topicGroupId
+      topic-name:
+        - topic1
+        - topic2
+        - topic3

@@ -46,6 +46,24 @@ public class DeviceDataController {
         return deviceDataService.handleCollectorPostDeviceData(paramCollector);
     }
 
+
+    /**
+     * 接收平板上传的各种仪器数据
+     *
+     * @return 是否成功
+     */
+    @PostMapping("/collectdata/kafka")
+    @ApiOperation(value = "接收采集器各种通信数据")
+    public CommonResult<ResultVo> handleCollectorPostDataByKafka(
+            @Valid @RequestBody ParamCollector paramCollector) {
+        if (paramCollector == null) {
+            ExceptionAsserts.fail("仪器数据请求失败");
+        }
+        // 进行数据处理并返回结果
+        return deviceDataService.handleCollectorPostDeviceDataByKafka(paramCollector);
+    }
+
+
     /**
      * 获取最新的仪器数据
      *

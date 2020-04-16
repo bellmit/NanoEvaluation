@@ -11,6 +11,7 @@ import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.service.DeviceDataService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.param.ParamCollector;
+import com.nano.msc.mq.consumer.IndicatorService;
 import com.nano.msc.redis.service.RedisService;
 
 import org.slf4j.Logger;
@@ -126,6 +127,40 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 
         // 如果是开始状态，但是依然可能没有数据，此时直接返回空？？此处还需要斟酌一下
         return CommonResult.success("");
+    }
+
+
+    @Autowired
+    private IndicatorService indicatorService;
+
+    /**
+     * 测试Kafka上传数据
+     *
+     * @param paramCollector 参数
+     * @return 是否成功
+     */
+    @Override
+    public CommonResult handleCollectorPostDeviceDataByKafka(ParamCollector paramCollector) {
+
+
+        // 原始待解析的数据
+        String rawData = paramCollector.getData();
+        int operationNumber = paramCollector.getOperationNumber();
+        // TODO:判断当前的手术场次号是否处于正在采集状态，不是则不要
+        if (operationNumber < 0) {
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_NOT_EXIST, "手术场次号不存在"));
+        }
+        ParamDeviceData paramDeviceData;
+        try {
+            paramDeviceData = JSON.parseObject(rawData, ParamDeviceData.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据参数解析异常"));
+        }
+
+        // 发送到消息队列
+        indicatorService.sendMessage("deviceData", paramDeviceData.getDeviceCode() + "@" + paramDeviceData.getDeviceData());
+        return CommonResult.success();
     }
 
 

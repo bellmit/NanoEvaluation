@@ -20,4 +20,7 @@ public interface DeviceDataService {
      */
     CommonResult getNewestDeviceData(Integer operationNumber, Integer deviceCode);
 
+
+    CommonResult handleCollectorPostDeviceDataByKafka(ParamCollector paramCollector);
+
 }

@@ -19,7 +19,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 评价表单实体 用于每次结束数据采集对仪器进行评价
@@ -32,6 +34,8 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "info_evaluation")
+@NoArgsConstructor
+@AllArgsConstructor
 public class InfoEvaluation implements Serializable {
 
     private static final long serialVersionUID = -4113168698465125393L;

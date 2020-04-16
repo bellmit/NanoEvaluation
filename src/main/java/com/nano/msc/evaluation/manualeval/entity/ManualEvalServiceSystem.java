@@ -25,6 +25,7 @@ import lombok.Data;
 @Entity(name = "manualEvalServiceSystem")
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "manual_eval_service_system")
+
 public class ManualEvalServiceSystem implements Serializable {
 
     /**
