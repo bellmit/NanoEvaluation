@@ -35,7 +35,6 @@ public class ResultVo<T> {
         this.data = data;
     }
 
-
     /**
      * 返回出错信息
      *

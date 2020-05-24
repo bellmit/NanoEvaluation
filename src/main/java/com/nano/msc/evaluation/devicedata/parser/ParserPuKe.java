@@ -22,7 +22,12 @@ public class ParserPuKe implements DeviceDataParser {
         PearlcareYy106 deviceData = JSON.parseObject(deviceRawData, PearlcareYy106.class);
 
         // 保存数据
-        return repository.save(deviceData) != null;
+        try {
+            repository.save(deviceData);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

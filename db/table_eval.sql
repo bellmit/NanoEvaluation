@@ -914,7 +914,7 @@ CREATE table `eval_service_system_questionnaire_cerebral_oxygen` (
     `jing_xiao_bi_total_pay_for_maintain_after_buy`
     VARCHAR(64) NOT NULL COMMENT '12.5仪器购入至今维护保养总费用',
     `economic_applicability_performance_rate`
-    VARCHAR(64) NOT NULL COMMENT '仪器整体性价比',
+    VARCHAR(64) NOT NULL COMMENT '12.经济适用性绩效率',
     `economic_applicability_first_guarantee_period`
     VARCHAR(64) NOT NULL COMMENT '厂家提供的首次保修年限',
     `economic_applicability_renewal_method_and_price`
@@ -932,7 +932,7 @@ CREATE table `eval_service_system_questionnaire_cerebral_oxygen` (
     `train_service_clinical_application_training`
     VARCHAR(64) NOT NULL COMMENT '厂家提供的临床应用培训',
     `train_service_device_install_maintain_training`
-    VARCHAR(64) NOT NULL COMMENT '厂家提供的仪器安装保养培训',
+    VARCHAR(64) NOT NULL COMMENT '厂家提供的临床应用培训',
     `after_sale_service_response_time`
     VARCHAR(64) NOT NULL COMMENT '厂家售后响应时间',
     `after_sale_service_fault_exclude_time`

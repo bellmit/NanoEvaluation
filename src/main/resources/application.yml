@@ -27,7 +27,7 @@ spring:
     timeout: 3000ms # 连接超时时间（毫秒）
 
 server:
-  port: 22222
+  port: 8080
   servlet:
     context-path: /eval
 

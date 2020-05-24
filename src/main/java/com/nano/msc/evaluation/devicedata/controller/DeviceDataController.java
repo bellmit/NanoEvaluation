@@ -19,7 +19,13 @@ import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 用于仪器监测数据上传的控制器
+ * @author cz
+ */
+@Slf4j
 @Api(tags = "DeviceDataController", description = "仪器数据上传前端控制器")
 @RestController
 @RequestMapping("/data")
@@ -31,7 +37,7 @@ public class DeviceDataController {
 
 
     /**
-     * 接收平板上传的各种仪器数据
+     * 接收平板上传的各种仪器数据并解析并存到
      *
      * @return 是否成功
      */
@@ -42,19 +48,20 @@ public class DeviceDataController {
         if (paramCollector == null) {
             ExceptionAsserts.fail("仪器数据请求失败");
         }
+        log.info("Device Data:" + paramCollector.toString());
         // 进行数据处理并返回结果
         return deviceDataService.handleCollectorPostDeviceData(paramCollector);
     }
 
 
     /**
-     * 接收平板上传的各种仪器数据
+     * 接收平板上传的各种仪器数据并传入Kafka
      *
      * @return 是否成功
      */
     @PostMapping("/collectdata/kafka")
     @ApiOperation(value = "接收采集器各种通信数据")
-    public CommonResult<ResultVo> handleCollectorPostDataByKafka(
+    public CommonResult handleCollectorPostDataByKafka(
             @Valid @RequestBody ParamCollector paramCollector) {
         if (paramCollector == null) {
             ExceptionAsserts.fail("仪器数据请求失败");
@@ -77,11 +84,7 @@ public class DeviceDataController {
         return deviceDataService.getNewestDeviceData(operationNumber, deviceCode);
     }
 
-    @GetMapping("/test")
-    @ApiOperation(value = "获取最新的仪器数据")
-    public CommonResult test() {
-        return CommonResult.success("");
-    }
+
 
 
 }

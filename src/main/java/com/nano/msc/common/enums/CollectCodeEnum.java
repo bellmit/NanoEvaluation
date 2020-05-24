@@ -16,6 +16,10 @@ public enum CollectCodeEnum {
     SERVER_STATUS(101, "服务器在线"),
     RESPONSE_SERVER_STATUS(102, "服务器在线"),
 
+    // URL:  103  param=103
+
+    // URL:  105
+
     /**
      * 上传手术信息
      */

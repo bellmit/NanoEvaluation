@@ -10,6 +10,12 @@ import com.nano.msc.evaluation.param.ParamCollector;
  */
 public interface DeviceDataService {
 
+    /**
+     * 处理并解析采集器上传的数据
+     *
+     * @param paramCollector 数据参数
+     * @return 是否成功
+     */
     CommonResult<ResultVo> handleCollectorPostDeviceData(ParamCollector paramCollector);
 
     /**
@@ -20,7 +26,10 @@ public interface DeviceDataService {
      */
     CommonResult getNewestDeviceData(Integer operationNumber, Integer deviceCode);
 
-
+    /**
+     * 使用Kafka方式处理数据
+     * @param paramCollector 采集器参数
+     */
     CommonResult handleCollectorPostDeviceDataByKafka(ParamCollector paramCollector);
 
 }

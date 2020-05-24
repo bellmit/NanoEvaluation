@@ -16,11 +16,13 @@ import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 数据采集流程前端控制器
+ * 数据采集流程前端总控制器
  * @author nano
  */
+@Slf4j
 @Api(tags = "DeviceDataCollectionController", description = "数据采集流程前端控制器")
 @RestController
 @RequestMapping("/collection")
@@ -40,10 +42,11 @@ public class DeviceDataCollectionController {
     public CommonResult<ResultVo> handleCollectorPostData(
            @Valid @RequestBody ParamCollector paramCollector) {
         if (paramCollector == null) {
+            log.error("仪器数据请求失败:" + paramCollector.toString());
             ExceptionAsserts.fail("仪器数据请求失败");
         }
         // 进行数据处理并返回结果
-        return deviceDataCollectionService.handleCollectorPostData(paramCollector);
+        return deviceDataCollectionService.handleCollectorPostedData(paramCollector);
     }
 
 }

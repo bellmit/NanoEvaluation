@@ -21,15 +21,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 
 import lombok.Getter;
 
 
 /**
  * 仪器数据解析器上下文
+ *
+ * @author nano
  */
 @Component
 public class DataParserContext implements InitializingBean, ApplicationContextAware {
+
 
 
     /**

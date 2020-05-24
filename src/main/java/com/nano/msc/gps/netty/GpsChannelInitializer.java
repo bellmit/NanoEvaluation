@@ -1,4 +1,4 @@
-package com.nano.msc.netty;
+package com.nano.msc.gps.netty;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
@@ -11,13 +11,13 @@ import io.netty.util.CharsetUtil;
  *
  * netty服务初始化器
  **/
-public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+public class GpsChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         // 添加编解码
         socketChannel.pipeline().addLast("decoder", new StringDecoder(CharsetUtil.UTF_8));
         socketChannel.pipeline().addLast("encoder", new StringEncoder(CharsetUtil.UTF_8));
-        socketChannel.pipeline().addLast(new NettyServerHandler());
-
+        // Add Handler
+        socketChannel.pipeline().addLast(new GpsServerHandler());
     }
 }

@@ -23,7 +23,6 @@ public class RandomTest {
 
         Arrays.sort(data);
 
-
     }
 
 }

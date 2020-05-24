@@ -1,4 +1,4 @@
-package com.nano.msc.netty;
+package com.nano.msc.gps.netty;
 
 import java.net.InetSocketAddress;
 
@@ -16,17 +16,18 @@ import lombok.extern.slf4j.Slf4j;
  * 服务启动监听器
  **/
 @Slf4j
-public class NettyServer {
+public class GpsServer {
 
     public void start(InetSocketAddress socketAddress) {
         // new一个主线程组
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         // new一个工作线程组
         EventLoopGroup workGroup = new NioEventLoopGroup(200);
+
         ServerBootstrap bootstrap = new ServerBootstrap()
                 .group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new ServerChannelInitializer())
+                .childHandler(new GpsChannelInitializer())
                 .localAddress(socketAddress)
                 // 设置队列大小
                 .option(ChannelOption.SO_BACKLOG, 1024)

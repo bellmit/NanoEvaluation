@@ -11,11 +11,11 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
     /**
      * 通过住院号和身份证查找手术信息
      *
-     * @param admissionNumber 住院号
+     * @param admissionId 住院号
      * @param patientId 身份证号码
      * @return 手术信息
      */
-    InfoOperation findByAdmissionNumberAndPatientId(String admissionNumber, String patientId);
+    InfoOperation findByAdmissionIdAndPatientId(String admissionId, String patientId);
 
 
     InfoOperation findByOperationNumber(Integer operationNumber);

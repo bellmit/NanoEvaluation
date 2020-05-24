@@ -49,9 +49,10 @@ public class InfoOperation implements Serializable {
     /**
      * 住院号
      */
-    @NotBlank(message = "operationName must cannot empty")
+    @NotBlank(message = "AdmissionNumber must cannot empty")
     @ApiModelProperty(value = "住院号", example = "438212309123")
-    private String admissionNumber;
+    @Column(name = "admission_id")
+    private String admissionId;
 
     /**
      * 医院的手术顺序号
@@ -77,70 +78,70 @@ public class InfoOperation implements Serializable {
      */
     @NotNull(message = "sex must cannot empty")
     @ApiModelProperty(value = "性别0--男，1--女", example = "0")
-    @Column(name = "sex")
-    private Integer sex;
+    @Column(name = "patient_sex")
+    private Integer patientSex;
 
     /**
      * 身高
      */
     @NotNull(message = "height must cannot empty")
     @ApiModelProperty(value = "身高", example = "180")
-    @Column(name = "height")
-    private Integer height;
+    @Column(name = "patient_height")
+    private Integer patientHeight;
 
     /**
      * 体重
      */
     @NotNull(message = "weight must cannot empty")
     @ApiModelProperty(value = "体重", example = "70")
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "patient_weight")
+    private Double patientWeight;
 
     /**
      * 年龄
      */
-    @NotNull(message = "age must cannot empty")
+    @NotNull(message = "Age must cannot empty")
     @ApiModelProperty(value = "年龄", example = "87")
-    @Column(name = "age")
-    private Integer age;
+    @Column(name = "patient_age")
+    private Integer patientAge;
 
 
     /**************************************手术信息*********************************************/
     /**
      * 手术名称
      */
-    @NotBlank(message = "operationName must cannot empty")
+    @NotNull(message = "OperationName cannot be empty")
     @Column(name = "operation_name")
-    @ApiModelProperty(value = "手术名称", example = "剪脚趾甲")
+    @ApiModelProperty(value = "手术名称", example = "TestName")
     private String operationName;
 
     /**
      * 麻醉方式
      */
-    @Column(name = "anesthesia_mode")
+    @Column(name = "operation_anesthesia_mode")
     @ApiModelProperty(value = "麻醉方式", example = "局部麻醉")
-    private String anesthesiaMode;
+    private String operationAnesthesiaMode;
 
     /**
      * 是否急诊
      */
-    @Column(name = "is_urgent")
+    @Column(name = "operation_is_urgent")
     @ApiModelProperty(value = "是否急诊", example = "true")
-    private Boolean isUrgent;
+    private Boolean operationIsUrgent;
 
     /**
      * ASA等级
      */
-    @Column(name = "asa_level")
+    @Column(name = "operation_asa_level")
     @ApiModelProperty(value = "ASA等级", example = "3")
-    private Integer asaLevel;
+    private Integer operationAsaLevel;
 
     /**
      * 既往病史
      */
-    @Column(name = "medical_history")
+    @Column(name = "past_medical_history")
     @ApiModelProperty(value = "既往病史", example = "无")
-    private String medicalHistory;
+    private String pastMedicalHistory;
 
     /**
      * 特殊情况

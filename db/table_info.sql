@@ -21,20 +21,20 @@
 create TABLE `info_operation`
 (
     `pk_operation_number` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，手术场次号,自增',
-    `admission_number` VARCHAR(64)    NOT NULL COMMENT '住院号',
+    `admission_id` VARCHAR(64)    NOT NULL COMMENT '住院号',
     `hospital_operation_number` VARCHAR(32)  NOT NULL COMMENT '医院的手术顺序号',
 
     `patient_id`       VARCHAR(32)       NOT NULL COMMENT '病人身份证号',
-    `sex`              TINYINT           NOT NULL COMMENT '性别0--男，1--女',
-    `height`           TINYINT UNSIGNED  NOT NULL COMMENT '身高',
-    `weight`           TINYINT UNSIGNED  NOT NULL COMMENT '体重',
-    `age`              TINYINT UNSIGNED  NOT NULL COMMENT '年龄',
+    `patient_sex`              TINYINT           NOT NULL COMMENT '性别0--男，1--女',
+    `patient_height`           TINYINT UNSIGNED  NOT NULL COMMENT '身高',
+    `patient_weight`           TINYINT UNSIGNED  NOT NULL COMMENT '体重',
+    `patient_age`              TINYINT UNSIGNED  NOT NULL COMMENT '年龄',
 
     `operation_name`            VARCHAR(64)  NOT NULL COMMENT '手术名称',
-    `anesthesia_mode`  VARCHAR(32)       NOT NULL COMMENT '麻醉方式',
-    `is_urgent`        TINYINT           NOT NULL COMMENT '是否急诊',
-    `asa_level`        TINYINT           NOT NULL COMMENT 'ASA等级',
-    `medical_history`  TEXT              NOT NULL COMMENT '既往病史',
+    `operation_anesthesia_mode`  VARCHAR(32) NOT NULL COMMENT '麻醉方式',
+    `operation_is_urgent`        TINYINT     NOT NULL COMMENT '是否急诊',
+    `operation_asa_level`        TINYINT     NOT NULL COMMENT 'ASA等级',
+    `past_medical_history`  TEXT              NOT NULL COMMENT '既往病史',
     `special_case`     TEXT              NOT NULL COMMENT '特殊情况',
 
     `collector_mac_address`     CHAR(20) NOT NULL COMMENT '采集器MAC地址',
@@ -44,7 +44,7 @@ create TABLE `info_operation`
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
-    INDEX `admission_number` (`admission_number`),
+    INDEX `admission_id` (`admission_id`),
     INDEX `operation_name` (`operation_name`),
     INDEX `operation_state` (`operation_state`),
     PRIMARY KEY(pk_operation_number)

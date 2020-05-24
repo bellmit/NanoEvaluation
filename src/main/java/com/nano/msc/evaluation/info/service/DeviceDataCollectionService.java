@@ -16,7 +16,7 @@ public interface DeviceDataCollectionService {
      * @param paramCollector 数据实体参数
      * @return 处理结果
      */
-    CommonResult<ResultVo> handleCollectorPostData(ParamCollector paramCollector);
+    CommonResult<ResultVo> handleCollectorPostedData(ParamCollector paramCollector);
 
 
 }

@@ -27,7 +27,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     @Override
     public InfoOperation handleNewOperationInfoRequestAndSave(InfoOperation infoOperation) {
 
-        if (operationRepository.findByAdmissionNumberAndPatientId(infoOperation.getAdmissionNumber(), infoOperation.getPatientId()) != null) {
+        if (operationRepository.findByAdmissionIdAndPatientId(infoOperation.getAdmissionId(), infoOperation.getPatientId()) != null) {
             // 数据已存在
             ExceptionAsserts.fail(ExceptionEnum.DATA_EXISTED);
         }

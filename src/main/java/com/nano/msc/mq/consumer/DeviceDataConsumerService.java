@@ -36,7 +36,7 @@ public class DeviceDataConsumerService {
     private Map<Integer, DeviceDataParser> dataParserMap;
 
 
-    @KafkaListener(topics = "deviceData")
+    //@KafkaListener(topics = "deviceData")
     public void processMessage(ConsumerRecord<Integer, String> record) {
 //        LOG.info("processMessage, topic = {}, msg = {}", record.topic(), record.value());
 
