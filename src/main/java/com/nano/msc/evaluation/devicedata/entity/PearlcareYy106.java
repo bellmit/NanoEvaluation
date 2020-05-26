@@ -50,7 +50,7 @@ public class PearlcareYy106 implements Serializable {
      *
      */
     @Column(name = "AI")
-    private Integer AI;
+    private Integer Ai;
 
     /**
      *

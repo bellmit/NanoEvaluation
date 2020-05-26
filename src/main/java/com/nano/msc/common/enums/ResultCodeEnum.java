@@ -1,13 +1,14 @@
 package com.nano.msc.common.enums;
 
-import com.nano.msc.common.vo.IErrorCode;
+
+import lombok.Getter;
 
 /**
  * 枚举了一些常用API操作码
- * Created by macro on 2019/4/19.
+ * @author: nano
  */
-public enum ResultCodeEnum implements
-        IErrorCode {
+@Getter
+public enum ResultCodeEnum {
 
     /**
      * 成功
@@ -50,11 +51,4 @@ public enum ResultCodeEnum implements
         this.message = message;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

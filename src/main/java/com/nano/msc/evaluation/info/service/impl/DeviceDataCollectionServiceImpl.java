@@ -1,17 +1,14 @@
 package com.nano.msc.evaluation.info.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.nano.msc.common.enums.CollectCodeEnum;
+import com.nano.msc.common.enums.CollectorCodeEnum;
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
-import com.nano.msc.common.utils.BeanUtils;
 import com.nano.msc.common.utils.CollectionUtil;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.enums.DeviceCodeEnum;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
-import com.nano.msc.evaluation.info.entity.CollectionBasicInfoBody;
 import com.nano.msc.evaluation.info.entity.InfoDevice;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
@@ -32,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -72,27 +68,27 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
         log.info(paramCollector.toString());
         int requestCode = paramCollector.getRequestCode();
         // 返回服务器状态
-        if (requestCode == CollectCodeEnum.SERVER_STATUS.getCode()) {
+        if (requestCode == CollectorCodeEnum.SERVER_STATUS.getCode()) {
             return CommonResult.success(ResultVo.responseServerStatus());
 
             // 接收到手术基本信息数据
-        } else if (requestCode == CollectCodeEnum.COLLECTION_OPERATION_INFO.getCode()) {
+        } else if (requestCode == CollectorCodeEnum.COLLECTION_OPERATION_INFO.getCode()) {
             return handleCollectionInfoAndReturnOperationNumber(paramCollector);
 
             // 收到手术开始信息
-        } else if(requestCode == CollectCodeEnum.COLLECTION_START_OPERATION.getCode()) {
+        } else if(requestCode == CollectorCodeEnum.COLLECTION_START_OPERATION.getCode()) {
             return handleCollectionStartInfo(paramCollector);
 
             // 收到手术标记信息
-        } else if(requestCode == CollectCodeEnum.COLLECTION_OPERATION_MARK.getCode()) {
+        } else if(requestCode == CollectorCodeEnum.COLLECTION_OPERATION_MARK.getCode()) {
             return handleCollectionMarkInfo(paramCollector);
 
             // 收到手术结束信息
-        } else if(requestCode == CollectCodeEnum.COLLECTION_STOP_OPERATION.getCode()) {
+        } else if(requestCode == CollectorCodeEnum.COLLECTION_STOP_OPERATION.getCode()) {
             return handleCollectionStopInfo(paramCollector);
 
             // 收到手术后仪器评价信息
-        } else if(requestCode == CollectCodeEnum.COLLECTION_DEVICE_EVALUATION.getCode()) {
+        } else if(requestCode == CollectorCodeEnum.COLLECTION_DEVICE_EVALUATION.getCode()) {
             return handleCollectionEvaluationInfo(paramCollector);
 
             // 未知的请求Code

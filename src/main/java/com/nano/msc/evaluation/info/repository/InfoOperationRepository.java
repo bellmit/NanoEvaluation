@@ -1,9 +1,13 @@
 package com.nano.msc.evaluation.info.repository;
 
 import com.nano.msc.evaluation.info.entity.InfoOperation;
+import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface InfoOperationRepository extends JpaRepository<InfoOperation, Integer> {
@@ -18,6 +22,38 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
     InfoOperation findByAdmissionIdAndPatientId(String admissionId, String patientId);
 
 
+    /**
+     * 通过手术场次号找手术信息
+     *
+     * @param operationNumber 手术场次号
+     * @return 手术信息
+     */
     InfoOperation findByOperationNumber(Integer operationNumber);
 
+
+    /**
+     * 找到某一天的记录
+     *
+     * @param localDateTimeAfter 当天开始时间戳
+     * @param localDateTimeBefore 当天结束时间戳
+     * @return 仪器使用记录
+     */
+    List<InfoOperation> findByGmtCreateAfterAndGmtCreateBefore(LocalDateTime localDateTimeAfter, LocalDateTime localDateTimeBefore);
+
+
+    /**
+     * 找到某时间之后的记录
+     *
+     * @param localDateTimeAfter 当天开始时间戳
+     * @return 仪器使用记录
+     */
+    List<InfoOperation> findByGmtCreateAfter(LocalDateTime localDateTimeAfter);
+
+
+    /**
+     * 获取当前正在进行的手术信息列表
+     *
+     * @return 信息列表
+     */
+    List<InfoOperation> findByOperationState(Integer operationState);
 }

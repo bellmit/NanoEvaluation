@@ -2,7 +2,6 @@ package com.nano.msc.common.exceptions;
 
 
 import com.nano.msc.common.enums.ExceptionEnum;
-import com.nano.msc.common.vo.IErrorCode;
 
 /**
  * 断言处理类，用于抛出各种API异常

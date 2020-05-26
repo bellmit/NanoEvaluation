@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.BaoLaiTe;
+import com.nano.msc.evaluation.devicedata.entity.BaoLaiTeA8;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.BaoLaiTeRepository;
 
@@ -22,7 +22,7 @@ public class ParserBaoLaiTeA8 implements DeviceDataParser {
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
 
-        BaoLaiTe deviceData = JSON.parseObject(deviceRawData, BaoLaiTe.class);
+        BaoLaiTeA8 deviceData = JSON.parseObject(deviceRawData, BaoLaiTeA8.class);
         return repository.save(deviceData) == null;
     }
 }

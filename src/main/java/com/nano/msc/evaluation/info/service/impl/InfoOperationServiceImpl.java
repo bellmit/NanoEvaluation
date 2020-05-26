@@ -1,15 +1,30 @@
 package com.nano.msc.evaluation.info.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
+import com.nano.msc.common.service.BaseService;
+import com.nano.msc.common.utils.TimeStampUtils;
+import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
+import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
+import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import cn.hutool.core.map.MapUtil;
 
 @Service
 public class InfoOperationServiceImpl implements InfoOperationService {
@@ -39,6 +54,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         return operation;
     }
 
+
     @Override
     public List<InfoOperation> findAllOperationInfo() {
         return operationRepository.findAll();
@@ -50,11 +66,88 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         return operationRepository.save(infoOperation);
     }
 
+    /**
+     * 分页查询
+     *
+     * @param page 页数
+     * @param size 个数
+     * @return 结果
+     */
+    @Override
+    public CommonResult list(Integer page, Integer size) {
+        return ServiceCrudCheckUtils.listObjectAndCheck(operationRepository, page, size);
+    }
+
+
+
 
     @Override
     public InfoOperation findByOperationNumber(Integer operationNumber) {
         return operationRepository.findByOperationNumber(operationNumber);
     }
 
+
+    /**
+     * 获取历史采集时间
+     * @param historyDays 历史天数
+     * @return 时间
+     */
+    @Override
+    public CommonResult getHistoryCollectionTime(int historyDays) {
+
+        // 历史采集时长的Map，key日期，value是当天开机的仪器数
+        Map<LocalDate, Long> collectionTimeMap = new HashMap<>(16);
+
+        // 获取当天的信息
+        List<InfoOperation> operations = operationRepository.findByGmtCreateAfter(TimeStampUtils.getCurrentDayZeroLocalDateTime());
+        long durationToday = 0;
+        // 计算所有场次的时间
+        for (InfoOperation operation : operations) {
+            LocalDateTime startTime = operation.getOperationStartTime();
+            LocalDateTime endTime = operation.getOperationEndTime();
+            if(startTime.isBefore(endTime)) {
+                // 持续添加时间
+                durationToday = durationToday + Duration.between(startTime, endTime).getSeconds();
+            }
+        }
+
+        collectionTimeMap.put(TimeStampUtils.getCurrentDayZeroLocalDateTime().toLocalDate(), durationToday);
+
+        // 获取历史的信息
+        for (int day = 0; day < historyDays; day++) {
+            // 获取前一天开始的时间戳
+            LocalDateTime after = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day + 1);
+            // 获取前一天结束
+            LocalDateTime before = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day);
+            // 获取历史一天的手术仪器信息
+            List<InfoOperation> operationList = operationRepository.findByGmtCreateAfterAndGmtCreateBefore(after, before);
+
+            long durationHistory = 0;
+            // 计算所有场次的时间
+            for (InfoOperation operation : operationList) {
+                LocalDateTime startTime = operation.getOperationStartTime();
+                LocalDateTime endTime = operation.getOperationEndTime();
+                if(startTime.isBefore(endTime)) {
+                    // 持续添加时间
+                    durationHistory = durationHistory + Duration.between(startTime, endTime).getSeconds();
+                }
+            }
+            collectionTimeMap.put(after.toLocalDate(), durationHistory);
+        }
+        // 按时间排个序
+        MapUtil.sort(collectionTimeMap);
+        return CommonResult.success(collectionTimeMap);
+    }
+
+    /**
+     * 获取正在进行的手术场次
+     *
+     * @return 手术信息
+     */
+    @Override
+    public CommonResult getProcessingOperationList() {
+        // 返回正在进行的手术信息
+        return CommonResult.success(operationRepository.findByOperationState(OperationStateEnum.PROGRESSING.getCode()));
+    }
 
 }

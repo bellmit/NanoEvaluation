@@ -8,7 +8,7 @@ import com.nano.msc.evaluation.param.ParamCollector;
  * 仪器数据服务接口
  * @author nano
  */
-public interface DeviceDataService {
+public interface CollectorDeviceDataService {
 
     /**
      * 处理并解析采集器上传的数据

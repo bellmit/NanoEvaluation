@@ -7,7 +7,7 @@ import lombok.Getter;
 
 /**
  * 自定义API异常
- * Created by macro on 2020/2/27.
+ * @author: nano
  */
 @Getter
 public class CommonException extends RuntimeException {

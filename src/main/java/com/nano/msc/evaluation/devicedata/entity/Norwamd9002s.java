@@ -23,10 +23,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author lx
- * @version V1.0
- * @date 2019/4/11 17:26
- * @email vinicolor.violet.end@gmail.com
+ * 诺和数据实体
+ * @author nano
  * Description:
  */
 @DynamicInsert

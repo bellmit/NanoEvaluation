@@ -9,6 +9,8 @@ import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -169,6 +171,33 @@ public class TimeStampUtils {
         LocalDateTime current = LocalDateTime.now();
         return LocalDateTime.of(current.getYear(), current.getMonth(), current.getDayOfMonth(), 0, 0, 0, 0);
     }
+
+
+    /**
+     * 得到历史的零时时间的LocalDateTime
+     * @param days 历史天数
+     * @return 如days=3.则获取的是3天前的时间戳
+     */
+    public static LocalDateTime getHistoryDayZeroLocalDateTimeBeforeNow(int days) {
+        return getCurrentDayZeroLocalDateTime().minusDays(days);
+    }
+
+
+    /**
+     * 得到历史的零时时间的LocalDateTime列表
+     * @param days 历史天数
+     * @return 如days=3.则获取的是3天，2天，1天前的时间戳列表
+     */
+    public static List<LocalDateTime> getHistoryDayZeroLocalDateTimeBeforeNowList(int days) {
+
+        List<LocalDateTime> localDateTimeList = new ArrayList<>(days);
+
+        for (int i = 1; i <= days; i++) {
+            localDateTimeList.add(getCurrentDayZeroLocalDateTime().minusDays(i));
+        }
+        return localDateTimeList;
+    }
+
 
     /**
      * 得到指定月份零时的LocalDateTime

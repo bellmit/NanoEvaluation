@@ -217,12 +217,10 @@ public class ServiceCrudCheckUtils {
      */
     public static <T, ID> CommonResult updateObjectAndCheck(JpaRepository<T, ID> jpaRepository, T t) {
         if (Objects.isNull(t)) {
-
             return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR));
         }
         if (Objects.isNull(jpaRepository)) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_ERROR));
-
         }
         Object searchObject = getSearchObjectFromDataBase(jpaRepository, t);
         if (Objects.isNull(searchObject)) {

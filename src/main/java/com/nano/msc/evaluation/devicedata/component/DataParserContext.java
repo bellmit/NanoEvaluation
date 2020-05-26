@@ -35,13 +35,11 @@ import lombok.Getter;
 public class DataParserContext implements InitializingBean, ApplicationContextAware {
 
 
-
     /**
      * 仪器数据解析的Map 键是DeviceCode，值是对应的DataParser
      */
     @Getter
     private Map<Integer, DeviceDataParser> dataParserMap;
-
 
 
     /**
@@ -56,10 +54,6 @@ public class DataParserContext implements InitializingBean, ApplicationContextAw
     public DataParserContext() {
         dataParserMap = new HashMap<>();
     }
-
-
-
-
 
 
     /**

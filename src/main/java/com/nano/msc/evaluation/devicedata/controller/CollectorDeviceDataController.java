@@ -3,7 +3,7 @@ package com.nano.msc.evaluation.devicedata.controller;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
-import com.nano.msc.evaluation.devicedata.service.DeviceDataService;
+import com.nano.msc.evaluation.devicedata.service.CollectorDeviceDataService;
 import com.nano.msc.evaluation.param.ParamCollector;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,19 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 用于仪器监测数据上传的控制器
+ * 用于仪器监测数据上传与获取的控制器
+ *
  * @author cz
  */
 @Slf4j
 @Api(tags = "DeviceDataController", description = "仪器数据上传前端控制器")
 @RestController
-@RequestMapping("/data")
-public class DeviceDataController {
+@RequestMapping("/collector")
+public class CollectorDeviceDataController {
 
 
     @Autowired
-    private DeviceDataService deviceDataService;
+    private CollectorDeviceDataService collectorDeviceDataService;
 
 
     /**
@@ -41,7 +42,7 @@ public class DeviceDataController {
      *
      * @return 是否成功
      */
-    @PostMapping("/collectdata")
+    @PostMapping("/devicedata")
     @ApiOperation(value = "接收采集器各种通信数据")
     public CommonResult<ResultVo> handleCollectorPostData(
             @Valid @RequestBody ParamCollector paramCollector) {
@@ -50,7 +51,7 @@ public class DeviceDataController {
         }
         log.info("Device Data:" + paramCollector.toString());
         // 进行数据处理并返回结果
-        return deviceDataService.handleCollectorPostDeviceData(paramCollector);
+        return collectorDeviceDataService.handleCollectorPostDeviceData(paramCollector);
     }
 
 
@@ -67,7 +68,7 @@ public class DeviceDataController {
             ExceptionAsserts.fail("仪器数据请求失败");
         }
         // 进行数据处理并返回结果
-        return deviceDataService.handleCollectorPostDeviceDataByKafka(paramCollector);
+        return collectorDeviceDataService.handleCollectorPostDeviceDataByKafka(paramCollector);
     }
 
 
@@ -81,7 +82,7 @@ public class DeviceDataController {
     public CommonResult getNeweastDeviceData(
             @RequestParam(defaultValue = "-1") Integer operationNumber,
             @RequestParam(defaultValue = "-1") Integer deviceCode) {
-        return deviceDataService.getNewestDeviceData(operationNumber, deviceCode);
+        return collectorDeviceDataService.getNewestDeviceData(operationNumber, deviceCode);
     }
 
 

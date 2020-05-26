@@ -1,6 +1,6 @@
 package com.nano.msc.common.vo;
 
-import com.nano.msc.common.enums.CollectCodeEnum;
+import com.nano.msc.common.enums.CollectorCodeEnum;
 import com.nano.msc.common.enums.ExceptionEnum;
 
 import lombok.Data;
@@ -71,8 +71,8 @@ public class ResultVo<T> {
      * @return 网络状态数据
      */
     public static ResultVo<String> responseServerStatus() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_SERVER_STATUS.getCode(),
-                CollectCodeEnum.SERVER_STATUS.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_SERVER_STATUS.getCode(),
+                CollectorCodeEnum.SERVER_STATUS.getMsg(), "");
     }
 
 
@@ -83,8 +83,8 @@ public class ResultVo<T> {
      * @return VO
      */
     public static ResultVo<Integer> responseOperationInfo(Integer operationNumber) {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_OPERATION_INFO.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_OPERATION_INFO.getMsg(), operationNumber);
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_OPERATION_INFO.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_OPERATION_INFO.getMsg(), operationNumber);
     }
 
 
@@ -92,32 +92,32 @@ public class ResultVo<T> {
      * 回复收到开始信息
      */
     public static ResultVo responseStartOperation() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_START_OPERATION.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_START_OPERATION.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_START_OPERATION.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_START_OPERATION.getMsg(), "");
     }
 
     /**
      * 回复收到仪器数据
      */
     public static ResultVo responseDeviceData() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_DEVICE_DATA.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_DEVICE_DATA.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_DEVICE_DATA.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_DEVICE_DATA.getMsg(), "");
     }
 
     /**
      * 回复收到标记信息
      */
     public static ResultVo responseMarkInfo() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_OPERATION_MARK.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_OPERATION_MARK.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_OPERATION_MARK.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_OPERATION_MARK.getMsg(), "");
     }
 
     /**
      * 回复收到结束采集
      */
     public static ResultVo responseStopOperation() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_STOP_OPERATION.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_STOP_OPERATION.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_STOP_OPERATION.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_STOP_OPERATION.getMsg(), "");
     }
 
 
@@ -125,7 +125,7 @@ public class ResultVo<T> {
      * 回复收到术后仪器评价信息
      */
     public static ResultVo responseDeviceEvaluation() {
-        return new ResultVo<>(CollectCodeEnum.RESPONSE_COLLECTION_DEVICE_EVALUATION.getCode(),
-                CollectCodeEnum.RESPONSE_COLLECTION_DEVICE_EVALUATION.getMsg(), "");
+        return new ResultVo<>(CollectorCodeEnum.RESPONSE_COLLECTION_DEVICE_EVALUATION.getCode(),
+                CollectorCodeEnum.RESPONSE_COLLECTION_DEVICE_EVALUATION.getMsg(), "");
     }
 }

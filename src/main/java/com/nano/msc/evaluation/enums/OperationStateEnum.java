@@ -10,9 +10,24 @@ import lombok.Getter;
 @Getter
 public enum OperationStateEnum {
 
+    /**
+     * 失效状态
+     */
     ABANDON(-1, "失效状态"),
+
+    /**
+     * 手术还未开始，还在准备中
+     */
     PREPARING(0, "手术还未开始，还在准备中"),
+
+    /**
+     * 手术进行中
+     */
     PROGRESSING(1, "手术进行中"),
+
+    /**
+     * 手术已经结束
+     */
     FINISHED(2, "手术已经结束"),
     ;
 

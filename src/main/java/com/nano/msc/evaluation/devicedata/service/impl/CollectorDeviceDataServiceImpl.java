@@ -8,7 +8,7 @@ import com.nano.msc.evaluation.devicedata.component.DataParserContext;
 import com.nano.msc.common.constants.CacheCons;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
-import com.nano.msc.evaluation.devicedata.service.DeviceDataService;
+import com.nano.msc.evaluation.devicedata.service.CollectorDeviceDataService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.param.ParamCollector;
 import com.nano.msc.mq.consumer.IndicatorService;
@@ -28,9 +28,9 @@ import javax.annotation.PostConstruct;
  * @author nano
  */
 @Service
-public class DeviceDataServiceImpl implements DeviceDataService {
+public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeviceDataServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CollectorDeviceDataServiceImpl.class);
 
 
     @Autowired

@@ -3,12 +3,13 @@ package com.nano.msc.common.enums;
 import lombok.Getter;
 
 /**
- * 请求码的枚举
+ * 采集器请求码的枚举
+ *
  * @author nano
  * 根据项目情况来自定义
  */
 @Getter
-public enum CollectCodeEnum {
+public enum CollectorCodeEnum {
 
     /**
      * 服务器是否在线请求
@@ -65,7 +66,7 @@ public enum CollectCodeEnum {
         return code;
     }
 
-    CollectCodeEnum(int code, String msg) {
+    CollectorCodeEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

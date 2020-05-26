@@ -18,29 +18,40 @@ public abstract class BaseService<T, ID> {
     /**
      * 抽象方法 实现类需要传入自己的JpaRepository
      */
-    protected abstract JpaRepository<T, ID> getRepository();
+    protected abstract JpaRepository<T, ID> initRepository();
 
-//    public CommonResult list(int page, int size) {
-//        return ServiceCrudCheckUtils.listObjectAndCheck(getRepository(), page, size);
+
+    /**
+     * 分页查询
+     *
+     * @param page 页数
+     * @param size 条数
+     * @return 结果
+     */
+    public CommonResult list(int page, int size) {
+        return ServiceCrudCheckUtils.listObjectAndCheck(initRepository(), page, size);
+    }
+//
+//    public CommonResult save(T t) {
+//        return ServiceCrudCheckUtils.saveObjectAndCheck(initRepository(), t);
+//    }
+//
+//    public CommonResult save(T[] t) {
+//        return ServiceCrudCheckUtils.saveObjectAndCheck(initRepository(), t);
 //    }
 
-    public CommonResult save(T t) {
-        return ServiceCrudCheckUtils.saveObjectAndCheck(getRepository(), t);
-    }
-
-    public CommonResult save(T[] t) {
-        return ServiceCrudCheckUtils.saveObjectAndCheck(getRepository(), t);
-    }
-
     public CommonResult delete(T t) {
-        return ServiceCrudCheckUtils.deleteObjectAndCheck(getRepository(), t);
+        return ServiceCrudCheckUtils.deleteObjectAndCheck(initRepository(), t);
     }
 
     public CommonResult deleteById(ID id) {
-        return ServiceCrudCheckUtils.deleteObjectAndCheck(getRepository(), id);
+        return ServiceCrudCheckUtils.deleteObjectAndCheck(initRepository(), id);
     }
 
     public CommonResult update(T t) {
-        return ServiceCrudCheckUtils.updateObjectAndCheck(getRepository(), t);
+        return ServiceCrudCheckUtils.updateObjectAndCheck(initRepository(), t);
     }
+
+
+
 }

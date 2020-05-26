@@ -1,7 +1,7 @@
 package com.nano.msc.info;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.common.enums.CollectCodeEnum;
+import com.nano.msc.common.enums.CollectorCodeEnum;
 import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
 import com.nano.msc.evaluation.devicedata.entity.PearlcareYy106;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
@@ -34,7 +34,7 @@ public class DeviceDataTest {
         deviceData.setDeviceData(JSON.toJSONString(norwamd9002s));
 
         ParamCollector paramCollector = new ParamCollector();
-        paramCollector.setRequestCode(CollectCodeEnum.COLLECTION_DEVICE_DATA.getCode());
+        paramCollector.setRequestCode(CollectorCodeEnum.COLLECTION_DEVICE_DATA.getCode());
         paramCollector.setMac("08:00:20:0A:8C:6D");
         paramCollector.setOperationNumber(27);
         // 默认无数据
@@ -49,7 +49,7 @@ public class DeviceDataTest {
         PearlcareYy106 pearlcareYy106 = new PearlcareYy106();
         pearlcareYy106.setSerialNumber("X123123");
         pearlcareYy106.setOperationNumber(27);
-        pearlcareYy106.setAI(45);
+        pearlcareYy106.setAi(45);
         pearlcareYy106.setBSR(12);
         pearlcareYy106.setEMG(87);
         pearlcareYy106.setSQI(90);
@@ -58,7 +58,7 @@ public class DeviceDataTest {
         deviceData.setDeviceData(JSON.toJSONString(pearlcareYy106));
 
         ParamCollector paramCollector = new ParamCollector();
-        paramCollector.setRequestCode(CollectCodeEnum.COLLECTION_DEVICE_DATA.getCode());
+        paramCollector.setRequestCode(CollectorCodeEnum.COLLECTION_DEVICE_DATA.getCode());
         paramCollector.setMac("08:00:20:0A:8C:6D");
         paramCollector.setOperationNumber(27);
         // 默认无数据

@@ -1,0 +1,31 @@
+package com.nano.msc.platform;
+
+import com.alibaba.fastjson.JSON;
+import com.nano.msc.evaluation.info.service.InfoOperationService;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
+ * @author: nano
+ * @time: 2020/5/26 19:19
+ */
+@SpringBootTest
+@RunWith(SpringRunner.class)
+public class PlatformDeviceInfoTest {
+
+	@Autowired
+	private InfoOperationService operationService;
+
+
+	@Test
+	public void testHistoryCollectionTime() {
+
+		System.out.println(JSON.toJSONString(operationService.getHistoryCollectionTime(7).getData()));
+
+	}
+
+}
