@@ -1,6 +1,7 @@
 package com.nano.msc.evaluation.platform.controller;
 
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.info.service.InfoEvaluationService;
 import com.nano.msc.evaluation.info.service.InfoOperationDeviceService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
@@ -35,6 +36,9 @@ public class PlatformOperationInfoController {
 	private InfoOperationService operationService;
 
 
+	@Autowired
+	private InfoEvaluationService evaluationService;
+
 	/**
 	 * 手术信息分页查询
 	 *
@@ -55,9 +59,37 @@ public class PlatformOperationInfoController {
 	 *
 	 * @return 手术信息
 	 */
+	@ApiOperation("获取正在进行的手术场次")
 	@GetMapping("/processing")
 	public CommonResult getProcessingOperationList() {
 		return operationService.getProcessingOperationList();
 	}
+
+
+	/**
+	 * 获取历史手术采集次数信息
+	 *
+	 * @param days 历史天数
+	 * @return 手术场次信息
+	 */
+	@ApiOperation(value = "获取历史手术采集次数信息", notes = "参数为历史天数")
+	@GetMapping("/history_operation_number")
+	public CommonResult getHistoryOperationNumber(@RequestParam(value = "days", defaultValue = "7") int days) {
+		return operationService.getHistoryOperationNumber(days);
+	}
+
+
+	/**
+	 * 获取所以术后评价信息个数
+	 *
+	 * @return 术后评价信息个数
+	 */
+	@ApiOperation("获取所以术后评价信息个数")
+	@GetMapping("/evaluation_counter")
+	public CommonResult<Integer> countDeviceEvaluationNumber() {
+		return evaluationService.countAllEvaluationNumber();
+	}
+
+
 
 }

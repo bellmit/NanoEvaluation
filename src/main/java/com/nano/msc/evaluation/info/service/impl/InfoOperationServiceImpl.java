@@ -78,9 +78,12 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         return ServiceCrudCheckUtils.listObjectAndCheck(operationRepository, page, size);
     }
 
-
-
-
+    /**
+     * 通过手术场次号找手术信息
+     *
+     * @param operationNumber 手术场次号
+     * @return 手术信息
+     */
     @Override
     public InfoOperation findByOperationNumber(Integer operationNumber) {
         return operationRepository.findByOperationNumber(operationNumber);
@@ -148,6 +151,38 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     public CommonResult getProcessingOperationList() {
         // 返回正在进行的手术信息
         return CommonResult.success(operationRepository.findByOperationState(OperationStateEnum.PROGRESSING.getCode()));
+    }
+
+
+    /**
+     * 获取历史的手术场次数
+     *
+     * @param historyDays 历史天数
+     * @return 手术场次数
+     */
+    @Override
+    public CommonResult getHistoryOperationNumber(int historyDays) {
+
+        // 历史采集时长的Map，key日期，value是当天开机的仪器数
+        Map<LocalDate, Integer> collectionNumberMap = new HashMap<>(16);
+
+        // 获取当天的信息
+        collectionNumberMap.put(TimeStampUtils.getCurrentDayZeroLocalDateTime().toLocalDate(),
+                operationRepository.findByGmtCreateAfter(TimeStampUtils.getCurrentDayZeroLocalDateTime()).size());
+
+        // 获取历史的信息
+        for (int day = 0; day < historyDays; day++) {
+            // 获取前一天开始的时间戳
+            LocalDateTime after = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day + 1);
+            // 获取前一天结束
+            LocalDateTime before = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day);
+            // 获取历史一天的手术仪器信息
+            collectionNumberMap.put(after.toLocalDate(),
+                    operationRepository.findByGmtCreateAfterAndGmtCreateBefore(after, before).size());
+        }
+        // 按时间排个序
+        MapUtil.sort(collectionNumberMap);
+        return CommonResult.success(collectionNumberMap);
     }
 
 }

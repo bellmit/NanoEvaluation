@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 手术信息Repository
+ * @author: nano
+ */
 @Repository
 public interface InfoOperationRepository extends JpaRepository<InfoOperation, Integer> {
 
@@ -52,8 +56,11 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
 
     /**
      * 获取当前正在进行的手术信息列表
+     * @param operationState 手术状态
      *
      * @return 信息列表
      */
     List<InfoOperation> findByOperationState(Integer operationState);
+
+
 }

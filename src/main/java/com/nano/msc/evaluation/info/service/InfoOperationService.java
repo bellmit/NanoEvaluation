@@ -42,4 +42,13 @@ public interface InfoOperationService {
      */
     CommonResult getProcessingOperationList();
 
+
+    /**
+     * 获取历史的手术场次数
+     *
+     * @param days 历史天数
+     * @return 手术场次数
+     */
+    CommonResult getHistoryOperationNumber(int days);
+
 }
