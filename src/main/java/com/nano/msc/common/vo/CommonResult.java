@@ -41,8 +41,6 @@ public class CommonResult<T> implements Serializable {
     }
 
 
-
-
     /**
      * 成功返回结果
      *

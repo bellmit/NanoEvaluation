@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 /**
  * 医疗仪器的基础属性
  *
+ * @author cz
  * @version V1.0
  * Description: 仪器生产厂商 仪器序列号 购买时间 使用年限
  */
@@ -78,6 +79,30 @@ public class InfoDevice implements Serializable {
     @ApiModelProperty(value = "仪器的使用年限", example = "5")
     @Column(name = "device_service_life")
     private Double deviceServiceLife;
+
+    /**
+     * 仪器名称
+     */
+    @NotNull(message = "deviceName must cannot empty")
+    @ApiModelProperty(value = "仪器名称", example = "NW9002S")
+    @Column(name = "device_name")
+    private String deviceName;
+
+    /**
+     * 公司名字
+     */
+    @NotNull(message = "companyName must cannot empty")
+    @ApiModelProperty(value = "公司名字", example = "合肥诺和生物科技有限公司")
+    @Column(name = "company_name")
+    private String companyName;
+
+    /**
+     * 仪器类别
+     */
+    @NotNull(message = "deviceType must cannot empty")
+    @ApiModelProperty(value = "仪器类别", example = "1#2#3")
+    @Column(name = "device_type")
+    private String deviceType;
 
     /**
      * 数据创建时间

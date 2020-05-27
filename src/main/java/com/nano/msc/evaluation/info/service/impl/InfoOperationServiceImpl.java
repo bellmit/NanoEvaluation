@@ -13,6 +13,8 @@ import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -23,11 +25,20 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import cn.hutool.core.map.MapUtil;
 
+/**
+ * 手术信息服务实现类
+ * @author cz
+ */
 @Service
 public class InfoOperationServiceImpl implements InfoOperationService {
+
+
+    private static final Logger logger = LoggerFactory.getLogger("DeviceDataCollectionServiceImpl");
+
 
     @Autowired
     private InfoOperationRepository operationRepository;
@@ -99,7 +110,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     public CommonResult getHistoryCollectionTime(int historyDays) {
 
         // 历史采集时长的Map，key日期，value是当天开机的仪器数
-        Map<LocalDate, Long> collectionTimeMap = new HashMap<>(16);
+        Map<LocalDate, Long> collectionTimeMap = new TreeMap<>();
 
         // 获取当天的信息
         List<InfoOperation> operations = operationRepository.findByGmtCreateAfter(TimeStampUtils.getCurrentDayZeroLocalDateTime());
@@ -117,7 +128,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         collectionTimeMap.put(TimeStampUtils.getCurrentDayZeroLocalDateTime().toLocalDate(), durationToday);
 
         // 获取历史的信息
-        for (int day = 0; day < historyDays; day++) {
+        for (int day = 0; day < historyDays - 1; day++) {
             // 获取前一天开始的时间戳
             LocalDateTime after = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day + 1);
             // 获取前一天结束
@@ -137,8 +148,6 @@ public class InfoOperationServiceImpl implements InfoOperationService {
             }
             collectionTimeMap.put(after.toLocalDate(), durationHistory);
         }
-        // 按时间排个序
-        MapUtil.sort(collectionTimeMap);
         return CommonResult.success(collectionTimeMap);
     }
 
@@ -164,14 +173,14 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     public CommonResult getHistoryOperationNumber(int historyDays) {
 
         // 历史采集时长的Map，key日期，value是当天开机的仪器数
-        Map<LocalDate, Integer> collectionNumberMap = new HashMap<>(16);
+        Map<LocalDate, Integer> collectionNumberMap = new TreeMap<>();
 
         // 获取当天的信息
         collectionNumberMap.put(TimeStampUtils.getCurrentDayZeroLocalDateTime().toLocalDate(),
                 operationRepository.findByGmtCreateAfter(TimeStampUtils.getCurrentDayZeroLocalDateTime()).size());
 
         // 获取历史的信息
-        for (int day = 0; day < historyDays; day++) {
+        for (int day = 0; day < historyDays - 1; day++) {
             // 获取前一天开始的时间戳
             LocalDateTime after = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day + 1);
             // 获取前一天结束
@@ -180,8 +189,6 @@ public class InfoOperationServiceImpl implements InfoOperationService {
             collectionNumberMap.put(after.toLocalDate(),
                     operationRepository.findByGmtCreateAfterAndGmtCreateBefore(after, before).size());
         }
-        // 按时间排个序
-        MapUtil.sort(collectionNumberMap);
         return CommonResult.success(collectionNumberMap);
     }
 

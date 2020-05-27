@@ -1,6 +1,5 @@
 package com.nano.msc.evaluation.devicedata.component;
 
-import com.nano.msc.common.utils.SpringUtil;
 import com.nano.msc.evaluation.devicedata.parser.ParserBaoLaiTeA8;
 import com.nano.msc.evaluation.devicedata.parser.ParserLiBangEliteV8;
 import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiT8;
@@ -10,18 +9,16 @@ import com.nano.msc.evaluation.devicedata.parser.ParserNuoHe;
 import com.nano.msc.evaluation.devicedata.parser.ParserPuKe;
 import com.nano.msc.evaluation.devicedata.parser.ParserYiAn8700A;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
-import com.nano.msc.evaluation.enums.DeviceCodeEnum;
+import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 
 import lombok.Getter;
 
@@ -64,14 +61,14 @@ public class DataParserContext implements InitializingBean, ApplicationContextAw
 
         // 容器初始化后进行组件装配
         // 将解析器注入到上下文容器中
-        dataParserMap.put(DeviceCodeEnum.NORWAMD_9002S.getCode(), applicationContext.getBean(ParserNuoHe.class));
-        dataParserMap.put(DeviceCodeEnum.PEARLCARE_YY106.getCode(), applicationContext.getBean(ParserPuKe.class));
-        dataParserMap.put(DeviceCodeEnum.BAO_LAI_TE.getCode(), applicationContext.getBean(ParserBaoLaiTeA8.class));
-        dataParserMap.put(DeviceCodeEnum.LI_BANG_ELITE_V8.getCode(), applicationContext.getBean(ParserLiBangEliteV8.class));
-        dataParserMap.put(DeviceCodeEnum.MAI_RUI_T8.getCode(), applicationContext.getBean(ParserMaiRuiT8.class));
-        dataParserMap.put(DeviceCodeEnum.MAI_RUI_WATOEX_55_PRO.getCode(), applicationContext.getBean(ParserMaiRuiWatoex55Pro.class));
-        dataParserMap.put(DeviceCodeEnum.MAI_RUI_WATOEX_65.getCode(), applicationContext.getBean(ParserMaiRuiWatoex65.class));
-        dataParserMap.put(DeviceCodeEnum.YI_AN_8700_A.getCode(), applicationContext.getBean(ParserYiAn8700A.class));
+        dataParserMap.put(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode(), applicationContext.getBean(ParserNuoHe.class));
+        dataParserMap.put(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode(), applicationContext.getBean(ParserPuKe.class));
+        dataParserMap.put(DeviceInfoEnum.BAO_LAI_TE.getDeviceCode(), applicationContext.getBean(ParserBaoLaiTeA8.class));
+        dataParserMap.put(DeviceInfoEnum.LI_BANG_ELITE_V8.getDeviceCode(), applicationContext.getBean(ParserLiBangEliteV8.class));
+        dataParserMap.put(DeviceInfoEnum.MAI_RUI_T8.getDeviceCode(), applicationContext.getBean(ParserMaiRuiT8.class));
+        dataParserMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_55_PRO.getDeviceCode(), applicationContext.getBean(ParserMaiRuiWatoex55Pro.class));
+        dataParserMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_65.getDeviceCode(), applicationContext.getBean(ParserMaiRuiWatoex65.class));
+        dataParserMap.put(DeviceInfoEnum.YI_AN_8700_A.getDeviceCode(), applicationContext.getBean(ParserYiAn8700A.class));
     }
 
     @Override

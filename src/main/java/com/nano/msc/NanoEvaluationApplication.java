@@ -6,6 +6,7 @@ import com.nano.msc.netty.NettyServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.net.InetSocketAddress;
 
@@ -14,6 +15,7 @@ import java.net.InetSocketAddress;
  * @author nano
  */
 @SpringBootApplication
+@CrossOrigin
 @ComponentScan("com.nano.msc")
 public class NanoEvaluationApplication {
 

@@ -61,11 +61,34 @@ create TABLE `info_device`
     `device_serial_number` VARCHAR(32)       NOT NULL COMMENT '设备序列号，不一定唯一',
     `device_produce_date`  DATE              COMMENT '设备购买时间 eg: 2017-08-01',
     `device_service_life`  FLOAT             NOT NULL COMMENT '设备使用年限',
+    `device_name` VARCHAR(32) NOT NULL COMMENT '仪器名称',
+    `company_name` VARCHAR(32) NOT NULL COMMENT '公司名称',
+    `device_type` VARCHAR(32) NOT NULL COMMENT '仪器类型（大类：麻醉机、呼吸机、监护仪等），如果涉及多个类别存成字符串形式',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
     PRIMARY KEY(pk_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT '仪器信息表';
+
+
+---- ----------------------------
+---- 仪器厂家及类型信息表
+---- ----------------------------
+--create TABLE `info_device_company`
+--(
+--    `pk_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键，自增',
+--    `device_code`  VARCHAR(32) NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
+--    `device_name`  VARCHAR(32) NOT NULL COMMENT '仪器名称',
+--    `device_type`  VARCHAR(32) NOT NULL COMMENT '仪器类型（大类：麻醉机、呼吸机、监护仪等）',
+--    `company_name` VARCHAR(32) NOT NULL COMMENT '公司名称',
+--
+--    `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
+--    `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',
+--    PRIMARY KEY(pk_id)
+--) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT '仪器信息表';
+
+
+
 
 -- ----------------------------
 -- 手术使用仪器信息表

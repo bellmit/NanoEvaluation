@@ -24,3 +24,7 @@
 1. 参数校验：https://www.jianshu.com/p/89a675b7c900
 
 {"admissionId":"268495895","choosedOperationName":"","hospitalArea":"重庆","hospitalCode":"50","hospitalLevel":"三甲","hospitalOperationNumber":"111111111111111","operationASALevel":"3","operationAnesthesiaMode":"局麻","operationIsUrgent":"false","operationName":"TestName","pastMedicalHistory":"无","patientAge":"90","patientHeight":"190","patientId":"12312312312342866750","patientSex":"1","patientWeight":"70","specialCase":"无","usedDeviceInfo":"[{\"deviceCode\":\"30\",\"deviceSerialNumber\":\"2323332\",\"deviceServiceLife\":6},{\"deviceCode\":\"31\",\"deviceSerialNumber\":\"14331634583614\",\"deviceServiceLife\":9}]"}
+
+
+
+

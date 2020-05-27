@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import cn.hutool.core.map.MapUtil;
 
@@ -43,7 +44,7 @@ public class InfoOperationDeviceServiceImpl implements InfoOperationDeviceServic
     public CommonResult getDeviceOpenNumberHistory(int historyDays) {
 
         // 存放历史开机数的Map，key是历史日期，0是今天，1是昨天，value是当天开机的仪器数
-        Map<LocalDate, Integer> deviceOpenNumberMap = new HashMap<>(16);
+        Map<LocalDate, Integer> deviceOpenNumberMap = new TreeMap<>();
 
         // 获取当天的信息
         List<InfoOperationDevice> operationDevice = operationDeviceRepository.findByGmtCreateAfter(TimeStampUtils.getCurrentDayZeroLocalDateTime());
@@ -52,7 +53,7 @@ public class InfoOperationDeviceServiceImpl implements InfoOperationDeviceServic
         deviceOpenNumberMap.put(TimeStampUtils.getCurrentDayZeroLocalDateTime().toLocalDate(), todayCount);
 
         // 获取历史的信息
-        for (int day = 0; day < historyDays; day++) {
+        for (int day = 0; day < historyDays - 1; day++) {
             // 获取前一天开始的时间戳
             LocalDateTime after = TimeStampUtils.getHistoryDayZeroLocalDateTimeBeforeNow(day + 1);
             // 获取前一天结束
@@ -65,8 +66,7 @@ public class InfoOperationDeviceServiceImpl implements InfoOperationDeviceServic
                     .distinct().count();
             deviceOpenNumberMap.put(after.toLocalDate(), count);
         }
-        // 按时间排个序
-        MapUtil.sort(deviceOpenNumberMap);
+
         return CommonResult.success(deviceOpenNumberMap);
     }
 }

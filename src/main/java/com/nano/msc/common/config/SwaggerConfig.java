@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 //.paths(Predicates.not(PathSelectors.regex("/admin/.*")))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build()
-                //添加登录认证
+                // 添加登录认证
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
     }
@@ -50,7 +50,7 @@ public class SwaggerConfig {
     }
 
     private List<ApiKey> securitySchemes() {
-        //设置请求头信息
+        // 设置请求头信息
         List<ApiKey> result = new ArrayList<>();
         ApiKey apiKey = new ApiKey("Authorization", "Authorization", "header");
         result.add(apiKey);

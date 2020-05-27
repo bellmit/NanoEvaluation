@@ -5,7 +5,7 @@ import com.nano.msc.common.enums.CollectorCodeEnum;
 import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
 import com.nano.msc.evaluation.devicedata.entity.PearlcareYy106;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
-import com.nano.msc.evaluation.enums.DeviceCodeEnum;
+import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 import com.nano.msc.evaluation.param.ParamCollector;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class DeviceDataTest {
         norwamd9002s.setEMG(45);
         norwamd9002s.setSQI(67);
         ParamDeviceData deviceData = new ParamDeviceData();
-        deviceData.setDeviceCode(DeviceCodeEnum.NORWAMD_9002S.getCode());
+        deviceData.setDeviceCode(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode());
         deviceData.setDeviceData(JSON.toJSONString(norwamd9002s));
 
         ParamCollector paramCollector = new ParamCollector();
@@ -54,7 +54,7 @@ public class DeviceDataTest {
         pearlcareYy106.setEMG(87);
         pearlcareYy106.setSQI(90);
         ParamDeviceData deviceData = new ParamDeviceData();
-        deviceData.setDeviceCode(DeviceCodeEnum.PEARLCARE_YY106.getCode());
+        deviceData.setDeviceCode(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode());
         deviceData.setDeviceData(JSON.toJSONString(pearlcareYy106));
 
         ParamCollector paramCollector = new ParamCollector();

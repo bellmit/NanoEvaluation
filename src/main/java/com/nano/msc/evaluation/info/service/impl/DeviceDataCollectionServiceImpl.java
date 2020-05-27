@@ -7,7 +7,7 @@ import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.CollectionUtil;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
-import com.nano.msc.evaluation.enums.DeviceCodeEnum;
+import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoDevice;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
@@ -22,6 +22,8 @@ import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.service.DeviceDataCollectionService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +38,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author nano
  */
 @Service
-@Slf4j
 public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionService {
 
+    private static final Logger logger = LoggerFactory.getLogger("DeviceDataCollectionServiceImpl");
 
     @Autowired
     private InfoOperationService operationService;
@@ -65,39 +67,45 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
     @Override
     @Transactional(rollbackFor = {RuntimeException.class, Error.class})
     public CommonResult<ResultVo> handleCollectorPostedData(ParamCollector paramCollector) {
-        log.info(paramCollector.toString());
         int requestCode = paramCollector.getRequestCode();
         // 返回服务器状态
         if (requestCode == CollectorCodeEnum.SERVER_STATUS.getCode()) {
+            logger.info("请求服务器状态");
             return CommonResult.success(ResultVo.responseServerStatus());
 
             // 接收到手术基本信息数据
         } else if (requestCode == CollectorCodeEnum.COLLECTION_OPERATION_INFO.getCode()) {
+            logger.info("上传手术信息并返回手术场次号");
+            logger.info(paramCollector.getData());
             return handleCollectionInfoAndReturnOperationNumber(paramCollector);
-
             // 收到手术开始信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_START_OPERATION.getCode()) {
+            logger.info("收到手术开始信息");
             return handleCollectionStartInfo(paramCollector);
 
             // 收到手术标记信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_OPERATION_MARK.getCode()) {
+            logger.info("收到手术标记信息");
+            logger.info(paramCollector.getData());
             return handleCollectionMarkInfo(paramCollector);
 
             // 收到手术结束信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_STOP_OPERATION.getCode()) {
+            logger.info("收到手术结束信息");
             return handleCollectionStopInfo(paramCollector);
 
             // 收到手术后仪器评价信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_DEVICE_EVALUATION.getCode()) {
+            logger.info("收到手术后仪器评价信息");
+            logger.info(paramCollector.getData());
             return handleCollectionEvaluationInfo(paramCollector);
 
             // 未知的请求Code
         } else {
+            logger.error("未知的请求Code");
             return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE));
         }
     }
-
-
 
 
     /**
@@ -132,11 +140,19 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
         CollectionUtil.printList(usedDevices);
         for (InfoDevice device : usedDevices) {
             // 说明是合格的仪器信息
-            if (DeviceCodeEnum.matchDeviceCodeEnum(device.getDeviceCode()) != null) {
+            if (DeviceInfoEnum.matchDeviceCodeEnum(device.getDeviceCode()) != null) {
                 InfoDevice alreadyHaveDeviceInfo = deviceService.findByDeviceCodeAndDeviceSerialNumber(device.getDeviceCode(), device.getDeviceSerialNumber());
                 // 说明数据库中还没有这个仪器的数据
                 if(alreadyHaveDeviceInfo == null) {
-                    // 将这个仪器信息保存到数据库中
+                    // 补充一些信息并将这个仪器信息保存到数据库中
+                    DeviceInfoEnum infoEnum = DeviceInfoEnum.matchDeviceCodeEnum(device.getDeviceCode());
+                    if (infoEnum != null) {
+                        device.setDeviceName(infoEnum.getDeviceName());
+                        device.setCompanyName(infoEnum.getCompanyName());
+                        device.setDeviceType(infoEnum.getDeviceType());
+                    } else {
+                        ExceptionAsserts.fail("未知的仪器代号:" + device.toString());
+                    }
                     InfoDevice saveNewDevice = deviceService.save(device);
                     if (saveNewDevice == null) {
                         ExceptionAsserts.fail("仪器信息保存失败");
