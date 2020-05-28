@@ -1,14 +1,11 @@
 package com.nano.msc.evaluation.info.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
-import com.nano.msc.common.service.BaseService;
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
-import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
@@ -16,18 +13,15 @@ import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import cn.hutool.core.map.MapUtil;
 
 /**
  * 手术信息服务实现类
@@ -86,6 +80,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
      */
     @Override
     public CommonResult list(Integer page, Integer size) {
+
         return ServiceCrudCheckUtils.listObjectAndCheck(operationRepository, page, size);
     }
 
@@ -190,6 +185,29 @@ public class InfoOperationServiceImpl implements InfoOperationService {
                     operationRepository.findByGmtCreateAfterAndGmtCreateBefore(after, before).size());
         }
         return CommonResult.success(collectionNumberMap);
+    }
+
+    /**
+     * 得到全部的手术信息数量
+     *
+     * @return 手术信息数量
+     */
+    @Override
+    public CommonResult countAllOperationNumber() {
+        return CommonResult.success(operationRepository.count());
+    }
+
+
+    /**
+     * 手术信息分页查询 按照时间顺序降序排列
+     *
+     * @param page 页数
+     * @param size 个数
+     * @return 结果
+     */
+    @Override
+    public CommonResult getOperationList(int page, int size) {
+        return CommonResult.success(operationRepository.findByOperationNumberDesc(PageRequest.of(page, size)));
     }
 
 }

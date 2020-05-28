@@ -160,6 +160,14 @@ public class InfoOperation implements Serializable {
     @Transient
     private String usedDeviceInfo;
 
+    /**
+     * 用于给平台展示的使用的仪器
+     */
+    @Column(name = "used_device_info_for_platform")
+    @ApiModelProperty(value = "特殊情况", example = "无")
+    private String usedDeviceInfoForPlatform;
+
+
     /**************************************数据采集信息*********************************************/
     /**
      * 本次采集采集器MAC地址
@@ -188,11 +196,9 @@ public class InfoOperation implements Serializable {
     @Column(name = "operation_state")
     private Integer operationState;
 
-
     /**
      * 数据创建时间
      */
-//    @JsonSerialize(using = LocalDateTimeConverter.class)
     @Column(name = "gmt_create")
     @ApiModelProperty(value = "创建时间")
     @CreationTimestamp
@@ -201,7 +207,6 @@ public class InfoOperation implements Serializable {
     /**
      * 数据修改时间
      */
-//    @JsonSerialize(using = LocalDateTimeConverter.class)
     @Column(name = "gmt_modified")
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp

@@ -1,9 +1,14 @@
 package com.nano.msc.evaluation.info.repository;
 
+import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -15,6 +20,15 @@ import java.util.List;
  */
 @Repository
 public interface InfoOperationRepository extends JpaRepository<InfoOperation, Integer> {
+
+    /**
+     * 分页获取最新的手术信息
+     *
+     * @param of 分页查询
+     * @return 结果
+     */
+    @Query("select e from InfoOperation e ORDER BY e.operationNumber DESC")
+    Page<InfoOperation> findByOperationNumberDesc(PageRequest of);
 
     /**
      * 通过住院号和身份证查找手术信息

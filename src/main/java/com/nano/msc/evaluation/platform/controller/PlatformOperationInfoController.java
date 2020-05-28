@@ -2,7 +2,6 @@ package com.nano.msc.evaluation.platform.controller;
 
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.service.InfoEvaluationService;
-import com.nano.msc.evaluation.info.service.InfoOperationDeviceService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +38,31 @@ public class PlatformOperationInfoController {
 	@Autowired
 	private InfoEvaluationService evaluationService;
 
+
 	/**
-	 * 手术信息分页查询
+	 * 获取正在进行的手术场次
+	 *
+	 * @return 手术信息
+	 */
+	@ApiOperation("获取总手术场次数")
+	@GetMapping("/count_operation_number")
+	public CommonResult countAllOperationNumber() {
+		return operationService.countAllOperationNumber();
+	}
+
+
+	/**
+	 * 手术信息分页查询 按照时间顺序降序排列
 	 *
 	 * @param page 页数
 	 * @param size 个数
 	 * @return 结果
 	 */
 	@ApiOperation("手术信息分页查询")
-	@GetMapping("/list")
-	public CommonResult listOperationInfo(@Min(value = 0, message = "页数不能小于1") @RequestParam(value = "page", defaultValue = "0") Integer page,
-									  @Min(value = 1, message = "数据个数不能小于1") @RequestParam(value = "size", defaultValue = "5") Integer size) {
-		return operationService.list(page, size);
+	@GetMapping("/list_neweast")
+	public CommonResult listNewOperationInfo(@Min(value = 0, message = "页数不能小于1") @RequestParam(value = "page", defaultValue = "0") Integer page,
+										  @Min(value = 1, message = "数据个数不能小于1") @RequestParam(value = "size", defaultValue = "5") Integer size) {
+		return operationService.getOperationList(page, size);
 	}
 
 

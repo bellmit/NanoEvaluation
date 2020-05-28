@@ -28,4 +28,12 @@ public class PlatformDeviceInfoTest {
 
 	}
 
+
+	@Test
+	public void testNeweastOperationInfo() {
+
+		;
+		System.out.println(JSON.toJSONString(operationService.getOperationList(0, 3)));
+	}
+
 }

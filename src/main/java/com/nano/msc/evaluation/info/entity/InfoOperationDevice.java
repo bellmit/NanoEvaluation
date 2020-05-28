@@ -67,7 +67,6 @@ public class InfoOperationDevice implements Serializable {
     /**
      * 仪器信息的ID号 外键仪器信息表的主键ID号
      */
-//    @NotBlank(message = "DeviceInfoId must cannot empty")
     @Column(name = "device_info_id")
     private Integer deviceInfoId;
 

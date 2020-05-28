@@ -40,6 +40,7 @@ create TABLE `info_operation`
     `collector_mac_address`     CHAR(20) NOT NULL COMMENT '采集器MAC地址',
     `operation_start_time`      DATETIME    NOT NULL COMMENT '手术开始时间',
     `operation_end_time`        DATETIME    NOT NULL COMMENT '手术结束时间',
+    `used_device_info_for_platform` VARCHAR(128) NOT NULL COMMENT '手术使用仪器（用于平台展示）',
     `operation_state`           TINYINT      NOT NULL DEFAULT 0 COMMENT '手术状态，0未开始，1正在进行，2已经结束,-1表示异常',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',

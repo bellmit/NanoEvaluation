@@ -80,23 +80,23 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
             return handleCollectionInfoAndReturnOperationNumber(paramCollector);
             // 收到手术开始信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_START_OPERATION.getCode()) {
-            logger.info("收到手术开始信息");
+            logger.info("收到手术开始信息" + paramCollector.getOperationNumber());
             return handleCollectionStartInfo(paramCollector);
 
             // 收到手术标记信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_OPERATION_MARK.getCode()) {
-            logger.info("收到手术标记信息");
+            logger.info("收到手术标记信息:" + paramCollector.getOperationNumber());
             logger.info(paramCollector.getData());
             return handleCollectionMarkInfo(paramCollector);
 
             // 收到手术结束信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_STOP_OPERATION.getCode()) {
-            logger.info("收到手术结束信息");
+            logger.info("收到手术结束信息" + paramCollector.getOperationNumber());
             return handleCollectionStopInfo(paramCollector);
 
             // 收到手术后仪器评价信息
         } else if(requestCode == CollectorCodeEnum.COLLECTION_DEVICE_EVALUATION.getCode()) {
-            logger.info("收到手术后仪器评价信息");
+            logger.info("收到手术后仪器评价信息" + paramCollector.getOperationNumber());
             logger.info(paramCollector.getData());
             return handleCollectionEvaluationInfo(paramCollector);
 
@@ -130,14 +130,23 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
         } catch (Exception e) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "手术基本信息参数错误"));
         }
-        // 将手术信息存储入数据库，如果成功则返回存入信息，否则抛异常 此时已经有手术场次号了
-        InfoOperation savedInfoOperation = operationService.handleNewOperationInfoRequestAndSave(infoOperation);
 
         // 解析使用的仪器信息
         String deviceInfo = infoOperation.getUsedDeviceInfo();
         List<InfoDevice> usedDevices = JSONObject.parseArray(deviceInfo, InfoDevice.class);
-        // 打印使用的仪器列表
-        CollectionUtil.printList(usedDevices);
+        // 构造插入用于平台展示的仪器名称
+        StringBuilder platformUsedDeviceInfoBuilder = new StringBuilder();
+        for (InfoDevice device : usedDevices) {
+            DeviceInfoEnum infoEnum = DeviceInfoEnum.matchDeviceCodeEnum(device.getDeviceCode());
+            if (infoEnum != null) {
+                platformUsedDeviceInfoBuilder.append(infoEnum.getDeviceName()).append(" ");
+            }
+        }
+        // 插入用于平台展示的仪器信息并更新手术信息实体
+        infoOperation.setUsedDeviceInfoForPlatform(platformUsedDeviceInfoBuilder.toString().trim());
+        // 将手术信息存储入数据库，如果成功则返回存入信息，否则抛异常 此时已经有手术场次号了
+        InfoOperation savedInfoOperation = operationService.handleNewOperationInfoRequestAndSave(infoOperation);
+
         for (InfoDevice device : usedDevices) {
             // 说明是合格的仪器信息
             if (DeviceInfoEnum.matchDeviceCodeEnum(device.getDeviceCode()) != null) {
@@ -150,6 +159,7 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
                         device.setDeviceName(infoEnum.getDeviceName());
                         device.setCompanyName(infoEnum.getCompanyName());
                         device.setDeviceType(infoEnum.getDeviceType());
+
                     } else {
                         ExceptionAsserts.fail("未知的仪器代号:" + device.toString());
                     }
@@ -176,6 +186,8 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
                 return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_SAVE_ERROR, "使用仪器信息代号无效" + device.toString()));
             }
         }
+
+
         // 返回手术场次号
         return CommonResult.success(ResultVo.responseOperationInfo(infoOperation.getOperationNumber()));
     }

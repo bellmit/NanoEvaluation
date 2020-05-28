@@ -8,7 +8,9 @@ import com.nano.msc.evaluation.manualeval.param.ParamManualEval;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
@@ -33,6 +35,7 @@ public class ManualEvalPostTest {
         paramManualEval.setRequestCode(ManualEvalTypeEnum.SERVICE_SYSTEM.getCode());
         paramManualEval.setData(JSON.toJSONString(serviceSystem));
         System.out.println(JSON.toJSONString(paramManualEval));
+
     }
 
 }

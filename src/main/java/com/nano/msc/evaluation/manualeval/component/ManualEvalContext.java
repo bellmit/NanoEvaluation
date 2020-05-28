@@ -14,12 +14,15 @@ import com.nano.msc.evaluation.manualeval.service.impl.ManualEvalServiceSystemSe
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import lombok.Getter;
 
@@ -28,7 +31,7 @@ import lombok.Getter;
  * @author nano
  */
 @Component
-public class ManualEvalContext implements InitializingBean, ApplicationContextAware {
+public class ManualEvalContext implements ApplicationContextAware {
 
     /**
      * 仪器数据解析的Map 键是DeviceCode，值是对应的DataParser
@@ -58,7 +61,7 @@ public class ManualEvalContext implements InitializingBean, ApplicationContextAw
     /**
      * 容器生成后进行初始化扫描注册
      */
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() {
 
         // 容器初始化后进行组件装配
@@ -75,6 +78,10 @@ public class ManualEvalContext implements InitializingBean, ApplicationContextAw
         manualEvalClassMap.put(ManualEvalTypeEnum.APPLICATION_ANESTHESIA_DEPTH_MONITOR.getCode(), ManualEvalApplicationAnesthesiaDepthMonitorServiceImpl.class);
     }
 
+    /**
+     * 用于获取applicationContext对象
+     * @param applicationContext 注入applicationContext对象
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (this.applicationContext == null) {

@@ -3,6 +3,8 @@ package com.nano.msc.evaluation.info.service;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,23 @@ public interface InfoOperationService {
      * @return 手术场次数
      */
     CommonResult getHistoryOperationNumber(int days);
+
+
+    /**
+     * 得到全部的手术信息数量
+     *
+     * @return 手术信息数量
+     */
+    CommonResult countAllOperationNumber();
+
+
+    /**
+     * 手术信息分页查询 按照时间顺序降序排列
+     *
+     * @param page 页数
+     * @param size 个数
+     * @return 结果
+     */
+    CommonResult getOperationList(int page, int size);
 
 }
