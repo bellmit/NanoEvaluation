@@ -22,7 +22,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <fastjson.version>1.2.60</fastjson.version>
         <hutool-all.version>5.1.5</hutool-all.version>
-        <swagger.version>2.7.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <aliyun-java-sdk-core.version>4.3.3</aliyun-java-sdk-core.version>
     </properties>
 
@@ -100,6 +100,7 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
+
         <!--swagger ui增强包-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

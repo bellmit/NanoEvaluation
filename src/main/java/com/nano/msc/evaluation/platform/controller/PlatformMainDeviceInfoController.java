@@ -24,10 +24,10 @@ import lombok.extern.slf4j.Slf4j;
  * @time: 2020/5/25 20:59
  */
 @Slf4j
-@Api(tags = "PlatformDeviceInfoController", description = "平台仪器信息相关接口")
+@Api(tags = "PlatformDeviceInfoController", description = "平台主页仪器信息相关接口")
 @RestController
 @RequestMapping("/platform/device")
-public class PlatformDeviceInfoController {
+public class PlatformMainDeviceInfoController {
 
 	@Autowired
 	private InfoDeviceService infoDeviceService;

@@ -71,4 +71,11 @@ public interface InfoOperationService {
      */
     CommonResult getOperationList(int page, int size);
 
+    /**
+     * 获取某一场手术的全部详细信息
+     *
+     * @param operationNumber 手术场次号
+     * @return 全部信息信息
+     */
+    CommonResult getDetailInfoOfOneOperation(int operationNumber);
 }

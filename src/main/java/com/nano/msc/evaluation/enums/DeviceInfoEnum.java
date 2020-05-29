@@ -26,20 +26,20 @@ public enum DeviceInfoEnum {
     /**
      * 合肥诺和NW9002S
      */
-    NORWAMD_9002S(30, "合肥诺和电子科技有限公司", "麻醉深度多参数监护仪NW-9002S",
+    NORWAMD_9002S(30, "合肥诺和电子科技有限公司", "麻醉深度多参数监护仪(NW-9002S)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_DEPTH_MONITOR,
                                         DeviceTypeEnum.HEMOGLOBIN_MONITOR)),
 
     /**
      * 浙江普可YY-106
      */
-    PEARLCARE_YY106(31, "浙江普可医疗科技有限公司", "麻醉深度监测仪YY-106",
+    PEARLCARE_YY106(31, "浙江普可医疗科技有限公司", "麻醉深度监测仪(YY-106)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_DEPTH_MONITOR)),
 
     /**
      * 广东宝莱特 A8
      */
-    BAO_LAI_TE(32, "广东宝莱特医用科技股份有限公司", "重症插件式监护仪A8",
+    BAO_LAI_TE(32, "广东宝莱特医用科技股份有限公司", "重症插件式监护仪(A8)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.BLOOD_PRESSURE_MONITOR,
                     DeviceTypeEnum.ANESTHESIA_DEPTH_MONITOR,
                     DeviceTypeEnum.HEMOGLOBIN_MONITOR,
@@ -48,7 +48,7 @@ public enum DeviceInfoEnum {
     /**
      * 宜安
      */
-    YI_AN_8700_A(33, "北京宜安医疗系统股份有限公司", "麻醉机Aeon8700A",
+    YI_AN_8700_A(33, "北京宜安医疗系统股份有限公司", "麻醉机(Aeon8700A)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_MACHINE)),
 
     //------------------------------------------------------
@@ -57,25 +57,25 @@ public enum DeviceInfoEnum {
     /**
      * 迈瑞 BeneView T8
      */
-    MAI_RUI_T8(42, "深圳迈瑞生物医疗电子股份有限公司", "监护仪BeneViewT8",
+    MAI_RUI_T8(42, "深圳迈瑞生物医疗电子股份有限公司", "监护仪(BeneViewT8)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.NORMAL_MONITOR)),
 
     /**
      * 迈瑞 WATOEX 65
      */
-    MAI_RUI_WATOEX_65(43, "深圳迈瑞生物医疗电子股份有限公司", "麻醉机WATOEX65",
+    MAI_RUI_WATOEX_65(43, "深圳迈瑞生物医疗电子股份有限公司", "麻醉机(WATOEX65)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_MACHINE)),
 
     /**
      * 迈瑞WATOEX55 PRO
      */
-    MAI_RUI_WATOEX_55_PRO(44, "深圳迈瑞生物医疗电子股份有限公司", "麻醉机WATOEX55Pro",
+    MAI_RUI_WATOEX_55_PRO(44, "深圳迈瑞生物医疗电子股份有限公司", "麻醉机(WATOEX55Pro)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_MACHINE)),
 
     /**
      * 理邦 ELite V8
      */
-    LI_BANG_ELITE_V8(45, "深圳市理邦精密仪器股份有限公司", "监护仪ELiteV8",
+    LI_BANG_ELITE_V8(45, "深圳市理邦精密仪器股份有限公司", "监护仪(ELiteV8)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.NORMAL_MONITOR,
                                         DeviceTypeEnum.BLOOD_PRESSURE_MONITOR)),
 
@@ -87,25 +87,25 @@ public enum DeviceInfoEnum {
     /**
      * 苏州爱琴
      */
-    AI_QIN_EGOS600A(50, "苏州爱琴生物医疗电子有限公司", "近红外组织血氧参数无损监测仪EGOS600A",
+    AI_QIN_EGOS600A(50, "苏州爱琴生物医疗电子有限公司", "近红外组织血氧参数无损监测仪(EGOS600A)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.BRAIN_OXYGEN_MONITOR)),
 
     /**
      * 重庆名希
      */
-    MING_XI(51, "重庆名希医疗器械有限公司", "脑血氧无创检测仪MNIR-P100",
+    MING_XI(51, "重庆名希医疗器械有限公司", "脑血氧无创检测仪(MNIR-P100)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.BRAIN_OXYGEN_MONITOR)),
 
     /**
      * 美敦力 麻醉深度
      */
-    MEIDUNLI_EEG_VISTA(52, "美国美敦力公司", "麻醉深度监护仪EEG-VISTA",
+    MEIDUNLI_EEG_VISTA(52, "美国美敦力公司", "麻醉深度监护仪(EEG-VISTA)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.ANESTHESIA_DEPTH_MONITOR)),
 
     /**
      * 美敦力 血红蛋白
      */
-    MEIDUNLI_5100C(53, "美国美敦力公司", "脑氧饱和度监测仪5100C",
+    MEIDUNLI_5100C(53, "美国美敦力公司", "脑氧饱和度监测仪(5100C)",
             DeviceTypeEnum.getTypeString(DeviceTypeEnum.BRAIN_OXYGEN_MONITOR)),
     ;
 

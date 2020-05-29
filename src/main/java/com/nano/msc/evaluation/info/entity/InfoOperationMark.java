@@ -28,6 +28,7 @@ import lombok.NoArgsConstructor;
 /**
  * 手术标记信息实体
  *
+ * @author cz
  * Description: 标记大类型 标记小类型 事件类型 途径 剂量 不良反应/特殊情况
  */
 @DynamicInsert
@@ -103,7 +104,6 @@ public class InfoOperationMark implements Serializable {
     @NotNull(message = "mark_time must cannot empty")
     @Column(name = "mark_time")
     private LocalDateTime markTime;
-
 
 
     /**

@@ -5,10 +5,15 @@ import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
+import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
+import com.nano.msc.evaluation.info.entity.InfoOperationMark;
+import com.nano.msc.evaluation.info.repository.InfoEvaluationRepository;
+import com.nano.msc.evaluation.info.repository.InfoOperationMarkRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
+import com.nano.msc.evaluation.vo.InfoEvaluationVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -33,9 +39,23 @@ public class InfoOperationServiceImpl implements InfoOperationService {
 
     private static final Logger logger = LoggerFactory.getLogger("DeviceDataCollectionServiceImpl");
 
-
+    /**
+     * 手术信息仓库
+     */
     @Autowired
     private InfoOperationRepository operationRepository;
+
+    /**
+     * 手术标记仓库
+     */
+    @Autowired
+    private InfoOperationMarkRepository operationMarkRepository;
+
+    /**
+     * 术后仪器评价仓库
+     */
+    @Autowired
+    private InfoEvaluationRepository evaluationRepository;
 
 
     /**
@@ -208,6 +228,46 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     @Override
     public CommonResult getOperationList(int page, int size) {
         return CommonResult.success(operationRepository.findByOperationNumberDesc(PageRequest.of(page, size)));
+    }
+
+
+    /**
+     * 获取某一场手术的全部详细信息
+     *
+     * 这里详细信息包含手术基本信息，手术标记信息，手术评价信息等，数据统计信息等。
+     *
+     * @param operationNumber 手术场次号
+     * @return 全部信息信息
+     */
+    @Override
+    public CommonResult getDetailInfoOfOneOperation(int operationNumber) {
+
+        // 存放详细手术信息的Map
+        Map<String, Object> detailOperationInfoMap = new HashMap<>();
+
+        // 获取手术信息
+        InfoOperation infoOperation = operationRepository.findByOperationNumber(operationNumber);
+        if (infoOperation == null) {
+            return CommonResult.validateFailed("手术场次号不存在:" + operationNumber);
+        } else {
+            detailOperationInfoMap.put("operationInfo", infoOperation);
+        }
+        // 获取标记信息列表
+        List<InfoOperationMark> operationMarkList = operationMarkRepository.findByOperationNumber(operationNumber);
+        if (operationMarkList.size() == 0) {
+            detailOperationInfoMap.put("operationMarks", "[]");
+        } else {
+            detailOperationInfoMap.put("operationMarks", operationMarkList);
+        }
+        // 获取并转化评价信息列表
+        List<InfoEvaluation> evaluationList = evaluationRepository.findByOperationNumber(operationNumber);
+        if (evaluationList.size() == 0) {
+            detailOperationInfoMap.put("evaluationInfo", "[]");
+        } else {
+            detailOperationInfoMap.put("evaluationInfo", InfoEvaluationVo.generateEvaluationVo(evaluationList));
+        }
+
+        return CommonResult.success(detailOperationInfoMap);
     }
 
 }

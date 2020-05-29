@@ -23,10 +23,10 @@ import lombok.extern.slf4j.Slf4j;
  * @time: 2020/5/25 20:59
  */
 @Slf4j
-@Api(tags = "PlatformOperationInfoController", description = "平台手术信息相关接口")
+@Api(tags = "PlatformOperationInfoController", description = "平台主页手术信息相关接口")
 @RestController
-@RequestMapping("/platform/operation")
-public class PlatformOperationInfoController {
+@RequestMapping("/platform/operation/main")
+public class PlatformMainOperationInfoController {
 
 	/**
 	 * 手术信息的服务
@@ -59,7 +59,7 @@ public class PlatformOperationInfoController {
 	 * @return 结果
 	 */
 	@ApiOperation("手术信息分页查询")
-	@GetMapping("/list_neweast")
+	@GetMapping("/list")
 	public CommonResult listNewOperationInfo(@Min(value = 0, message = "页数不能小于1") @RequestParam(value = "page", defaultValue = "0") Integer page,
 										  @Min(value = 1, message = "数据个数不能小于1") @RequestParam(value = "size", defaultValue = "5") Integer size) {
 		return operationService.getOperationList(page, size);

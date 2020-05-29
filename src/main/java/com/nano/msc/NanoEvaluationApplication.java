@@ -1,6 +1,5 @@
 package com.nano.msc;
 
-import com.nano.msc.gps.netty.GpsServer;
 import com.nano.msc.netty.NettyServer;
 
 import org.springframework.boot.SpringApplication;

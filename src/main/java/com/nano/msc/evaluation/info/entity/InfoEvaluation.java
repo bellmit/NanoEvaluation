@@ -144,4 +144,45 @@ public class InfoEvaluation implements Serializable {
         this.remark = remark;
         this.recordName = recordName;
     }
+
+
+    /**
+     * 将存储的故障码转换为故障字符串
+     *
+     * @return 故障字符串
+     */
+    public static String convertErrorCodeToErrorString(String knownError) {
+
+        if (knownError == null || knownError.length() == 0) {
+            return "";
+        }
+        // 转换为2进制的ErrorCode字符串 Eg:1010
+        String errorCode = Integer.toBinaryString(Integer.parseInt(knownError));
+
+        if (errorCode.length() == 1) {
+            errorCode = "000" + errorCode;
+        } else if (errorCode.length() == 2) {
+            errorCode = "00" + errorCode;
+        } else if (errorCode.length() == 3) {
+            errorCode = "0" + errorCode;
+        }
+        StringBuilder errorInfoBuilder = new StringBuilder();
+        if (errorCode.charAt(0) == '1') {
+            errorInfoBuilder.append("部件损坏").append(" ");
+        }
+        if (errorCode.charAt(1) == '1') {
+            errorInfoBuilder.append("软件故障").append(" ");
+        }
+        if (errorCode.charAt(2) == '1') {
+            errorInfoBuilder.append("操作失误").append(" ");
+        }
+        if (errorCode.charAt(3) == '1') {
+            errorInfoBuilder.append("环境因素").append(" ");
+        }
+        return errorInfoBuilder.toString().trim();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(convertErrorCodeToErrorString("5"));;
+    }
 }
