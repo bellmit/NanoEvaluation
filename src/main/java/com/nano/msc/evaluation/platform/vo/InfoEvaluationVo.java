@@ -1,22 +1,20 @@
-package com.nano.msc.evaluation.vo;
+package com.nano.msc.evaluation.platform.vo;
 
 import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 import com.nano.msc.evaluation.enums.evaluation.EvaluationExperienceLevelEnum;
 import com.nano.msc.evaluation.enums.evaluation.EvaluationReliabilityLevelEnum;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
-import com.nano.msc.evaluation.info.entity.InfoOperation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 术后仪器评价传给前端的实体对象
+ * 平台专用:术后仪器评价传给前端的实体对象
  *
  * @author: nano
  * @time: 2020/5/29 16:49
@@ -119,7 +117,7 @@ public class InfoEvaluationVo implements Serializable {
 			// 转换可靠性满意度
 			evaluationVo.setReliabilityLevel(EvaluationReliabilityLevelEnum.getReliabilityLevelForPaltform(evaluationVo.getReliabilityLevel()));
 
-			// 已知的故障号：需要进行转换
+			// 已知的故障号：需要进行转换成实际的故障
 			evaluationVo.setKnownError(InfoEvaluation.convertErrorCodeToErrorString(evaluation.getKnownError()));
 
 			DeviceInfoEnum infoEnum = DeviceInfoEnum.matchDeviceCodeEnum(evaluation.getDeviceCode());

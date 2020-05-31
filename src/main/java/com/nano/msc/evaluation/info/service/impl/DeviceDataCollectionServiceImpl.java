@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.info.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.nano.msc.common.enums.CollectorCodeEnum;
 import com.nano.msc.common.enums.ExceptionEnum;
@@ -297,6 +298,7 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
         } catch (Exception e) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_FORMAT_ERROR, "术后仪器评价信息参数错误"));
         }
+        logger.info("保存手术评价信息:" + JSON.toJSONString(evaluationList));
         evaluationService.saveAll(evaluationList);
         return CommonResult.success(ResultVo.responseDeviceEvaluation());
     }

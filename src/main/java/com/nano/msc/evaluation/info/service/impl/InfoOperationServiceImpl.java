@@ -7,13 +7,14 @@ import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
-import com.nano.msc.evaluation.info.entity.InfoOperationMark;
+import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 import com.nano.msc.evaluation.info.repository.InfoEvaluationRepository;
+import com.nano.msc.evaluation.info.repository.InfoOperationDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationMarkRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
-import com.nano.msc.evaluation.vo.InfoEvaluationVo;
+import com.nano.msc.evaluation.platform.vo.InfoEvaluationVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +57,12 @@ public class InfoOperationServiceImpl implements InfoOperationService {
      */
     @Autowired
     private InfoEvaluationRepository evaluationRepository;
+
+    /**
+     * 使用仪器仓库
+     */
+    @Autowired
+    private InfoOperationDeviceRepository operationDeviceRepository;
 
 
     /**
@@ -252,20 +259,15 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         } else {
             detailOperationInfoMap.put("operationInfo", infoOperation);
         }
+
         // 获取标记信息列表
-        List<InfoOperationMark> operationMarkList = operationMarkRepository.findByOperationNumber(operationNumber);
-        if (operationMarkList.size() == 0) {
-            detailOperationInfoMap.put("operationMarks", "[]");
-        } else {
-            detailOperationInfoMap.put("operationMarks", operationMarkList);
-        }
+        detailOperationInfoMap.put("operationMarks", operationMarkRepository.findByOperationNumber(operationNumber));
         // 获取并转化评价信息列表
         List<InfoEvaluation> evaluationList = evaluationRepository.findByOperationNumber(operationNumber);
-        if (evaluationList.size() == 0) {
-            detailOperationInfoMap.put("evaluationInfo", "[]");
-        } else {
-            detailOperationInfoMap.put("evaluationInfo", InfoEvaluationVo.generateEvaluationVo(evaluationList));
-        }
+        detailOperationInfoMap.put("evaluationInfo", InfoEvaluationVo.generateEvaluationVo(evaluationList));
+
+        List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByOperationNumber(operationNumber);
+
 
         return CommonResult.success(detailOperationInfoMap);
     }

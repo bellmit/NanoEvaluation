@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.info.repository;
 
+import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 
 import org.springframework.data.domain.Pageable;
@@ -36,5 +37,13 @@ public interface InfoOperationDeviceRepository extends JpaRepository<InfoOperati
 	 */
 	List<InfoOperationDevice> findByGmtCreateAfter(LocalDateTime localDateTimeAfter);
 
+
+	/**
+	 * 通过手术场次号找使用的仪器
+	 *
+	 * @param operationNumber 手术场次号
+	 * @return 仪器信息
+	 */
+	List<InfoOperationDevice> findByOperationNumber(int operationNumber);
 
 }
