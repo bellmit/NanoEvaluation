@@ -100,6 +100,11 @@ create TABLE `info_operation_device`
     `operation_number` INT UNSIGNED NOT NULL COMMENT '手术场次号',
     `device_code`          VARCHAR(32)       NOT NULL COMMENT '设备号，自行定义，需要设备号对应的仪器名',
     `device_info_id`  TINYINT NOT NULL COMMENT '外键，仪器信息表中仪器的行号ID',
+    `data_number`   INT UNSIGNEDNOT NOT NULL COMMENT '本次采集总数据条数',
+    `operation_duration_time` INT UNSIGNEDNOT NOT NULL COMMENT '采集时长（单位为S）',
+    `drop_rate` DOUBLE(16,2) NOT NULL COMMENT '掉线率',
+    `collection_start_time`  DATETIME NOT NULL COMMENT '采集开始时间',
+    `collection_end_time` DATETIME NOT NULL COMMENT '采集结束时间',
 
     `gmt_create` DATETIME NOT NULL COMMENT '创建时间',
     `gmt_modified` DATETIME NOT NULL COMMENT '更新时间',

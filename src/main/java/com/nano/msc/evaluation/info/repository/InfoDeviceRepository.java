@@ -10,4 +10,5 @@ public interface InfoDeviceRepository extends JpaRepository<InfoDevice, Integer>
 
     InfoDevice findByDeviceCodeAndDeviceSerialNumber(String deviceCode, String deviceSerialNumber);
 
+
 }

@@ -4,6 +4,7 @@ import com.nano.msc.common.enums.ExceptionEnum;
 import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.devicedata.service.PlatformDeviceDataService;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
@@ -63,6 +64,10 @@ public class InfoOperationServiceImpl implements InfoOperationService {
      */
     @Autowired
     private InfoOperationDeviceRepository operationDeviceRepository;
+
+
+    @Autowired
+    private PlatformDeviceDataService platformDeviceDataService;
 
 
     /**
@@ -265,10 +270,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         // 获取并转化评价信息列表
         List<InfoEvaluation> evaluationList = evaluationRepository.findByOperationNumber(operationNumber);
         detailOperationInfoMap.put("evaluationInfo", InfoEvaluationVo.generateEvaluationVo(evaluationList));
-
-        List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByOperationNumber(operationNumber);
-
-
+        detailOperationInfoMap.put("deviceDataDetails", platformDeviceDataService.getDeviceDataStatisticData(operationNumber));
         return CommonResult.success(detailOperationInfoMap);
     }
 

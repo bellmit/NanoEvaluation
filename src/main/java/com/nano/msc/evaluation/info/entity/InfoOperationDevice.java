@@ -70,6 +70,33 @@ public class InfoOperationDevice implements Serializable {
     @Column(name = "device_info_id")
     private Integer deviceInfoId;
 
+
+    /**
+     * 数据总条数
+     */
+    private Integer dataNumber;
+
+    /**
+     * 手术持续时间
+     */
+    private long operationDurationTime;
+
+    /**
+     * 掉线率
+     */
+    private double dropRate;
+
+    /**
+     * 采集开始时间
+     */
+    private LocalDateTime collectionStartTime;
+
+    /**
+     * 采集结束时间
+     */
+    private LocalDateTime collectionEndTime;
+
+
     /**
      * 数据创建时间
      */

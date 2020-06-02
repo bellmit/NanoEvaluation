@@ -1,6 +1,7 @@
 package com.nano.msc.platform;
 
 import com.alibaba.fastjson.JSON;
+import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
 import org.junit.Test;
@@ -20,6 +21,9 @@ public class PlatformDeviceInfoTest {
 	@Autowired
 	private InfoOperationService operationService;
 
+	@Autowired
+	private PuKeYy106Repository puKeYy106Repository;
+
 
 	@Test
 	public void testHistoryCollectionTime() {
@@ -36,4 +40,8 @@ public class PlatformDeviceInfoTest {
 		System.out.println(JSON.toJSONString(operationService.getOperationList(0, 3)));
 	}
 
+
+	@Test
+	public void testPuKe() {
+	}
 }

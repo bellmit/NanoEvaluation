@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 宝莱特A8
+ * @author cz
  */
 @Repository
 public interface BaoLaiTeRepository extends JpaRepository<BaoLaiTeA8, Integer> {

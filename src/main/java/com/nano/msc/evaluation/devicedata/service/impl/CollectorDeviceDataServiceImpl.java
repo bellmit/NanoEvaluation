@@ -159,7 +159,7 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
         }
 
         // 发送到消息队列
-        indicatorService.sendMessage("deviceData", paramDeviceData.getDeviceCode() + "@" + paramDeviceData.getDeviceData());
+        IndicatorService.sendMessage("deviceData", paramDeviceData.getDeviceCode() + "@" + paramDeviceData.getDeviceData());
         return CommonResult.success();
     }
 

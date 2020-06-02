@@ -7,4 +7,6 @@ package com.nano.msc.evaluation.platform.service;
  * @time: 2020/5/25 20:59
  */
 public interface PlatformDeviceInfoService {
+
+
 }

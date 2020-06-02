@@ -26,7 +26,6 @@ import lombok.Data;
  * @author lx
  * @version V1.0
  * @date 2019/4/11 17:37
- * @email vinicolor.violet.end@gmail.com
  * Description:
  */
 @DynamicInsert
@@ -34,7 +33,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "data_pearlcare_yy106")
-public class PearlcareYy106 implements Serializable {
+public class PuKeYy106 implements Serializable {
 
     private static final long serialVersionUID = -6622470603257802385L;
 

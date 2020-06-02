@@ -2,6 +2,7 @@ package com.nano.msc.common.utils;
 
 import java.sql.Timestamp;
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -170,6 +171,17 @@ public class TimeStampUtils {
     public static LocalDateTime getCurrentDayZeroLocalDateTime() {
         LocalDateTime current = LocalDateTime.now();
         return LocalDateTime.of(current.getYear(), current.getMonth(), current.getDayOfMonth(), 0, 0, 0, 0);
+    }
+
+    /**
+     * 获取持续时间
+     *
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return 持续的时间：单位为秒S
+     */
+    public static long getDurationTime(LocalDateTime startTime, LocalDateTime endTime) {
+        return Duration.between(startTime, endTime).getSeconds();
     }
 
 
@@ -357,6 +369,9 @@ public class TimeStampUtils {
     public static long getCurrentLongTimeStamp() {
         return System.currentTimeMillis() / 1000;
     }
+
+
+
 
     /**
      * 得到当前的时间戳

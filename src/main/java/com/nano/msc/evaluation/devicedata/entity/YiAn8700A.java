@@ -31,7 +31,7 @@ import lombok.Data;
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_YiAn8700A")
+@Table(name = "data_yi_an8700a")
 public class YiAn8700A implements Serializable {
 
     private static final long serialVersionUID = -2529981539986516802L;

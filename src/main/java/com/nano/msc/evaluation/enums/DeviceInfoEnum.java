@@ -113,22 +113,22 @@ public enum DeviceInfoEnum {
     /**
      * 仪器号
      */
-    private Integer deviceCode;
+    public Integer deviceCode;
 
     /**
      * 公司名称
      */
-    private String companyName;
+    public String companyName;
 
     /**
      * 仪器名称
      */
-    private String deviceName;
+    public String deviceName;
 
     /**
      * 仪器类别
      */
-    private String deviceType;
+    public String deviceType;
 
 
     DeviceInfoEnum(Integer deviceCode, String companyName, String deviceName, String deviceType) {

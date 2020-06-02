@@ -35,6 +35,20 @@ public class DeviceDataStatisticVo implements Serializable {
 	 */
 	private Integer dataNumber;
 
+	/**
+	 * 手术持续时间
+	 */
+	private long operationDurationTime;
 
+	/**
+	 * 掉线率
+	 */
+	private double dropRate;
+
+	/**
+	 * 开始与结束时间
+	 */
+	private long collectionStartTime;
+	private long collectionEndTime;
 
 }
