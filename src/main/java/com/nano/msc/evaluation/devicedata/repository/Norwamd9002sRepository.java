@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 诺和NW9002S
  * @author nano
@@ -24,6 +26,8 @@ public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Inte
      */
     Norwamd9002s findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
 
+
+
     /**
      * 通过operationNumber和serialNumber查询指定手术的仪器输出数据
      *
@@ -33,5 +37,14 @@ public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Inte
      * @return Page<Norwamd9002s>
      */
     Page<Norwamd9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
+
+    /**
+     * 通过operationNumber和serialNumber查询指定手术的仪器全部数据
+     *
+     * @param operationNumber 手术顺序号
+     * @param serialNumber    仪器序列号
+     * @return Page<Norwamd9002s>
+     */
+    List<Norwamd9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber);
 }
 

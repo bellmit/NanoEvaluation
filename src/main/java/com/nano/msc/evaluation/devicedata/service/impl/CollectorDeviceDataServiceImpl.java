@@ -13,6 +13,7 @@ import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.param.ParamCollector;
 import com.nano.msc.mq.consumer.IndicatorService;
 import com.nano.msc.redis.service.RedisService;
+import com.nano.msc.websocket.RealTimeDeviceDataServer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,14 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
     @Autowired
     private RedisService redisService;
 
+
+    /**
+     * Websocket推送服务
+     */
+    @Autowired
+    private RealTimeDeviceDataServer realTimeDeviceDataServer;
+
+
     /**
      * 处理采集器上传而来的仪器数据
      * @param paramCollector 数据参数苏
@@ -81,18 +90,21 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
         if (!dataParserMap.containsKey(paramDeviceData.getDeviceCode())) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.UNKNOWN_DATA_TYPE, "没有对应仪器号"));
         }
+
         // 解析并存储这个JSON
         boolean success = dataParserMap.get(paramDeviceData.getDeviceCode()).parseDeviceDataStringAndSave(paramDeviceData.getDeviceData());
         if(!success) {
             return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_PARSE_EXCEPTION, "仪器数据解析错误"));
         }
+
         logger.info("接收仪器数据:" + paramDeviceData.toString());
 
         // 将最新的数据存入Redis
         String key = CacheCons.NEWEAST_DEVICE_DATA_HEAD + operationNumber
                 + CacheCons.SEPARATOR + paramDeviceData.getDeviceCode();
         redisService.set(key, paramDeviceData.getDeviceData(), 3600);
-
+        // 仪器数据推送到前端
+        RealTimeDeviceDataServer.sendDeviceRealTimeData(operationNumber, paramDeviceData.getDeviceCode(), paramDeviceData.getDeviceData());
         return CommonResult.success(ResultVo.responseDeviceData());
     }
 

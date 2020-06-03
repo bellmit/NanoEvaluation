@@ -8,7 +8,9 @@ import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
 import com.nano.msc.evaluation.devicedata.entity.PuKeYy106;
+import com.nano.msc.evaluation.devicedata.repository.Norwamd9002sRepository;
 import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
 import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
@@ -74,6 +76,9 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 
 	@Autowired
 	private PuKeYy106Repository puKeYy106Repository;
+
+	@Autowired
+	private Norwamd9002sRepository norwamd9002sRepository;
 
 	@Autowired
 	private InfoDeviceRepository infoDeviceRepository;
@@ -321,6 +326,14 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
 
 				} else if (deviceCode == NORWAMD_9002S.deviceCode) {
+					// 获取仪器信息
+					// 得到普可监测数据集
+					List<Norwamd9002s> dataList = norwamd9002sRepository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+
+					// TODO:这里添加掉线率处理方法
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
 
                 }
 

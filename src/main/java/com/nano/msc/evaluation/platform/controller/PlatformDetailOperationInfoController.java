@@ -1,6 +1,7 @@
 package com.nano.msc.evaluation.platform.controller;
 
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.devicedata.service.DeviceDataService;
 import com.nano.msc.evaluation.info.service.InfoEvaluationService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
@@ -40,15 +41,28 @@ public class PlatformDetailOperationInfoController {
 	@Autowired
 	private InfoEvaluationService evaluationService;
 
+	/**
+	 * 仪器数据服务
+	 */
+	@Autowired
+	private DeviceDataService deviceDataService;
 
 	@ApiOperation("获取某场手术详细信息")
 	@GetMapping("/all_info")
 	public CommonResult getAllOperationInfo(@RequestParam(value = "operationNumber")
 												@Min(value = 1, message = "查询手术场次号不能小于1")  int operationNumber) {
-
-
 		return operationService.getDetailInfoOfOneOperation(operationNumber);
+	}
 
+
+	@ApiOperation("获取仪器历史采集数据")
+	@GetMapping("/device_history_data")
+	public CommonResult getDeviceHistoryData(@RequestParam(value = "operationNumber") @Min(value = 1, message = "查询手术场次号不能小于1") int operationNumber,
+											 @RequestParam(value = "serialNumber") String serialNumber,
+											 @RequestParam(value = "page", defaultValue = "0") @Min(value = 0, message = "页数不能小于1") Integer page,
+											 @RequestParam(value = "size", defaultValue = "1000000") @Min(value = 1, message = "数据个数不能小于1")Integer size
+											 ) {
+		return deviceDataService.getDeviceHistoryData(operationNumber, serialNumber, page, size);
 	}
 
 }

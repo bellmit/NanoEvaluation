@@ -25,6 +25,11 @@ public class DeviceDataStatisticVo implements Serializable {
 	private String deviceName;
 
 	/**
+	 * 仪器号
+	 */
+	private String deviceCode;
+
+	/**
 	 * 序列号
 	 */
 	private String serialNumber;
@@ -34,6 +39,8 @@ public class DeviceDataStatisticVo implements Serializable {
 	 * 数据总条数
 	 */
 	private Integer dataNumber;
+
+
 
 	/**
 	 * 手术持续时间

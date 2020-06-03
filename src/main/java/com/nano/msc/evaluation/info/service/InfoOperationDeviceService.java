@@ -22,4 +22,13 @@ public interface InfoOperationDeviceService {
      */
     CommonResult getDeviceOpenNumberHistory(int historyDays);
 
+
+    /**
+     * 获取手术使用的仪器信息
+     *
+     * @param operationNumber 手术场次号
+     * @return 仪器信息
+     */
+    CommonResult getOperationUsedDeviceInfo(int operationNumber);
+
 }

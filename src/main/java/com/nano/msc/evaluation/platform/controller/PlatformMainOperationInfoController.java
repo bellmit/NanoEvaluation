@@ -2,6 +2,7 @@ package com.nano.msc.evaluation.platform.controller;
 
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.info.service.InfoEvaluationService;
+import com.nano.msc.evaluation.info.service.InfoOperationDeviceService;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class PlatformMainOperationInfoController {
 
 	@Autowired
 	private InfoEvaluationService evaluationService;
+
+	@Autowired
+	private InfoOperationDeviceService operationDeviceService;
 
 
 	/**
@@ -102,6 +106,16 @@ public class PlatformMainOperationInfoController {
 		return evaluationService.countAllEvaluationNumber();
 	}
 
-
+	/**
+	 * 获取手术使用的仪器信息
+	 *
+	 * @param operationNumber 手术场次号
+	 * @return 仪器信息
+	 */
+	@ApiOperation("获取手术使用的仪器列表")
+	@GetMapping("/used_device_info_list")
+	public CommonResult getOperationUsedDeviceInfo(@RequestParam(value = "operationNumber") @Min(value = 1, message = "查询手术场次号不能小于1") int operationNumber) {
+		return operationDeviceService.getOperationUsedDeviceInfo(operationNumber);
+	}
 
 }

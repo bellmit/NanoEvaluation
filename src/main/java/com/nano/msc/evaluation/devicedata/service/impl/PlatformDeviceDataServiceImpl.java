@@ -73,9 +73,9 @@ public class PlatformDeviceDataServiceImpl implements PlatformDeviceDataService 
 				InfoDevice infoDevice = optional.get();
 				statisticVo.setSerialNumber(infoDevice.getDeviceSerialNumber());
 			}
-
 			DeviceInfoEnum infoEnum = DeviceInfoEnum.matchDeviceCodeEnum(operationDevice.getDeviceCode());
 			if (infoEnum != null) {
+				statisticVo.setDeviceCode(infoEnum.getDeviceCode() + "");
 				statisticVo.setCompanyName(infoEnum.getCompanyName());
 				statisticVo.setDeviceName(infoEnum.getDeviceName());
 			} else {

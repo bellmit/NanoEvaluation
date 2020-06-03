@@ -2,21 +2,27 @@ package com.nano.msc.evaluation.info.service.impl;
 
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.info.entity.InfoDevice;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
+import com.nano.msc.evaluation.info.repository.InfoDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationDeviceRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationDeviceService;
+import com.nano.msc.evaluation.platform.vo.InfoUsedDeviceVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 
 /**
@@ -26,8 +32,12 @@ import cn.hutool.core.map.MapUtil;
 @Service
 public class InfoOperationDeviceServiceImpl implements InfoOperationDeviceService {
 
+
     @Autowired
     private InfoOperationDeviceRepository operationDeviceRepository;
+
+    @Autowired
+    private InfoDeviceRepository deviceRepository;
 
 
     @Override
@@ -69,4 +79,37 @@ public class InfoOperationDeviceServiceImpl implements InfoOperationDeviceServic
 
         return CommonResult.success(deviceOpenNumberMap);
     }
+
+
+    /**
+     * 获取手术使用的仪器信息
+     *
+     * @param operationNumber 手术场次号
+     * @return 仪器信息
+     */
+    @Override
+    public CommonResult getOperationUsedDeviceInfo(int operationNumber) {
+
+        List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByOperationNumber(operationNumber);
+        if (operationDeviceList.size() == 0) {
+            return CommonResult.validateFailed("当前手术场次号没有仪器信息:" + operationNumber);
+        }
+
+        List<InfoUsedDeviceVo> usedDeviceVoList = new ArrayList<>();
+        for (InfoOperationDevice operationDevice : operationDeviceList) {
+            // 获取仪器信息ID
+            InfoUsedDeviceVo usedDeviceVo = new InfoUsedDeviceVo();
+            // Copy property
+            BeanUtil.copyProperties(operationDevice, usedDeviceVo);
+            Optional<InfoDevice> optional = deviceRepository.findById(operationDevice.getDeviceInfoId());
+            if (optional.isPresent()) {
+                InfoDevice infoDevice = optional.get();
+                BeanUtil.copyProperties(infoDevice, usedDeviceVo);
+            }
+            usedDeviceVoList.add(usedDeviceVo);
+        }
+        return CommonResult.success(usedDeviceVoList);
+    }
+
+
 }

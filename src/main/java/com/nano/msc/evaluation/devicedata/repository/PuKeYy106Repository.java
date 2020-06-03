@@ -38,6 +38,7 @@ public interface PuKeYy106Repository extends JpaRepository<PuKeYy106, Integer> {
     Page<PuKeYy106> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
 
 
+
     /**
      * 通过operationNumber和serialNumber查询全部数据
      *

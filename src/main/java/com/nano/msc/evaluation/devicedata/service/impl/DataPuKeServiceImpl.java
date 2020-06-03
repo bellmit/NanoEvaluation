@@ -8,6 +8,7 @@ import com.nano.msc.evaluation.devicedata.service.DataPuKeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author: nano
  * @time: 2020/6/2 16:32
  */
+@Service
 public class DataPuKeServiceImpl implements DataPuKeService {
 
 

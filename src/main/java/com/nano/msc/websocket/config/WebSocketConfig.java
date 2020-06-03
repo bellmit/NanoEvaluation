@@ -1,4 +1,4 @@
-package com.nano.msc.websocket;
+package com.nano.msc.websocket.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
