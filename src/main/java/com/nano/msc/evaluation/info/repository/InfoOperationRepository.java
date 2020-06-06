@@ -74,7 +74,7 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
      *
      * @return 信息列表
      */
-    List<InfoOperation> findByOperationState(Integer operationState);
+    List<InfoOperation> findByOperationStateOrderByOperationNumberDesc(Integer operationState);
 
 
 }

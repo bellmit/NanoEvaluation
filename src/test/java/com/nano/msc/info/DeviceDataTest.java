@@ -2,7 +2,7 @@ package com.nano.msc.info;
 
 import com.alibaba.fastjson.JSON;
 import com.nano.msc.common.enums.CollectorCodeEnum;
-import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
+import com.nano.msc.evaluation.devicedata.entity.NuoHe9002s;
 import com.nano.msc.evaluation.devicedata.entity.PuKeYy106;
 import com.nano.msc.evaluation.devicedata.param.ParamDeviceData;
 import com.nano.msc.evaluation.enums.DeviceInfoEnum;
@@ -22,16 +22,16 @@ public class DeviceDataTest {
     @Test
     public void postDeviceDataNuoHe() {
 
-        Norwamd9002s norwamd9002s = new Norwamd9002s();
-        norwamd9002s.setSerialNumber("X123123");
-        norwamd9002s.setOperationNumber(27);
-        norwamd9002s.setBS(12);
-        norwamd9002s.setCSI(45);
-        norwamd9002s.setEMG(45);
-        norwamd9002s.setSQI(67);
+        NuoHe9002s nuoHe9002S = new NuoHe9002s();
+        nuoHe9002S.setSerialNumber("X123123");
+        nuoHe9002S.setOperationNumber(27);
+        nuoHe9002S.setBs(12);
+        nuoHe9002S.setCsi(45);
+        nuoHe9002S.setEmg(45);
+        nuoHe9002S.setSqi(67);
         ParamDeviceData deviceData = new ParamDeviceData();
         deviceData.setDeviceCode(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode());
-        deviceData.setDeviceData(JSON.toJSONString(norwamd9002s));
+        deviceData.setDeviceData(JSON.toJSONString(nuoHe9002S));
 
         ParamCollector paramCollector = new ParamCollector();
         paramCollector.setRequestCode(CollectorCodeEnum.COLLECTION_DEVICE_DATA.getCode());
@@ -50,9 +50,9 @@ public class DeviceDataTest {
         puKeYy106.setSerialNumber("X123123");
         puKeYy106.setOperationNumber(27);
         puKeYy106.setAi(45);
-        puKeYy106.setBSR(12);
-        puKeYy106.setEMG(87);
-        puKeYy106.setSQI(90);
+        puKeYy106.setBsr(12);
+        puKeYy106.setEmg(87);
+        puKeYy106.setSqi(90);
         ParamDeviceData deviceData = new ParamDeviceData();
         deviceData.setDeviceCode(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode());
         deviceData.setDeviceData(JSON.toJSONString(puKeYy106));

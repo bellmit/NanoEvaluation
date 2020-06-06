@@ -11,14 +11,11 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.nano.msc.websocket.entity.DataSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 
@@ -87,11 +84,8 @@ public class RealTimeDeviceDataServer {
 
 		logger.info("用户连接:" + dataSession.toString() + ",当前在线人数为:" + getOnlineCount());
 
-		try {
-			sendMessage("连接成功");
-		} catch (IOException e) {
-			logger.error("用户:" + operationNumber + ", 网络异常!!!!!!");
-		}
+		//sendMessage("连接成功");
+		logger.info("链接成功");
 	}
 
 	/**
@@ -117,9 +111,9 @@ public class RealTimeDeviceDataServer {
 	/**
 	 * 推送数据
 	 *
-	 * @param operationNumber 手术场次号
+	 * @param operationNumber   手术场次号
 	 * @param currentDeviceCode 仪器号
-	 * @param message 信息
+	 * @param message           信息
 	 */
 	public static void sendDeviceRealTimeData(int operationNumber, int currentDeviceCode, String message) {
 		logger.info("发送消息到:" + operationNumber + "，报文:" + message);

@@ -104,7 +104,10 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
                 + CacheCons.SEPARATOR + paramDeviceData.getDeviceCode();
         redisService.set(key, paramDeviceData.getDeviceData(), 3600);
         // 仪器数据推送到前端
-        RealTimeDeviceDataServer.sendDeviceRealTimeData(operationNumber, paramDeviceData.getDeviceCode(), paramDeviceData.getDeviceData());
+
+
+        RealTimeDeviceDataServer
+                .sendDeviceRealTimeData(operationNumber, paramDeviceData.getDeviceCode(), paramDeviceData.getDeviceData());
         return CommonResult.success(ResultVo.responseDeviceData());
     }
 

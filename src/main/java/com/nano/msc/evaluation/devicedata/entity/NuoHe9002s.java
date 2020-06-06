@@ -32,7 +32,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "data_norwamd_9002s")
-public class Norwamd9002s implements Serializable {
+public class NuoHe9002s implements Serializable {
 
     private static final long serialVersionUID = -3302167041948046696L;
 
@@ -61,25 +61,25 @@ public class Norwamd9002s implements Serializable {
      *
      */
     @Column(name = "BS")
-    private Integer BS;
+    private Integer bs;
 
     /**
      *
      */
     @Column(name = "EMG")
-    private Integer EMG;
+    private Integer emg;
 
     /**
      *
      */
     @Column(name = "SQI")
-    private Integer SQI;
+    private Integer sqi;
 
     /**
      *
      */
     @Column(name = "CSI")
-    private Integer CSI;
+    private Integer csi;
 
     /**
      * 数据创建时间

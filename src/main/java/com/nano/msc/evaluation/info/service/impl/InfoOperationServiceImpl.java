@@ -8,7 +8,6 @@ import com.nano.msc.evaluation.devicedata.service.PlatformDeviceDataService;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
-import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 import com.nano.msc.evaluation.info.repository.InfoEvaluationRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationMarkRepository;
@@ -186,7 +185,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
     @Override
     public CommonResult getProcessingOperationList() {
         // 返回正在进行的手术信息
-        return CommonResult.success(operationRepository.findByOperationState(OperationStateEnum.PROGRESSING.getCode()));
+        return CommonResult.success(operationRepository.findByOperationStateOrderByOperationNumberDesc(OperationStateEnum.PROGRESSING.getCode()));
     }
 
 

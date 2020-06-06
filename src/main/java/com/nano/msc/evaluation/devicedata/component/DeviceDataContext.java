@@ -5,7 +5,7 @@ import com.nano.msc.evaluation.devicedata.repository.LiBangEliteV8Repository;
 import com.nano.msc.evaluation.devicedata.repository.MaiRuiT8Repository;
 import com.nano.msc.evaluation.devicedata.repository.MaiRuiWatoex55ProRepository;
 import com.nano.msc.evaluation.devicedata.repository.MaiRuiWatoex65Repository;
-import com.nano.msc.evaluation.devicedata.repository.Norwamd9002sRepository;
+import com.nano.msc.evaluation.devicedata.repository.NuoHe9002sRepository;
 import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
 import com.nano.msc.evaluation.devicedata.repository.YiAn8700ARepository;
 import com.nano.msc.evaluation.enums.DeviceInfoEnum;
@@ -51,7 +51,7 @@ public class DeviceDataContext implements InitializingBean, ApplicationContextAw
 	 */
 	@Override
 	public void afterPropertiesSet() {
-		dataRepositoryMap.put(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode(), applicationContext.getBean(Norwamd9002sRepository.class));
+		dataRepositoryMap.put(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode(), applicationContext.getBean(NuoHe9002sRepository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode(), applicationContext.getBean(PuKeYy106Repository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.BAO_LAI_TE.getDeviceCode(), applicationContext.getBean(BaoLaiTeRepository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.YI_AN_8700_A.getDeviceCode(), applicationContext.getBean(YiAn8700ARepository.class));

@@ -1,6 +1,7 @@
 package com.nano.msc.evaluation.platform.vo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
@@ -55,7 +56,7 @@ public class DeviceDataStatisticVo implements Serializable {
 	/**
 	 * 开始与结束时间
 	 */
-	private long collectionStartTime;
-	private long collectionEndTime;
+	private LocalDateTime collectionStartTime;
+	private LocalDateTime collectionEndTime;
 
 }

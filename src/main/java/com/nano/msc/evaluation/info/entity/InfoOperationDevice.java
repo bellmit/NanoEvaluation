@@ -79,12 +79,12 @@ public class InfoOperationDevice implements Serializable {
     /**
      * 手术持续时间
      */
-    private long operationDurationTime;
+    private Long operationDurationTime;
 
     /**
      * 掉线率
      */
-    private double dropRate;
+    private Double dropRate;
 
     /**
      * 采集开始时间

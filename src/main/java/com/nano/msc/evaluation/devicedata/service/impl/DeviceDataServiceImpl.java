@@ -9,7 +9,6 @@ import com.nano.msc.evaluation.info.entity.InfoDevice;
 import com.nano.msc.evaluation.info.repository.InfoDeviceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,15 +56,14 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 			List<PuKeYy106> dataList = puKeYy106Repository.findByOperationNumberAndSerialNumber(operationNumber, serialNumber);
 			Map<String, Object> dataMap = new HashMap<>();
 			dataMap.put("Ai", dataList.stream().map(PuKeYy106::getAi).collect(Collectors.toList()));
-			dataMap.put("EMG", dataList.stream().map(PuKeYy106::getEMG).collect(Collectors.toList()));
-			dataMap.put("SQI", dataList.stream().map(PuKeYy106::getSQI).collect(Collectors.toList()));
-			dataMap.put("BSR", dataList.stream().map(PuKeYy106::getBSR).collect(Collectors.toList()));
+			dataMap.put("EMG", dataList.stream().map(PuKeYy106::getEmg).collect(Collectors.toList()));
+			dataMap.put("SQI", dataList.stream().map(PuKeYy106::getSqi).collect(Collectors.toList()));
+			dataMap.put("BSR", dataList.stream().map(PuKeYy106::getBsr).collect(Collectors.toList()));
 			dataMap.put("time", dataList.stream().map(PuKeYy106::getGmtCreate).collect(Collectors.toList()));
 			return CommonResult.success(dataMap);
 		} else if (deviceCode == DeviceInfoEnum.NORWAMD_9002S.deviceCode) {
 
 		}
-
 
 		return CommonResult.success(new ArrayList<>());
 	}

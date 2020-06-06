@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.repository;
 
 
-import com.nano.msc.evaluation.devicedata.entity.Norwamd9002s;
+import com.nano.msc.evaluation.devicedata.entity.NuoHe9002s;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author nano
  */
 @Repository
-public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Integer> {
+public interface NuoHe9002sRepository extends JpaRepository<NuoHe9002s, Integer> {
 
     /**
      * 查询指定operationNumber和serialNumber的最新的一条数据
@@ -24,7 +24,7 @@ public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Inte
      * @param serialNumber    仪器序列号
      * @return Norwamd9002s实体
      */
-    Norwamd9002s findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
+    NuoHe9002s findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
 
 
 
@@ -36,7 +36,7 @@ public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Inte
      * @param pageable        分页信息
      * @return Page<Norwamd9002s>
      */
-    Page<Norwamd9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
+    Page<NuoHe9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
 
     /**
      * 通过operationNumber和serialNumber查询指定手术的仪器全部数据
@@ -45,6 +45,6 @@ public interface Norwamd9002sRepository extends JpaRepository<Norwamd9002s, Inte
      * @param serialNumber    仪器序列号
      * @return Page<Norwamd9002s>
      */
-    List<Norwamd9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber);
+    List<NuoHe9002s> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber);
 }
 

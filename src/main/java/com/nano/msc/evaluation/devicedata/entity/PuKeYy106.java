@@ -49,25 +49,25 @@ public class PuKeYy106 implements Serializable {
      *
      */
     @Column(name = "AI")
-    private Integer Ai;
+    private Integer ai;
 
     /**
      *
      */
     @Column(name = "EMG")
-    private Integer EMG;
+    private Integer emg;
 
     /**
      *
      */
     @Column(name = "SQI")
-    private Integer SQI;
+    private Integer sqi;
 
     /**
      *
      */
     @Column(name = "BSR")
-    private Integer BSR;
+    private Integer bsr;
 
     /**
      * 数据创建时间

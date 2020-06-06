@@ -25,4 +25,21 @@ public interface InfoDeviceService {
      * @return 数量
      */
     CommonResult getDeviceNumber();
+
+    /**
+     * 通过仪器号查询对应拥有的仪器列表
+     * @param deviceCode 仪器号
+     * @return 仪器列表
+     */
+    CommonResult getSerialNumberListByDeviceCode(String deviceCode);
+
+
+    /**
+     * 通过仪器号与序列号获取仪器信息卡片内容
+     *
+     * @param deviceCode 仪器号
+     * @param deviceSerialNumber 序列号
+     * @return 信息卡片内容
+     */
+    CommonResult getDeviceCardDetailInfo(String deviceCode, String deviceSerialNumber);
 }
