@@ -42,4 +42,5 @@ public interface InfoDeviceService {
      * @return 信息卡片内容
      */
     CommonResult getDeviceCardDetailInfo(String deviceCode, String deviceSerialNumber);
+
 }

@@ -51,9 +51,9 @@ public class DeviceCardStatisticVo {
 
 	//----------------------以下是统计信息----------------------------
 	/**
-	 * 数据总条数
+	 * 总的已完成手术场次
 	 */
-	private Integer dataNumberAll;
+	private Integer totalFinishOperationNumber;
 
 	/**
 	 * 手术持续时间

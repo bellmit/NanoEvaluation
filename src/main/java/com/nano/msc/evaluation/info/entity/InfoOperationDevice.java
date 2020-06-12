@@ -84,6 +84,7 @@ public class InfoOperationDevice implements Serializable {
     /**
      * 掉线率
      */
+    @Column(name = "drop_rate")
     private Double dropRate;
 
     /**

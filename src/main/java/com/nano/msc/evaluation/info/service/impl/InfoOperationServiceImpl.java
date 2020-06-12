@@ -6,13 +6,18 @@ import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.CommonResult;
 import com.nano.msc.evaluation.devicedata.service.PlatformDeviceDataService;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
+import com.nano.msc.evaluation.info.entity.InfoDevice;
 import com.nano.msc.evaluation.info.entity.InfoEvaluation;
 import com.nano.msc.evaluation.info.entity.InfoOperation;
+import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
+import com.nano.msc.evaluation.info.repository.InfoDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoEvaluationRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationMarkRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoOperationService;
+import com.nano.msc.evaluation.platform.vo.DeviceCardOperationTotalInfoVo;
+import com.nano.msc.evaluation.platform.vo.OperationAndEvaluationVo;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
 import com.nano.msc.evaluation.platform.vo.InfoEvaluationVo;
 
@@ -25,10 +30,16 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import cn.hutool.core.bean.BeanUtil;
 
 /**
  * 手术信息服务实现类
@@ -67,6 +78,11 @@ public class InfoOperationServiceImpl implements InfoOperationService {
 
     @Autowired
     private PlatformDeviceDataService platformDeviceDataService;
+
+
+    @Autowired
+    private InfoDeviceRepository deviceRepository;
+
 
 
     /**
@@ -272,5 +288,79 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         detailOperationInfoMap.put("deviceDataDetails", platformDeviceDataService.getDeviceDataStatisticData(operationNumber));
         return CommonResult.success(detailOperationInfoMap);
     }
+
+
+    /**
+     * 得到一台具体仪器的历史完成手术展示信息：用于仪器卡片展示
+     *
+     * @param deviceCode 仪器号
+     * @param deviceSerialNumber 仪器序列号
+     * @return 历史完成手术列表
+     */
+    @Override
+    public CommonResult getOperationDetailInfoOfOneConcreteDevice(String deviceCode, String deviceSerialNumber) {
+        InfoDevice infoDevice = deviceRepository.findByDeviceCodeAndDeviceSerialNumber(deviceCode, deviceSerialNumber);
+        if (infoDevice == null) {
+            return CommonResult.validateFailed("数据不存在");
+        }
+        // 得到这个仪器的全部手术场次：包含正在进行的手术场次
+        int deviceInfoId = infoDevice.getId();
+        List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByDeviceInfoId(deviceInfoId);
+        Set<Integer> operationNumberSet = operationDeviceList.stream()
+                .map(InfoOperationDevice::getOperationNumber)
+                .collect(Collectors.toSet());
+        // 全部的手术信息
+        List<InfoOperation> operationList = new ArrayList<>();
+        for (Integer operationNumber : operationNumberSet) {
+            InfoOperation operation = operationRepository.findByOperationNumber(operationNumber);
+            if (operation != null) {
+                operationList.add(operation);
+            }
+        }
+        // TODO: 这里没有进行分页而是直接把全部符合的手术信息全部返回了，暂时不知道怎么分页
+        // 选择已经完成的手术场次并按手术场次号降序
+        List<InfoOperation> finishedOperationList = operationList.stream()
+                // 筛选完成的手术
+                .filter(infoOperation -> infoOperation.getOperationState().equals(OperationStateEnum.FINISHED.getCode()))
+                // 手术场次号降序
+                .sorted(Comparator.comparingInt(InfoOperation::getOperationNumber).reversed())
+                .collect(Collectors.toList());
+
+        // 存放结果的列表
+        List<DeviceCardOperationTotalInfoVo> resVoList = new ArrayList<>();
+
+        for (InfoOperation operation : finishedOperationList) {
+
+            DeviceCardOperationTotalInfoVo cardVo = new DeviceCardOperationTotalInfoVo();
+            int operationNumber = operation.getOperationNumber();
+            // 找到仪器评价信息并转化为前端需要的Vo
+            InfoEvaluation infoEvaluation = evaluationRepository.findByOperationNumberAndDeviceCode(operationNumber, Integer.parseInt(deviceCode));
+            InfoEvaluationVo evaluationVo = InfoEvaluationVo.generateEvaluationVo(infoEvaluation);
+            // 找到手术使用仪器信息
+            InfoOperationDevice operationDevice = operationDeviceRepository.findByOperationNumberAndDeviceCode(operationNumber, deviceCode);
+            // Copy属性
+            BeanUtil.copyProperties(evaluationVo, cardVo);
+            BeanUtil.copyProperties(operationDevice, cardVo);
+            BeanUtil.copyProperties(infoDevice, cardVo);
+            BeanUtil.copyProperties(operation, cardVo);
+            resVoList.add(cardVo);
+        }
+
+
+//        List<InfoEvaluation> evaluationList = new ArrayList<>(finishedOperationList.size());
+//        for (InfoOperation operation : finishedOperationList) {
+//            InfoEvaluation evaluation = evaluationRepository.findByOperationNumberAndDeviceCode(operation.getOperationNumber(), Integer.parseInt(deviceCode));
+//            if (evaluation != null) {
+//                evaluationList.add(evaluation);
+//            }
+//        }
+//        // 将数据库的评价信息转化为前端展示的Vo
+//        List<InfoEvaluationVo> evaluationVoList = InfoEvaluationVo.generateEvaluationVo(evaluationList);
+//        // 合并手术信息和评价信息
+//        List<OperationAndEvaluationVo> operationAndEvaluationVoList =
+//                OperationAndEvaluationVo.generateOperationAndEvaluationVoList(finishedOperationList, evaluationVoList);
+        return CommonResult.success(resVoList);
+    }
+
 
 }

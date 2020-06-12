@@ -1,4 +1,4 @@
-package com.nano.msc.websocket;
+package com.nano.msc.websocket.server;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,13 +79,9 @@ public class RealTimeDeviceDataServer {
 		} else {
 			dataSessionMap.put(dataSession.getSessionKey(), dataSession);
 			// 在线数加1
+			addOnlineCount();
 		}
-		addOnlineCount();
-
-		logger.info("用户连接:" + dataSession.toString() + ",当前在线人数为:" + getOnlineCount());
-
-		//sendMessage("连接成功");
-		logger.info("链接成功");
+		logger.info("用户连接:" + dataSession.toString() + ",当前在线人数为:" + dataSessionMap.size());
 	}
 
 	/**
@@ -98,7 +94,7 @@ public class RealTimeDeviceDataServer {
 			// 从set中删除
 			subOnlineCount();
 		}
-		logger.info("用户退出:" + operationNumber + browserId + ",当前在线人数为:" + getOnlineCount());
+		logger.info("用户退出:" + operationNumber + browserId + ",当前在线人数为:" + dataSessionMap.size());
 	}
 
 	/**

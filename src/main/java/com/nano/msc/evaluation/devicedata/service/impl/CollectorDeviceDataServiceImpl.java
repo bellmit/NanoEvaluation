@@ -13,7 +13,7 @@ import com.nano.msc.evaluation.info.service.InfoOperationService;
 import com.nano.msc.evaluation.param.ParamCollector;
 import com.nano.msc.mq.consumer.IndicatorService;
 import com.nano.msc.redis.service.RedisService;
-import com.nano.msc.websocket.RealTimeDeviceDataServer;
+import com.nano.msc.websocket.server.RealTimeDeviceDataServer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +80,7 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
         }
         ParamDeviceData paramDeviceData;
         try {
+            // 解析仪器数据
             paramDeviceData = JSON.parseObject(rawData, ParamDeviceData.class);
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,9 +104,8 @@ public class CollectorDeviceDataServiceImpl implements CollectorDeviceDataServic
         String key = CacheCons.NEWEAST_DEVICE_DATA_HEAD + operationNumber
                 + CacheCons.SEPARATOR + paramDeviceData.getDeviceCode();
         redisService.set(key, paramDeviceData.getDeviceData(), 3600);
+
         // 仪器数据推送到前端
-
-
         RealTimeDeviceDataServer
                 .sendDeviceRealTimeData(operationNumber, paramDeviceData.getDeviceCode(), paramDeviceData.getDeviceData());
         return CommonResult.success(ResultVo.responseDeviceData());

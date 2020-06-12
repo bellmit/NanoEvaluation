@@ -1,10 +1,13 @@
 package com.nano.msc.evaluation.info.service.impl;
 
 import com.nano.msc.common.vo.CommonResult;
+import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoDevice;
+import com.nano.msc.evaluation.info.entity.InfoOperation;
 import com.nano.msc.evaluation.info.entity.InfoOperationDevice;
 import com.nano.msc.evaluation.info.repository.InfoDeviceRepository;
 import com.nano.msc.evaluation.info.repository.InfoOperationDeviceRepository;
+import com.nano.msc.evaluation.info.repository.InfoOperationRepository;
 import com.nano.msc.evaluation.info.service.InfoDeviceService;
 import com.nano.msc.evaluation.platform.vo.DeviceCardStatisticVo;
 import com.nano.msc.evaluation.utils.ServiceCrudCheckUtils;
@@ -13,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +38,9 @@ public class InfoDeviceServiceImpl implements InfoDeviceService {
 
     @Autowired
     private InfoOperationDeviceRepository operationDeviceRepository;
+
+    @Autowired
+    private InfoOperationRepository operationRepository;
 
 
     @Override
@@ -114,17 +122,26 @@ public class InfoDeviceServiceImpl implements InfoDeviceService {
         // 统计其他统计信息
         List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByDeviceInfoId(infoDevice.getId());
         log.info("operationDeviceList" + operationDeviceList.size());
-        int totalDataNumber = 0;
         long totalOperationTime = 0;
         double totalDropRate = 0;
         for (InfoOperationDevice operationDevice : operationDeviceList) {
             if (operationDevice.getDataNumber() != null) {
-                totalDataNumber = totalDataNumber + operationDevice.getDataNumber();
                 totalOperationTime = totalOperationTime + operationDevice.getOperationDurationTime();
                 totalDropRate = totalDropRate + operationDevice.getDropRate();
             }
         }
-        cardStatisticVo.setDataNumberAll(totalDataNumber);
+        // 获取全部手术场次号
+        Set<Integer> operationNumberSet = operationDeviceList.stream().map(InfoOperationDevice::getOperationNumber)
+                .collect(Collectors.toSet());
+        // 这个仪器全部的使用场次数
+        int totalOperationNumber = 0;
+        for (Integer operationNumber : operationNumberSet) {
+            InfoOperation operation = operationRepository.findByOperationNumber(operationNumber);
+            if (operation != null && operation.getOperationState().equals(OperationStateEnum.FINISHED.getCode())) {
+                totalOperationNumber++;
+            }
+        }
+        cardStatisticVo.setTotalFinishOperationNumber(totalOperationNumber);
         cardStatisticVo.setOperationDurationTimeAll(totalOperationTime);
 
         if (operationDeviceList.size() == 0) {
@@ -135,6 +152,9 @@ public class InfoDeviceServiceImpl implements InfoDeviceService {
 
         return CommonResult.success(cardStatisticVo);
     }
+
+
+
 
 
 }

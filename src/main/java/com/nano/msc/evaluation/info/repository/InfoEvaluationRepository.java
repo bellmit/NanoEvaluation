@@ -22,4 +22,14 @@ public interface InfoEvaluationRepository extends JpaRepository<InfoEvaluation, 
 	 */
 	List<InfoEvaluation> findByOperationNumber(int operationNumber);
 
+
+	/**
+	 * 通过手术场次号和仪器号查找评价信息
+	 *
+	 * @param operationNumber 手术场次号
+	 * @param deviceCode 仪器号
+	 * @return 评价信息
+	 */
+	InfoEvaluation findByOperationNumberAndDeviceCode(Integer operationNumber, Integer deviceCode);
+
 }

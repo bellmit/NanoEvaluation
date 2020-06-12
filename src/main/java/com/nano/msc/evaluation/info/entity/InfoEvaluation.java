@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.info.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
 
@@ -34,7 +35,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name = "info_evaluation")
-@NoArgsConstructor
 @AllArgsConstructor
 public class InfoEvaluation implements Serializable {
 
@@ -130,6 +130,10 @@ public class InfoEvaluation implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
+
+    public InfoEvaluation() {
+    }
 
     public InfoEvaluation(Integer operationNumber, Integer deviceCode, String serialNumber, String deviceDepartment, String experienceLevel, String reliabilityLevel, Boolean hasError, String knownError, String otherError, String remark, String recordName) {
         this.operationNumber = operationNumber;

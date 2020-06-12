@@ -21,8 +21,8 @@ public class ParserBaoLaiTeA8 implements DeviceDataParser {
 
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
-
         BaoLaiTeA8 deviceData = JSON.parseObject(deviceRawData, BaoLaiTeA8.class);
-        return repository.save(deviceData) == null;
+        repository.save(deviceData);
+        return true;
     }
 }

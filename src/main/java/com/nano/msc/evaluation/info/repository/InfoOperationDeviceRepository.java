@@ -55,4 +55,14 @@ public interface InfoOperationDeviceRepository extends JpaRepository<InfoOperati
 	 */
 	List<InfoOperationDevice> findByDeviceInfoId(Integer deviceInfoId);
 
+
+	/**
+	 * 通过手术场次号找使用的仪器
+	 *
+	 * @param operationNumber 手术场次号
+	 * @param deviceCode 仪器号
+	 * @return 仪器信息
+	 */
+	InfoOperationDevice findByOperationNumberAndDeviceCode(int operationNumber, String deviceCode);
+
 }

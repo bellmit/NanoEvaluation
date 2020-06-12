@@ -35,53 +35,53 @@ import lombok.Data;
 public class YiAn8700A implements Serializable {
 
     private static final long serialVersionUID = -2529981539986516802L;
-    @Column(name = "PEAK")
-    private Double PEAK;
+    @Column(name = "peak")
+    private Double peak;
 
-    @Column(name = "PLAT")
-    private Double PLAT;
+    @Column(name = "plat")
+    private Double plat;
 
-    @Column(name = "Pmean")
-    private Double Pmean;
+    @Column(name = "pmean")
+    private Double pmean;
 
-    @Column(name = "PEEP")
-    private Double PEEP;
+    @Column(name = "peep")
+    private Double peep;
 
-    @Column(name = "MV")
-    private Double MV;
+    @Column(name = "mv")
+    private Double mv;
 
-    @Column(name = "Vte")
-    private Double Vte;
+    @Column(name = "vte")
+    private Double vte;
 
-    @Column(name = "Freq")
-    private Double Freq;
+    @Column(name = "freq")
+    private Double freq;
 
-    @Column(name = "Fio2")
-    private Double Fio2;
+    @Column(name = "fio2")
+    private Double fio2;
 
-    @Column(name = "Etco2")
-    private Double Etco2;
+    @Column(name = "etco2")
+    private Double etco2;
 
     @Column(name = "fico2")
     private Double fico2;
 
-    @Column(name = "N2OInsp")
-    private Double N2OInsp;
+    @Column(name = "n2oInsp")
+    private Double n2oInsp;
 
-    @Column(name = "N2OExp")
-    private Double N2OExp;
+    @Column(name = "n2oExp")
+    private Double n2oExp;
 
-    @Column(name = "MAC")
-    private Double MAC;
+    @Column(name = "mac")
+    private Double mac;
 
-    @Column(name = "N2O")
-    private Double N2O;
+    @Column(name = "n2o")
+    private Double n2o;
 
-    @Column(name = "AIR")
-    private Double AIR;
+    @Column(name = "air")
+    private Double air;
 
-    @Column(name = "O2")
-    private Double O2;
+    @Column(name = "o2")
+    private Double o2;
 
     /**
      * 自动增长

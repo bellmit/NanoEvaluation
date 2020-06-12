@@ -198,6 +198,10 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 					operationDevice.setDeviceCode(saveNewDevice.getDeviceCode());
 					operationDevice.setDeviceInfoId(saveNewDevice.getId());
 					operationDevice.setOperationNumber(savedInfoOperation.getOperationNumber());
+					// 初始化掉线率为0
+					operationDevice.setDropRate(0.0);
+					operationDevice.setOperationDurationTime(0L);
+					operationDevice.setDataNumber(0);
 					operationDeviceService.save(operationDevice);
 					// 说明数据库中有这个仪器信息，直接记录下来即可
 				} else {
@@ -206,14 +210,17 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 					operationDevice.setDeviceCode(alreadyHaveDeviceInfo.getDeviceCode());
 					operationDevice.setDeviceInfoId(alreadyHaveDeviceInfo.getId());
 					operationDevice.setOperationNumber(savedInfoOperation.getOperationNumber());
+					// 初始化掉线率为0
+					operationDevice.setDropRate(0.0);
+					operationDevice.setOperationDurationTime(0L);
+					operationDevice.setDataNumber(0);
 					operationDeviceService.save(operationDevice);
 				}
 			} else {
 				return CommonResult.failed(ResultVo.error(ExceptionEnum.DATA_SAVE_ERROR, "使用仪器信息代号无效" + device.toString()));
 			}
 		}
-
-
+		logger.info("Success生成手术场次号:" + infoOperation.getOperationNumber());
 		// 返回手术场次号
 		return CommonResult.success(ResultVo.responseOperationInfo(infoOperation.getOperationNumber()));
 	}

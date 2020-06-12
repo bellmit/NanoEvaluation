@@ -78,4 +78,14 @@ public interface InfoOperationService {
      * @return 全部信息信息
      */
     CommonResult getDetailInfoOfOneOperation(int operationNumber);
+
+
+    /**
+     * 得到一台具体仪器的历史完成手术列表及其对应的手仪器评价列表 用于在仪器卡片页展示
+     *
+     * @param deviceCode 仪器号
+     * @param deviceSerialNumber 仪器序列号
+     * @return 历史完成手术列表
+     */
+    CommonResult getOperationDetailInfoOfOneConcreteDevice(String deviceCode, String deviceSerialNumber);
 }

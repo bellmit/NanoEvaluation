@@ -97,10 +97,9 @@ public class InfoEvaluationVo implements Serializable {
 	private String companyName;
 
 
-
 	/**
 	 * 由术后评价信息生成术后评价信息Vo
-	 *
+	 * <p>
 	 * 这里插入其他信息。并对记录的数字信息进行转换
 	 *
 	 * @param evaluationList 评价信息列表
@@ -130,7 +129,27 @@ public class InfoEvaluationVo implements Serializable {
 		return evaluationVoList;
 	}
 
+	public static InfoEvaluationVo generateEvaluationVo(InfoEvaluation evaluation) {
+		if (evaluation == null) {
+			return new InfoEvaluationVo();
+		}
+		InfoEvaluationVo evaluationVo = new InfoEvaluationVo();
+		BeanUtil.copyProperties(evaluation, evaluationVo);
+		// 转换使用满意度
+		evaluationVo.setExperienceLevel(EvaluationExperienceLevelEnum.getExperienceLevelForPaltform(evaluationVo.getExperienceLevel()));
+		// 转换可靠性满意度
+		evaluationVo.setReliabilityLevel(EvaluationReliabilityLevelEnum.getReliabilityLevelForPaltform(evaluationVo.getReliabilityLevel()));
 
+		// 已知的故障号：需要进行转换成实际的故障
+		evaluationVo.setKnownError(InfoEvaluation.convertErrorCodeToErrorString(evaluation.getKnownError()));
+
+		DeviceInfoEnum infoEnum = DeviceInfoEnum.matchDeviceCodeEnum(evaluation.getDeviceCode());
+		if (infoEnum != null) {
+			evaluationVo.setCompanyName(infoEnum.getCompanyName());
+			evaluationVo.setDeviceName(infoEnum.getDeviceName());
+		}
+		return evaluationVo;
+	}
 
 
 }

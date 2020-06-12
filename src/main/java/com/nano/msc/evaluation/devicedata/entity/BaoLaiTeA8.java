@@ -42,17 +42,17 @@ public class BaoLaiTeA8 implements Serializable {
     /**
      * 心率数据值及其波形 E0
      */
-    private Integer heartRate;
+    private Integer hr;
 
     /**
      * 血氧值模块数据及其波形 E1
      */
-    private Integer bloodOxygen;
+    private Integer spo2;
 
     /**
      * 脉搏数据值 E2
      */
-    private Integer pulse;
+    private Integer pr;
 
     /**
      * 呼吸率及其波形 E3
@@ -65,84 +65,62 @@ public class BaoLaiTeA8 implements Serializable {
     private Double temperature;
 
     /**
-     * 无创血压全部数值（3个） E5
+     * 无创血压全部数值（3个） E5 NIBP
      */
-    private Double noninvasiveBloodPressureSys;
-    private Double noninvasiveBloodPressureMap;
-    private Double noninvasiveBloodPressureDia;
+    private Double nibpSys;
+    private Double nibpMap;
+    private Double nibpDia;
 
 
     /**
-     * 有创血压全部数值（3个）及其波形 E6
+     * 有创血压全部数值（3个） 感觉对应的是P2
      */
-    private Double invasiveBloodPressureSys;
-    private Double invasiveBloodPressureMap;
-    private Double invasiveBloodPressureDia;
+    private Double ibpSys;
+    private Double ibpMap;
+    private Double ibpDia;
+
+
+    //---------下面的参数暂时没有------------------
+
+    /**
+     * CO2值 含两个参数
+     */
+    private Double co2Et;
+    private Double co2Fi;
 
 
     /**
-     * CO2值 含两个参数及其波形数据 E7
+     * O2值 含两个参数 E8
      */
-    @Column(name = "CO2Et")
-    private Double CO2Et;
-    @Column(name = "CO2Fi")
-    private Double CO2Fi;
+    private Double o2Et;
+    private Double o2Fi;
 
 
     /**
-     * O2值 含两个参数及其波形数据 E8
+     * N2O值 含两个参数 E9
      */
-    @Column(name = "O2Et")
-    private Double O2Et;
-    @Column(name = "O2Fi")
-    private Double O2Fi;
+    private Double n2oEt;
+    private Double n2oFi;
 
 
     /**
-     * N2O值 含两个参数及其波形数据 E9
+     * AA值 含两个参数 EA
      */
-    @Column(name = "N2OEt")
-    private Double N2OEt;
-    @Column(name = "N2OFi")
-    private Double N2OFi;
-
+    private Double aaEt;
+    private Double aaFi;
 
     /**
-     * AA值 含两个参数及其波形数据 EA
+     * ICG 参数
      */
-    @Column(name = "AAEt")
-    private Double AAEt;
-    @Column(name = "AAFi")
-    private Double AAFi;
-
-    /**
-     * ICG 参数及其波形
-     */
-    @Column(name = "icgCI")
-    private Double icgCI;
-    @Column(name = "icgCO")
-    private Double icgCO;
-
-    @Column(name = "icgHR")
-    private Double icgHR;
-
-    @Column(name = "icgSI")
-    private Double icgSI;
-
-    @Column(name = "icgSV")
-    private Double icgSV;
-
-    @Column(name = "icgSVR")
-    private Double icgSVR;
-
-    @Column(name = "icgSVRI")
-    private Double icgSVRI;
-
-    @Column(name = "icgTFC")
-    private Double icgTFC;
-
-    @Column(name = "icgTFI")
-    private Double icgTFI;
+    private Double icgCi;
+    private Double icgCo;
+    private Double icgHr;
+    private Double icgSi;
+    private Double icgSv;
+    private Double icgSvr;
+    private Double icgSvri;
+    private Double icgTfc;
+    private Double icgTfi;
 
     /**
      * 自动增长

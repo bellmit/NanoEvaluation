@@ -77,4 +77,5 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
     List<InfoOperation> findByOperationStateOrderByOperationNumberDesc(Integer operationState);
 
 
+
 }
