@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.LiBangEliteV8;
+import com.nano.msc.evaluation.devicedata.entity.DataLiBangEliteV8;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.LiBangEliteV8Repository;
 
@@ -21,7 +21,7 @@ public class ParserLiBangEliteV8 implements DeviceDataParser {
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
         // 解析数据
-        LiBangEliteV8 deviceData = JSON.parseObject(deviceRawData, LiBangEliteV8.class);
+        DataLiBangEliteV8 deviceData = JSON.parseObject(deviceRawData, DataLiBangEliteV8.class);
         // 保存数据
         return repository.save(deviceData) != null;
     }

@@ -8,10 +8,20 @@ import com.nano.msc.common.exceptions.ExceptionAsserts;
 import com.nano.msc.common.utils.TimeStampUtils;
 import com.nano.msc.common.vo.ResultVo;
 import com.nano.msc.common.vo.CommonResult;
-import com.nano.msc.evaluation.devicedata.entity.NuoHe9002s;
-import com.nano.msc.evaluation.devicedata.entity.PuKeYy106;
+import com.nano.msc.evaluation.devicedata.entity.DataAiQin;
+import com.nano.msc.evaluation.devicedata.entity.DataBaoLaiTeA8;
+import com.nano.msc.evaluation.devicedata.entity.DataMaiRuiT8;
+import com.nano.msc.evaluation.devicedata.entity.DataMaiRuiWatoex65;
+import com.nano.msc.evaluation.devicedata.entity.DataNuoHe9002s;
+import com.nano.msc.evaluation.devicedata.entity.DataPuKeYy106;
+import com.nano.msc.evaluation.devicedata.entity.DataYiAn8700A;
+import com.nano.msc.evaluation.devicedata.repository.AiQinRepository;
+import com.nano.msc.evaluation.devicedata.repository.BaoLaiTeRepository;
+import com.nano.msc.evaluation.devicedata.repository.MaiRuiT8Repository;
+import com.nano.msc.evaluation.devicedata.repository.MaiRuiWatoex65Repository;
 import com.nano.msc.evaluation.devicedata.repository.NuoHe9002sRepository;
 import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
+import com.nano.msc.evaluation.devicedata.repository.YiAn8700ARepository;
 import com.nano.msc.evaluation.enums.DeviceInfoEnum;
 import com.nano.msc.evaluation.enums.OperationStateEnum;
 import com.nano.msc.evaluation.info.entity.InfoDevice;
@@ -40,9 +50,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import static com.nano.msc.evaluation.enums.DeviceInfoEnum.NORWAMD_9002S;
-import static com.nano.msc.evaluation.enums.DeviceInfoEnum.PEARLCARE_YY106;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 仪器数据采集整个流程控制的服务类
@@ -80,8 +88,26 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 	@Autowired
 	private NuoHe9002sRepository nuoHe9002SRepository;
 
+
+	@Autowired
+	private BaoLaiTeRepository baoLaiTeRepository;
+
+	@Autowired
+	private YiAn8700ARepository yiAn8700ARepository;
+
+	@Autowired
+	private AiQinRepository aiQinRepository;
+
+	@Autowired
+	private MaiRuiT8Repository maiRuiT8Repository;
+
+
+	@Autowired
+	private MaiRuiWatoex65Repository maiRuiWatoex65Repository;
+
 	@Autowired
 	private InfoDeviceRepository infoDeviceRepository;
+
 
 
 	/**
@@ -308,7 +334,6 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 			}
 		}
 		// 获取手术仪器信息
-		// TODO:Add
 		List<InfoOperationDevice> operationDeviceList = operationDeviceRepository.findByOperationNumber(operationNumber);
 
 		for (InfoOperationDevice operationDevice : operationDeviceList) {
@@ -318,36 +343,73 @@ public class DeviceDataCollectionServiceImpl implements DeviceDataCollectionServ
 			operationDevice.setOperationDurationTime(TimeStampUtils.getDurationTime(operationDevice.getCollectionStartTime(), operationDevice.getCollectionEndTime()));
 			int deviceCode = Integer.parseInt(operationDevice.getDeviceCode());
 			Optional<InfoDevice> optional = infoDeviceRepository.findById(operationDevice.getDeviceInfoId());
-
+			// TODO:这里需要针对每个仪器进行数据统计
 			if (optional.isPresent()) {
 				InfoDevice infoDevice = optional.get();
 				// 根据仪器号进行判断
-				if (deviceCode == PEARLCARE_YY106.deviceCode) {
+				if (deviceCode == DeviceInfoEnum.PEARLCARE_YY106.deviceCode) {
 					// 获取仪器信息
 					// 得到普可监测数据集
-					List<PuKeYy106> dataList = puKeYy106Repository
+					List<DataPuKeYy106> dataList = puKeYy106Repository
 							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
 					operationDevice.setDataNumber(dataList.size());
 
 					// TODO:这里添加掉线率处理方法
 					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
 
-				} else if (deviceCode == NORWAMD_9002S.deviceCode) {
+				} else if (deviceCode == DeviceInfoEnum.NORWAMD_9002S.deviceCode) {
 					// 获取仪器信息
 					// 得到普可监测数据集
-					List<NuoHe9002s> dataList = nuoHe9002SRepository
+					List<DataNuoHe9002s> dataList = nuoHe9002SRepository
 							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
 					operationDevice.setDataNumber(dataList.size());
 
 					// TODO:这里添加掉线率处理方法
 					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
-                }
+                } else if (deviceCode == DeviceInfoEnum.BAO_LAI_TE.deviceCode) {
+					// 获取仪器信息
+					// 得到宝莱特监测数据集
+					List<DataBaoLaiTeA8> dataList = baoLaiTeRepository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+
+					// TODO:这里添加掉线率处理方法
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
+
+				} else if (deviceCode == DeviceInfoEnum.YI_AN_8700_A.deviceCode) {
+					List<DataYiAn8700A> dataList = yiAn8700ARepository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+
+					// TODO:这里添加掉线率处理方法
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
+
+				} else if (deviceCode == DeviceInfoEnum.AI_QIN_EGOS600A.deviceCode) {
+					List<DataAiQin> dataList = aiQinRepository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
+
+				} else if (deviceCode == DeviceInfoEnum.MAI_RUI_T8.deviceCode) {
+					List<DataMaiRuiT8> dataList = maiRuiT8Repository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
+
+				} else if (deviceCode == DeviceInfoEnum.MAI_RUI_WATOEX_65.deviceCode) {
+					List<DataMaiRuiWatoex65> dataList = maiRuiWatoex65Repository
+							.findByOperationNumberAndSerialNumber(operationNumber, infoDevice.getDeviceSerialNumber());
+					operationDevice.setDataNumber(dataList.size());
+					operationDevice.setDropRate(DropRateUtils.getDeviceDropRate(Collections.singletonList(dataList), 1));
+				}
+
 			} else {
                 ExceptionAsserts.fail("找不到仪器信息:" + operationDevice.toString());
             }
 			// 更新信息
 			operationDeviceRepository.save(operationDevice);
 		}
+
 
 		// 回复OK
 		return CommonResult.success(ResultVo.responseStopOperation());

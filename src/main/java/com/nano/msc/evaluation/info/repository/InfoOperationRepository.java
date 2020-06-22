@@ -30,6 +30,17 @@ public interface InfoOperationRepository extends JpaRepository<InfoOperation, In
     @Query("select e from InfoOperation e ORDER BY e.operationNumber DESC")
     Page<InfoOperation> findByOperationNumberDesc(PageRequest of);
 
+
+    /**
+     * 分页获取最新的手术信息
+     *
+     * @param of 分页查询
+     * @return 结果
+     */
+    @Query("select e from InfoOperation e where e.operationState=?1 ORDER BY e.operationNumber DESC")
+    Page<InfoOperation> findFinishedOperationListDesc(int operationState, PageRequest of);
+
+
     /**
      * 通过住院号和身份证查找手术信息
      *

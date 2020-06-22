@@ -35,7 +35,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "data_BaoLaiTe")
-public class BaoLaiTeA8 implements Serializable {
+public class DataBaoLaiTeA8 implements Serializable {
 
     private static final long serialVersionUID = -8052271381912697989L;
 

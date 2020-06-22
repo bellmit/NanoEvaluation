@@ -13,12 +13,13 @@ public interface DeviceDataService {
 	 * 获取仪器历史数据
 	 *
 	 * @param operationNumber 手术场次号
+	 * @param deviceCode 仪器号
 	 * @param serialNumber 序列号
 	 * @param page 页数
 	 * @param size 大小
 	 * @return 数据列表
 	 */
-	CommonResult getDeviceHistoryData(int operationNumber, String serialNumber, int page, int size);
+	CommonResult getDeviceHistoryData(int operationNumber, String deviceCode, String serialNumber, int page, int size);
 
 
 }

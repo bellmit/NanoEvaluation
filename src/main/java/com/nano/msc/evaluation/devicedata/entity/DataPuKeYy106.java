@@ -33,7 +33,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "data_pearlcare_yy106")
-public class PuKeYy106 implements Serializable {
+public class DataPuKeYy106 implements Serializable {
 
     private static final long serialVersionUID = -6622470603257802385L;
 

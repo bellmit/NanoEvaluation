@@ -1,19 +1,21 @@
 package com.nano.msc.evaluation.devicedata.repository;
 
 
-import com.nano.msc.evaluation.devicedata.entity.BaoLaiTeA8;
+import com.nano.msc.evaluation.devicedata.entity.DataBaoLaiTeA8;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 宝莱特A8
  * @author cz
  */
 @Repository
-public interface BaoLaiTeRepository extends JpaRepository<BaoLaiTeA8, Integer> {
+public interface BaoLaiTeRepository extends JpaRepository<DataBaoLaiTeA8, Integer> {
 
     /**
      * 查询指定operationNumber和serialNumber的最新的一条数据
@@ -22,7 +24,7 @@ public interface BaoLaiTeRepository extends JpaRepository<BaoLaiTeA8, Integer> {
      * @param serialNumber    仪器序列号
      * @return BaoLaiTe实体
      */
-    BaoLaiTeA8 findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
+    DataBaoLaiTeA8 findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
 
     /**
      * 通过operationNumber和serialNumber查询指定手术的仪器输出数据
@@ -32,5 +34,8 @@ public interface BaoLaiTeRepository extends JpaRepository<BaoLaiTeA8, Integer> {
      * @param pageable        分页信息
      * @return Page<BaoLaiTe>
      */
-    Page<BaoLaiTeA8> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
+    Page<DataBaoLaiTeA8> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
+
+
+    List<DataBaoLaiTeA8> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber);
 }

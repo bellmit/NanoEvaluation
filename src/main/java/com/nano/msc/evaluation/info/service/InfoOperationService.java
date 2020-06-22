@@ -63,13 +63,24 @@ public interface InfoOperationService {
 
 
     /**
-     * 手术信息分页查询 按照时间顺序降序排列
+     * 全部手术信息分页查询 按照时间顺序降序排列
      *
      * @param page 页数
      * @param size 个数
      * @return 结果
      */
     CommonResult getOperationList(int page, int size);
+
+
+    /**
+     * 已完成手术信息分页查询 按照时间顺序降序排列
+     *
+     * @param page 页数
+     * @param size 个数
+     * @return 结果
+     */
+    CommonResult getFinishedOperationList(int page, int size);
+
 
     /**
      * 获取某一场手术的全部详细信息

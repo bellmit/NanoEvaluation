@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.devicedata.component;
 
+import com.nano.msc.evaluation.devicedata.parser.ParserAiQin;
 import com.nano.msc.evaluation.devicedata.parser.ParserBaoLaiTeA8;
 import com.nano.msc.evaluation.devicedata.parser.ParserLiBangEliteV8;
 import com.nano.msc.evaluation.devicedata.parser.ParserMaiRuiT8;
@@ -61,14 +62,19 @@ public class DataParserContext implements InitializingBean, ApplicationContextAw
 
         // 容器初始化后进行组件装配
         // 将解析器注入到上下文容器中
+        // UDP仪器
         dataParserMap.put(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode(), applicationContext.getBean(ParserNuoHe.class));
         dataParserMap.put(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode(), applicationContext.getBean(ParserPuKe.class));
         dataParserMap.put(DeviceInfoEnum.BAO_LAI_TE.getDeviceCode(), applicationContext.getBean(ParserBaoLaiTeA8.class));
+        dataParserMap.put(DeviceInfoEnum.YI_AN_8700_A.getDeviceCode(), applicationContext.getBean(ParserYiAn8700A.class));
+        // TCP仪器
         dataParserMap.put(DeviceInfoEnum.LI_BANG_ELITE_V8.getDeviceCode(), applicationContext.getBean(ParserLiBangEliteV8.class));
         dataParserMap.put(DeviceInfoEnum.MAI_RUI_T8.getDeviceCode(), applicationContext.getBean(ParserMaiRuiT8.class));
         dataParserMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_55_PRO.getDeviceCode(), applicationContext.getBean(ParserMaiRuiWatoex55Pro.class));
         dataParserMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_65.getDeviceCode(), applicationContext.getBean(ParserMaiRuiWatoex65.class));
-        dataParserMap.put(DeviceInfoEnum.YI_AN_8700_A.getDeviceCode(), applicationContext.getBean(ParserYiAn8700A.class));
+        // 串口仪器
+        dataParserMap.put(DeviceInfoEnum.AI_QIN_EGOS600A.getDeviceCode(), applicationContext.getBean(ParserAiQin.class));
+
     }
 
     @Override

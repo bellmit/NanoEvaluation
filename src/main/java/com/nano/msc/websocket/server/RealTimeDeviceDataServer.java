@@ -94,7 +94,7 @@ public class RealTimeDeviceDataServer {
 			// 从set中删除
 			subOnlineCount();
 		}
-		logger.info("用户退出:" + operationNumber + browserId + ",当前在线人数为:" + dataSessionMap.size());
+		logger.info("用户退出:场次号:" + operationNumber + ",浏览器ID" + browserId + ",当前在线人数为:" + dataSessionMap.size());
 	}
 
 	/**

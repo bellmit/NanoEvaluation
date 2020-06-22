@@ -58,11 +58,12 @@ public class PlatformDetailOperationInfoController {
 	@ApiOperation("获取仪器历史采集数据")
 	@GetMapping("/device_history_data")
 	public CommonResult getDeviceHistoryData(@RequestParam(value = "operationNumber") @Min(value = 1, message = "查询手术场次号不能小于1") int operationNumber,
+											 @RequestParam(value = "deviceCode") String deviceCode,
 											 @RequestParam(value = "serialNumber") String serialNumber,
 											 @RequestParam(value = "page", defaultValue = "0") @Min(value = 0, message = "页数不能小于1") Integer page,
 											 @RequestParam(value = "size", defaultValue = "1000000") @Min(value = 1, message = "数据个数不能小于1")Integer size
 											 ) {
-		return deviceDataService.getDeviceHistoryData(operationNumber, serialNumber, page, size);
+		return deviceDataService.getDeviceHistoryData(operationNumber, deviceCode, serialNumber, page, size);
 	}
 
 }

@@ -24,48 +24,68 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 迈瑞WATOEX麻醉机数据实体类
- *
- * @author msc206
+ * 理邦 ELite V8监护仪数据实体
+ * @author cz
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_MaiRuiWatoex65")
-public class MaiRuiWatoex65 implements Serializable {
+@Table(name = "data_LiBangEliteV8")
+public class DataLiBangEliteV8 implements Serializable {
 
-    private static final long serialVersionUID = 9019102392148835864L;
+    private static final long serialVersionUID = 1217602298523007590L;
 
-    @Column(name = "PMean")
-    private Integer PMean;
+    @Column(name = "weight")
+    private Double weight;
 
-    @Column(name = "PEEP")
-    private Integer PEEP;
+    @Column(name = "height")
+    private Double height;
 
-    @Column(name = "PPlat")
-    private Integer PPlat;
+    @Column(name = "HR")
+    private Integer HR;
 
-    @Column(name = "PPeak")
-    private Integer PPeak;
+    @Column(name = "PVCs")
+    private Integer PVCs;
 
-    @Column(name = "MV")
-    private Double MV;
+    @Column(name = "RR")
+    private Integer RR;
 
-    @Column(name = "TVe")
-    private Integer TVe;
+    @Column(name = "SpO2")
+    private Integer SpO2;
 
-    @Column(name = "IE")
-    private Double IE;
+    @Column(name = "PR")
+    private Integer PR;
 
-    @Column(name = "Rate")
-    private Integer Rate;
+    @Column(name = "T1")
+    private Double T1;
 
-    @Column(name = "C")
-    private Integer C;
+    @Column(name = "T2")
+    private Double T2;
 
-    @Column(name = "R")
-    private Integer R;
+    @Column(name = "CVP_MAP")
+    private Integer CVP_MAP;
+
+    @Column(name = "Art_SYS")
+    private Integer Art_SYS;
+
+    @Column(name = "Art_DIA")
+    private Integer Art_DIA;
+
+    @Column(name = "Art_MAP")
+    private Integer Art_MAP;
+
+    @Column(name = "P2_SYS")
+    private Integer P2_SYS;
+
+    @Column(name = "P2_DIA")
+    private Integer P2_DIA;
+
+    @Column(name = "P2_MAP")
+    private Integer P2_MAP;
+
+    @Column(name = "LAP_MAP")
+    private Integer LAP_MAP;
 
     /**
      * 自动增长
@@ -92,6 +112,7 @@ public class MaiRuiWatoex65 implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
+
     /**
      * 序列号
      */

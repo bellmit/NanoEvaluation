@@ -24,68 +24,64 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 理邦 ELite V8监护仪数据实体
+ * 宜安8700A麻醉机的数据实体类
  * @author cz
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_LiBangEliteV8")
-public class LiBangEliteV8 implements Serializable {
+@Table(name = "data_yi_an8700a")
+public class DataYiAn8700A implements Serializable {
 
-    private static final long serialVersionUID = 1217602298523007590L;
+    private static final long serialVersionUID = -2529981539986516802L;
+    @Column(name = "peak")
+    private Double peak;
 
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "plat")
+    private Double plat;
 
-    @Column(name = "height")
-    private Double height;
+    @Column(name = "pmean")
+    private Double pmean;
 
-    @Column(name = "HR")
-    private Integer HR;
+    @Column(name = "peep")
+    private Double peep;
 
-    @Column(name = "PVCs")
-    private Integer PVCs;
+    @Column(name = "mv")
+    private Double mv;
 
-    @Column(name = "RR")
-    private Integer RR;
+    @Column(name = "vte")
+    private Double vte;
 
-    @Column(name = "SpO2")
-    private Integer SpO2;
+    @Column(name = "freq")
+    private Double freq;
 
-    @Column(name = "PR")
-    private Integer PR;
+    @Column(name = "fio2")
+    private Double fio2;
 
-    @Column(name = "T1")
-    private Double T1;
+    @Column(name = "etco2")
+    private Double etco2;
 
-    @Column(name = "T2")
-    private Double T2;
+    @Column(name = "fico2")
+    private Double fico2;
 
-    @Column(name = "CVP_MAP")
-    private Integer CVP_MAP;
+    @Column(name = "n2oInsp")
+    private Double n2oInsp;
 
-    @Column(name = "Art_SYS")
-    private Integer Art_SYS;
+    @Column(name = "n2oExp")
+    private Double n2oExp;
 
-    @Column(name = "Art_DIA")
-    private Integer Art_DIA;
+    @Column(name = "mac")
+    private Double mac;
 
-    @Column(name = "Art_MAP")
-    private Integer Art_MAP;
+    @Column(name = "n2o")
+    private Double n2o;
 
-    @Column(name = "P2_SYS")
-    private Integer P2_SYS;
+    @Column(name = "air")
+    private Double air;
 
-    @Column(name = "P2_DIA")
-    private Integer P2_DIA;
-
-    @Column(name = "P2_MAP")
-    private Integer P2_MAP;
-
-    @Column(name = "LAP_MAP")
-    private Integer LAP_MAP;
+    @Column(name = "o2")
+    private Double o2;
 
     /**
      * 自动增长

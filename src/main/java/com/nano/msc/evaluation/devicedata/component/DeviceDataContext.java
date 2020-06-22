@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.devicedata.component;
 
+import com.nano.msc.evaluation.devicedata.repository.AiQinRepository;
 import com.nano.msc.evaluation.devicedata.repository.BaoLaiTeRepository;
 import com.nano.msc.evaluation.devicedata.repository.LiBangEliteV8Repository;
 import com.nano.msc.evaluation.devicedata.repository.MaiRuiT8Repository;
@@ -51,15 +52,18 @@ public class DeviceDataContext implements InitializingBean, ApplicationContextAw
 	 */
 	@Override
 	public void afterPropertiesSet() {
+		// UDP仪器
 		dataRepositoryMap.put(DeviceInfoEnum.NORWAMD_9002S.getDeviceCode(), applicationContext.getBean(NuoHe9002sRepository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.PEARLCARE_YY106.getDeviceCode(), applicationContext.getBean(PuKeYy106Repository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.BAO_LAI_TE.getDeviceCode(), applicationContext.getBean(BaoLaiTeRepository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.YI_AN_8700_A.getDeviceCode(), applicationContext.getBean(YiAn8700ARepository.class));
+		// TCP仪器
 		dataRepositoryMap.put(DeviceInfoEnum.MAI_RUI_T8.getDeviceCode(), applicationContext.getBean(MaiRuiT8Repository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_65.getDeviceCode(), applicationContext.getBean(MaiRuiWatoex65Repository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.MAI_RUI_WATOEX_55_PRO.getDeviceCode(), applicationContext.getBean(MaiRuiWatoex55ProRepository.class));
 		dataRepositoryMap.put(DeviceInfoEnum.LI_BANG_ELITE_V8.getDeviceCode(), applicationContext.getBean(LiBangEliteV8Repository.class));
-
+		// 串口仪器
+		dataRepositoryMap.put(DeviceInfoEnum.AI_QIN_EGOS600A.getDeviceCode(), applicationContext.getBean(AiQinRepository.class));
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.repository;
 
 
-import com.nano.msc.evaluation.devicedata.entity.MaiRuiWatoex55Pro;
+import com.nano.msc.evaluation.devicedata.entity.DataMaiRuiWatoex55Pro;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author nano
  */
 @Repository
-public interface MaiRuiWatoex55ProRepository extends JpaRepository<MaiRuiWatoex55Pro, Integer> {
+public interface MaiRuiWatoex55ProRepository extends JpaRepository<DataMaiRuiWatoex55Pro, Integer> {
 
     /**
      * 查询指定operationNumber和serialNumber的最新的一条数据
@@ -22,7 +22,7 @@ public interface MaiRuiWatoex55ProRepository extends JpaRepository<MaiRuiWatoex5
      * @param serialNumber    仪器序列号
      * @return MaiRuiWatoex55Pro实体
      */
-    MaiRuiWatoex55Pro findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
+    DataMaiRuiWatoex55Pro findFirstByOperationNumberAndSerialNumberOrderByGmtCreateDesc(Integer operationNumber, String serialNumber);
 
     /**
      * 通过operationNumber和serialNumber查询指定手术的仪器输出数据
@@ -32,5 +32,5 @@ public interface MaiRuiWatoex55ProRepository extends JpaRepository<MaiRuiWatoex5
      * @param pageable        分页信息
      * @return Page<MaiRuiWatoex55Pro>
      */
-    Page<MaiRuiWatoex55Pro> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
+    Page<DataMaiRuiWatoex55Pro> findByOperationNumberAndSerialNumber(Integer operationNumber, String serialNumber, Pageable pageable);
 }

@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.NuoHe9002s;
+import com.nano.msc.evaluation.devicedata.entity.DataNuoHe9002s;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.NuoHe9002sRepository;
 
@@ -21,7 +21,7 @@ public class ParserNuoHe implements DeviceDataParser {
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
         // 解析数据
-        NuoHe9002s deviceData = JSON.parseObject(deviceRawData, NuoHe9002s.class);
+        DataNuoHe9002s deviceData = JSON.parseObject(deviceRawData, DataNuoHe9002s.class);
         // 保存数据
         return repository.save(deviceData) != null;
     }

@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.service.impl;
 
 import com.nano.msc.common.vo.CommonResult;
-import com.nano.msc.evaluation.devicedata.entity.PuKeYy106;
+import com.nano.msc.evaluation.devicedata.entity.DataPuKeYy106;
 import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
 import com.nano.msc.evaluation.devicedata.service.DataPuKeService;
 
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 普可YY106数据服务
@@ -36,7 +34,7 @@ public class DataPuKeServiceImpl implements DataPuKeService {
 	public CommonResult listHistoryDeviceData(int operationNumber, String serialNumber, int page, int size) {
 
 		// 获取页数数据
-		Page<PuKeYy106> dataPage = puKeYy106Repository.findByOperationNumberAndSerialNumber(operationNumber,
+		Page<DataPuKeYy106> dataPage = puKeYy106Repository.findByOperationNumberAndSerialNumber(operationNumber,
 				serialNumber, PageRequest.of(page, size));
 
 		return CommonResult.success(dataPage);

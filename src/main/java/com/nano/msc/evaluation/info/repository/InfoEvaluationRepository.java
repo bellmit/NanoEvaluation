@@ -32,4 +32,32 @@ public interface InfoEvaluationRepository extends JpaRepository<InfoEvaluation, 
 	 */
 	InfoEvaluation findByOperationNumberAndDeviceCode(Integer operationNumber, Integer deviceCode);
 
+	/**
+	 * 通过仪器号和序列号找
+	 *
+	 * @param deviceCode 仪器号
+	 * @param serialNumber 序列号
+	 * @return 信息
+	 */
+	List<InfoEvaluation> findByDeviceCodeAndSerialNumber(int deviceCode, String serialNumber);
+
+
+	/**
+	 * 通过仪器号和序列号找
+	 *
+	 * @param deviceCode 仪器号
+	 * @param serialNumber 序列号
+	 * @param experienceLevel 使用体验度
+	 * @return 信息
+	 */
+	List<InfoEvaluation> findByDeviceCodeAndSerialNumberAndExperienceLevel(int deviceCode, String serialNumber, String experienceLevel);
+
+
+	/**
+	 * 通过仪器号找全部信息
+	 *
+	 * @param deviceCode 仪器号
+	 * @return 评价信息
+	 */
+	List<InfoEvaluation> findByDeviceCode(int deviceCode);
 }

@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.PuKeYy106;
+import com.nano.msc.evaluation.devicedata.entity.DataPuKeYy106;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.PuKeYy106Repository;
 
@@ -24,7 +24,7 @@ public class ParserPuKe implements DeviceDataParser {
         log.info("解析数据:" + deviceRawData);
 
         // 解析数据
-        PuKeYy106 deviceData = JSON.parseObject(deviceRawData, PuKeYy106.class);
+        DataPuKeYy106 deviceData = JSON.parseObject(deviceRawData, DataPuKeYy106.class);
 
         log.info("解析后:" + deviceData.toString());
         // 保存数据

@@ -24,64 +24,48 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 宜安8700A麻醉机的数据实体类
- * @author cz
+ * 迈瑞WATOEX麻醉机数据实体类
+ *
+ * @author msc206
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_yi_an8700a")
-public class YiAn8700A implements Serializable {
+@Table(name = "data_MaiRuiWatoex65")
+public class DataMaiRuiWatoex65 implements Serializable {
 
-    private static final long serialVersionUID = -2529981539986516802L;
-    @Column(name = "peak")
-    private Double peak;
+    private static final long serialVersionUID = 9019102392148835864L;
 
-    @Column(name = "plat")
-    private Double plat;
+    @Column(name = "PMean")
+    private Integer PMean;
 
-    @Column(name = "pmean")
-    private Double pmean;
+    @Column(name = "PEEP")
+    private Integer PEEP;
 
-    @Column(name = "peep")
-    private Double peep;
+    @Column(name = "PPlat")
+    private Integer PPlat;
 
-    @Column(name = "mv")
-    private Double mv;
+    @Column(name = "PPeak")
+    private Integer PPeak;
 
-    @Column(name = "vte")
-    private Double vte;
+    @Column(name = "MV")
+    private Double MV;
 
-    @Column(name = "freq")
-    private Double freq;
+    @Column(name = "TVe")
+    private Integer TVe;
 
-    @Column(name = "fio2")
-    private Double fio2;
+    @Column(name = "IE")
+    private Double IE;
 
-    @Column(name = "etco2")
-    private Double etco2;
+    @Column(name = "Rate")
+    private Integer Rate;
 
-    @Column(name = "fico2")
-    private Double fico2;
+    @Column(name = "C")
+    private Integer C;
 
-    @Column(name = "n2oInsp")
-    private Double n2oInsp;
-
-    @Column(name = "n2oExp")
-    private Double n2oExp;
-
-    @Column(name = "mac")
-    private Double mac;
-
-    @Column(name = "n2o")
-    private Double n2o;
-
-    @Column(name = "air")
-    private Double air;
-
-    @Column(name = "o2")
-    private Double o2;
+    @Column(name = "R")
+    private Integer R;
 
     /**
      * 自动增长
@@ -108,7 +92,6 @@ public class YiAn8700A implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @UpdateTimestamp
     private LocalDateTime gmtModified;
-
     /**
      * 序列号
      */

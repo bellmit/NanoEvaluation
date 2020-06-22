@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.MaiRuiT8;
+import com.nano.msc.evaluation.devicedata.entity.DataMaiRuiT8;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.MaiRuiT8Repository;
 
@@ -22,7 +22,7 @@ public class ParserMaiRuiT8 implements DeviceDataParser {
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
         // 解析数据
-        MaiRuiT8 deviceData = JSON.parseObject(deviceRawData, MaiRuiT8.class);
+        DataMaiRuiT8 deviceData = JSON.parseObject(deviceRawData, DataMaiRuiT8.class);
 
         // 保存数据
         return repository.save(deviceData) != null;

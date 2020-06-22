@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
 
 import cn.hutool.core.bean.BeanUtil;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * 手术信息服务实现类
  * @author cz
@@ -259,6 +261,20 @@ public class InfoOperationServiceImpl implements InfoOperationService {
 
 
     /**
+     * 手术信息分页查询 按照时间顺序降序排列
+     *
+     * @param page 页数
+     * @param size 个数
+     * @return 结果
+     */
+    @Override
+    public CommonResult getFinishedOperationList(int page, int size) {
+
+        return CommonResult.success(operationRepository
+                .findFinishedOperationListDesc(OperationStateEnum.FINISHED.getCode(), PageRequest.of(page, size)));
+    }
+
+    /**
      * 获取某一场手术的全部详细信息
      *
      * 这里详细信息包含手术基本信息，手术标记信息，手术评价信息等，数据统计信息等。
@@ -279,7 +295,6 @@ public class InfoOperationServiceImpl implements InfoOperationService {
         } else {
             detailOperationInfoMap.put("operationInfo", infoOperation);
         }
-
         // 获取标记信息列表
         detailOperationInfoMap.put("operationMarks", operationMarkRepository.findByOperationNumber(operationNumber));
         // 获取并转化评价信息列表
@@ -324,7 +339,7 @@ public class InfoOperationServiceImpl implements InfoOperationService {
                 .filter(infoOperation -> infoOperation.getOperationState().equals(OperationStateEnum.FINISHED.getCode()))
                 // 手术场次号降序
                 .sorted(Comparator.comparingInt(InfoOperation::getOperationNumber).reversed())
-                .collect(Collectors.toList());
+                .collect(toList());
 
         // 存放结果的列表
         List<DeviceCardOperationTotalInfoVo> resVoList = new ArrayList<>();
@@ -345,7 +360,6 @@ public class InfoOperationServiceImpl implements InfoOperationService {
             BeanUtil.copyProperties(operation, cardVo);
             resVoList.add(cardVo);
         }
-
 
 //        List<InfoEvaluation> evaluationList = new ArrayList<>(finishedOperationList.size());
 //        for (InfoOperation operation : finishedOperationList) {

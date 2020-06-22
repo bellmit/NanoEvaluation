@@ -62,12 +62,28 @@ public class PlatformMainOperationInfoController {
 	 * @param size 个数
 	 * @return 结果
 	 */
-	@ApiOperation("手术信息分页查询")
+	@ApiOperation("查询全部手术信息")
 	@GetMapping("/list")
 	public CommonResult listNewOperationInfo(@Min(value = 0, message = "页数不能小于1") @RequestParam(value = "page", defaultValue = "0") Integer page,
 										  @Min(value = 1, message = "数据个数不能小于1") @RequestParam(value = "size", defaultValue = "5") Integer size) {
 		return operationService.getOperationList(page, size);
 	}
+
+
+	/**
+	 * 手术信息分页查询 按照时间顺序降序排列
+	 *
+	 * @param page 页数
+	 * @param size 个数
+	 * @return 结果
+	 */
+	@ApiOperation("查询全部已完成手术信息")
+	@GetMapping("/list_finish")
+	public CommonResult listNewOperationInfoFinished(@Min(value = 0, message = "页数不能小于1") @RequestParam(value = "page", defaultValue = "0") Integer page,
+											 @Min(value = 1, message = "数据个数不能小于1") @RequestParam(value = "size", defaultValue = "5") Integer size) {
+		return operationService.getFinishedOperationList(page, size);
+	}
+
 
 
 	/**

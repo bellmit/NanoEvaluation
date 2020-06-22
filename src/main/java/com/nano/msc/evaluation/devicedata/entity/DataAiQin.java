@@ -1,5 +1,6 @@
 package com.nano.msc.evaluation.devicedata.entity;
 
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nano.msc.common.converter.LocalDateTimeConverter;
 
@@ -23,47 +24,52 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 迈瑞WATOEX麻醉机数据实体类
- * @author msc206
+ * 苏州爱琴数据实体
+ * @author cz
  */
+@Data
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Data
-@Table(name = "data_MaiRuiWatoex55Pro")
-public class MaiRuiWatoex55Pro implements Serializable {
+@Table(name = "data_ai_qin")
+public class DataAiQin implements Serializable {
 
-    private static final long serialVersionUID = -614954426536118913L;
 
-    @Column(name = "PMean")
-    private Integer PMean;
+    private static final long serialVersionUID = -8052271381912697983L;
 
-    @Column(name = "PEEP")
-    private Integer PEEP;
+    /**
+     * TOI值
+     */
+    private Double toi1;
+    private Double toi2;
+    private Double toi3;
+    private Double toi4;
 
-    @Column(name = "PPlat")
-    private Integer PPlat;
+    /**
+     * THI
+     */
+    private Double thi1;
+    private Double thi2;
+    private Double thi3;
+    private Double thi4;
 
-    @Column(name = "PPeak")
-    private Integer PPeak;
 
-    @Column(name = "MV")
-    private Double MV;
+    private Double chb1;
+    private Double chb2;
+    private Double chb3;
+    private Double chb4;
 
-    @Column(name = "TVe")
-    private Integer TVe;
 
-    @Column(name = "IE")
-    private Double IE;
+    private Double chbo21;
+    private Double chbo22;
+    private Double chbo23;
+    private Double chbo24;
 
-    @Column(name = "Rate")
-    private Integer Rate;
+    private Double cthb1 ;
+    private Double cthb2 ;
+    private Double cthb3 ;
+    private Double cthb4 ;
 
-    @Column(name = "C")
-    private Integer C;
-
-    @Column(name = "R")
-    private Integer R;
 
     /**
      * 自动增长
@@ -103,4 +109,7 @@ public class MaiRuiWatoex55Pro implements Serializable {
     @NotNull(message = "operationNumber must cannot empty")
     @Column(name = "operation_number")
     private Integer operationNumber;
+
+    public DataAiQin() {}
+
 }

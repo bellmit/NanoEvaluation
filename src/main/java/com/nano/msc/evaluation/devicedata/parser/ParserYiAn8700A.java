@@ -1,7 +1,7 @@
 package com.nano.msc.evaluation.devicedata.parser;
 
 import com.alibaba.fastjson.JSON;
-import com.nano.msc.evaluation.devicedata.entity.YiAn8700A;
+import com.nano.msc.evaluation.devicedata.entity.DataYiAn8700A;
 import com.nano.msc.evaluation.devicedata.parser.base.DeviceDataParser;
 import com.nano.msc.evaluation.devicedata.repository.YiAn8700ARepository;
 
@@ -22,7 +22,7 @@ public class ParserYiAn8700A implements DeviceDataParser {
     @Override
     public boolean parseDeviceDataStringAndSave(String deviceRawData) {
         // 解析数据
-        YiAn8700A deviceData = JSON.parseObject(deviceRawData, YiAn8700A.class);
+        DataYiAn8700A deviceData = JSON.parseObject(deviceRawData, DataYiAn8700A.class);
 
         // 保存数据
         return repository.save(deviceData) != null;

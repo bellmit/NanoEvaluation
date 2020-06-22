@@ -23,18 +23,47 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 诺和数据实体
- * @author nano
- * Description:
+ * 迈瑞WATOEX麻醉机数据实体类
+ * @author msc206
  */
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Data
-@Table(name = "data_norwamd_9002s")
-public class NuoHe9002s implements Serializable {
+@Table(name = "data_MaiRuiWatoex55Pro")
+public class DataMaiRuiWatoex55Pro implements Serializable {
 
-    private static final long serialVersionUID = -3302167041948046696L;
+    private static final long serialVersionUID = -614954426536118913L;
+
+    @Column(name = "PMean")
+    private Integer PMean;
+
+    @Column(name = "PEEP")
+    private Integer PEEP;
+
+    @Column(name = "PPlat")
+    private Integer PPlat;
+
+    @Column(name = "PPeak")
+    private Integer PPeak;
+
+    @Column(name = "MV")
+    private Double MV;
+
+    @Column(name = "TVe")
+    private Integer TVe;
+
+    @Column(name = "IE")
+    private Double IE;
+
+    @Column(name = "Rate")
+    private Integer Rate;
+
+    @Column(name = "C")
+    private Integer C;
+
+    @Column(name = "R")
+    private Integer R;
 
     /**
      * 自动增长
@@ -43,43 +72,6 @@ public class NuoHe9002s implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pk_id")
     private Integer id;
-
-    /**
-     * 序列号
-     */
-    @Column(name = "device_serial_number")
-    private String serialNumber;
-
-    /**
-     * 手术顺序号
-     */
-    @NotNull(message = "operationNumber must cannot empty")
-    @Column(name = "operation_number")
-    private Integer operationNumber;
-
-    /**
-     *
-     */
-    @Column(name = "BS")
-    private Integer bs;
-
-    /**
-     *
-     */
-    @Column(name = "EMG")
-    private Integer emg;
-
-    /**
-     *
-     */
-    @Column(name = "SQI")
-    private Integer sqi;
-
-    /**
-     *
-     */
-    @Column(name = "CSI")
-    private Integer csi;
 
     /**
      * 数据创建时间
@@ -99,5 +91,16 @@ public class NuoHe9002s implements Serializable {
     @UpdateTimestamp
     private LocalDateTime gmtModified;
 
+    /**
+     * 序列号
+     */
+    @Column(name = "device_serial_number")
+    private String serialNumber;
 
+    /**
+     * 手术顺序号
+     */
+    @NotNull(message = "operationNumber must cannot empty")
+    @Column(name = "operation_number")
+    private Integer operationNumber;
 }

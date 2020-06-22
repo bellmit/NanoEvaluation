@@ -301,7 +301,6 @@ public class TimeStampUtils {
      * @return LocalDate
      */
     public static LocalDate getEndLocalDate(int year, int month, int day) {
-        // TODO 检查年月日是否符合规则
         LocalDate current = LocalDate.now();
         if (checkYearAndMonthAndDay(year, month, day)) {
             return current;

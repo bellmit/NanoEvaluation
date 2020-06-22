@@ -30,4 +30,23 @@ public interface InfoEvaluationService {
      * @return 信息列表
      */
     CommonResult list(int page, int size);
+
+
+    /**
+     * 得到一台具体仪器的评价统计信息
+     *
+     * @param deviceCode 仪器号
+     * @param deviceSerialNumber 仪器序列号
+     * @return 评价统计信息
+     */
+    CommonResult getOneDeviceEvaluationStatisticInfo(int deviceCode, String deviceSerialNumber);
+
+
+    /**
+     * 得到一种仪器的评价统计信息
+     *
+     * @param deviceCode 仪器号
+     * @return 评价统计信息
+     */
+    CommonResult getTotalDeviceEvaluationStatisticInfo(int deviceCode);
 }
